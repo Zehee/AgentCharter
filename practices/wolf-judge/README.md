@@ -4,7 +4,7 @@
 >
 > 本案例展示了一个**前后端分离、多 Agent 混合类型**的协作范式。
 >
-> 📂 [查看真实文件样例](./examples/) — TASK_113 → REPORT_113 → REVIEW_REPORT_113 + ACTIONS.md + PROJECT.md + dashboard.md
+> 📂 [查看真实文件样例](./examples/) — TASK_113 → REPORT_113 → REVIEW_REPORT_113 + 全套协作文件
 
 ---
 

@@ -128,7 +128,7 @@ AgentCharter 围绕一个中心角色构建——**TPM (Task Planning Manager)**
 
 | 案例 | 团队 | 技术栈 | 亮点 |
 |------|------|-------|------------|
-| [wolf-judge](./practices/wolf-judge/README.md) | 5 人 | Tauri + Rust + Vue 3 | P0–P3 分级审查、Sub-Agent 记忆注入、120+ 任务闭环 — [查看真实 TASK → REPORT → REVIEW 文件](./practices/wolf-judge/examples/) |
+| [wolf-judge](./practices/wolf-judge/README.md) | 5 人 | Tauri + Rust + Vue 3 | P0–P3 分级审查、Sub-Agent 记忆注入、120+ 任务闭环 — [查看真实文件](./practices/wolf-judge/examples/) |
 
 ---
 
