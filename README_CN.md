@@ -102,7 +102,7 @@ AgentCharter 围绕一个中心角色构建——**TPM (Task Planning Manager)**
 
 **一句话**：MCP 教 Agent 用工具。AgentCharter 组施工队——画图（TPM）、砌墙（Sub-Agent）、验收（Reviewer）——每一条指令都是文件，工头随时能翻。
 
-### 🔧 框架跟着你的团队长
+### 🔧 框架跟着你的团队成长
 
 需要新节点？新状态？新模板？告诉 TPM。它读 `templates/`、模仿范本、更新 `ACTIONS.md`，下一个 TASK 就按新流程走。不用等框架发版。这 14 个模板和 12 章规则，本身就是 120+ 个真实任务中长出来的——你的也会。
 

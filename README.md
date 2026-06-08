@@ -102,7 +102,7 @@ Change one row, change one collaboration channel. Agents read the table and know
 
 **In one sentence**: MCP teaches an Agent to use tools. AgentCharter forms a crew — blueprint (TPM), build (Sub-Agent), inspect (Reviewer) — and every instruction is a file the foreman can flip through anytime.
 
-### 🔧 The Framework Grows With You
+### 🔧 The Framework Grows with Your Team
 
 Need a new TASK type? A new state? A new template? Tell the TPM. It reads `templates/`, mimics the pattern, updates `ACTIONS.md`, and the new flow takes effect on the next task. No framework release needed. The 14 templates and 12 chapters in this repo grew out of 120+ real-world tasks — yours will too.
 
