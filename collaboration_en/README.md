@@ -256,12 +256,15 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 **Red lines**: Task-first, never modify outbox/, delegate reviews to Reviewer, never write business code
 
 > **Single point isn't mandatory**: the simplest team has one TPM. If your TPM hallucinates or crashes, add a backup TPM row in `ACTIONS.md` — review and Git authority can be held by multiple people. The framework doesn't force a single keyholder.
+> **Human managers talk to the TPM directly**: no file channel needed, no dashboard required. The human and the TPM are in the same conversation window — the human says "add an export feature next week," the TPM breaks it into TASKs in inbox/, then tells the human how it's going. This is the most direct human–agent collaboration entry point.
 
 ### External Agent
 
 **After onboarding**: Scan inbox/ for TASK with ASSIGNEE=you → pick up → code → REPORT → outbox/
 
 **Rules**: Git commands strictly forbidden. Block? Write BLOCKING.
+
+> **External Agents can be human–AI pairs**: behind an External Agent label could be pure AI, or a human developer + AI partner working together. The human reads the REPORT in an IDE, writes code, has the AI generate the diff, then submits. The framework doesn't distinguish — it only cares whether the file format is correct.
 
 ### Sub-Agent (Native)
 

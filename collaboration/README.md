@@ -256,12 +256,15 @@ TPM 写 TASK → inbox/
 **红线**：任务先行、不修改 outbox/、审查委派 Reviewer、不写业务代码
 
 > **单点不是你选的**：最小的团队就是 1 个 TPM。如果你的 TPM 崩溃或产生幻觉，`ACTIONS.md` 可以增加一个备用 TPM 行——审查和 Git 权限可以多人持有。框架不强制只有一个人有钥匙。
+> **人类管理者直接和 TPM 对话**：不需要文件通道、不需要仪表盘。人和 TPM 在同一个对话窗口里——人类说"下周加一个导出功能"，TPM 拆解成 TASK 放 inbox/，然后告诉人类进度。这是最直接的人机协作入口。
 
 ### External Agent
 
 **入职后**：巡检 inbox/ 找 ASSIGNEE=自己的 TASK → 领取 → 编码 → REPORT → outbox/
 
 **规则**：严禁 git 命令。阻塞写 BLOCKING。
+
+> **External Agent 可以人机结对**：一个 External Agent 背后可能是纯 AI，也可能是一个人类开发者 + AI 搭档。人在 IDE 里看 REPORT、写代码、让 AI 帮忙生成 diff，然后提交。框架不区分这两种——它只关心文件格式对不对。
 
 ### Sub-Agent (Native)
 
