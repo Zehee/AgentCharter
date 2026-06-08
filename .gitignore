@@ -1,0 +1,16 @@
+# AgentCharter 框架使用者不应将运行时通信状态提交到 git
+# 以下目录包含 Agent 团队的活跃通信文件，不应版本控制
+collaboration/inbox/
+collaboration/outbox/
+collaboration/logs/
+collaboration/reviews/
+collaboration/context/
+collaboration/todos/
+
+# archive/ 是已完成任务的归档，建议纳入 Git 作为永久审计线索
+# collaboration/ 下的框架文件（TPM.md / README.md / PROJECT.md / REGISTER.md / ACTIONS.md / templates）也正常纳入 Git
+
+# 开发工具本地文件
+.codegraph/
+.reasonix/
+reasonix.toml
