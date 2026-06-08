@@ -146,26 +146,26 @@ AgentCharter is built around the **TPM (Task Planning Manager)** — a centraliz
 ### Collaboration Topology
 
 ```
-                    ┌──────────────────────────────┐
-                    │  TPM (Task Planning Manager)  │
-                    │                              │
-                    │    Task · Planning · Manager  │
-                    │    Only Git access · Final    │
-                    └──────────┬───────┬───────────┘
-                               │       │
-               File Channel    │       │  Internal Channel
-          (inbox/outbox)       │       │  (realtime diff/review)
-                               │       │
-                    ┌──────────┘       └──────────┐
-                    ▼                              ▼
-         ┌──────────────────┐        ┌──────────────────┐
-         │  External Agent   │        │ Sub-Agent (Native)│
-         │                  │        │                  │
-         │  Independent env  │        │  Same runtime,    │
-         │  Scans inbox for  │        │  background       │
-         │  tasks            │        │  Waits for TPM    │
-         │  Files REPORT     │        │  Delivers diff    │
-         └──────────────────┘        └──────────────────┘
+                         ┌────────────────────────────────┐
+                         │   TPM (Task Planning Manager)   │
+                         │                                │
+                         │     Task · Planning · Manager   │
+                         │     Only Git access · Final     │
+                         └───────────┬────────┬───────────┘
+                                     │        │
+                     File Channel    │        │  Internal Channel
+                     (inbox/outbox)  │        │  (realtime diff/review)
+                                     │        │
+                         ┌───────────┘        └───────────┐
+                         ▼                                ▼
+              ┌───────────────────┐          ┌───────────────────┐
+              │   External Agent  │          │ Sub-Agent (Native) │
+              │                   │          │                   │
+              │  Independent env  │          │  Same runtime,     │
+              │  Scans inbox for  │          │  background        │
+              │  tasks            │          │  Waits for TPM     │
+              │  Files REPORT     │          │  Delivers diff     │
+              └───────────────────┘          └───────────────────┘
 ```
 
 **In one sentence**: The TPM is the only Agent with global awareness — they don't write code. They manage "who does what, how, and is it done." All communication passes through them; all code is approved by them.
