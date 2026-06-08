@@ -135,7 +135,7 @@ REVISION_049C_20260530_FLASH.md
 1. Copy the corresponding template from `templates/` to the target location, replacing placeholders
 2. Strictly follow the naming convention at the top of each template
 3. Do not modify `templates/` itself — report defects via a proactive report to the TPM
-4. **Efficiency tip**: templates are static; re-reading them wastes context. The TPM can memorize the core structure of high-frequency templates (TASK, REPORT, REVIEW_REPORT) and generate files directly. Writing files manually by following the template also works perfectly. This is a suggestion, not a requirement.
+4. **Save your context**: templates are fixed boilerplate — re-reading them every time wastes tokens. The TPM can memorize high-frequency templates (TASK, REPORT, REVIEW_REPORT) and generate files for you directly. If the TPM doesn't do it for you, copy from `templates/` yourself. Either way, the file you produce MUST conform to the template format and naming conventions. Efficiency suggestion, not mandatory.
 
 ---
 
