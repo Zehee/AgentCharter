@@ -9,7 +9,7 @@
 
 | Case | Team | Tech Stack | Scale | Key Features |
 |------|------|--------|------|----------|
-| [wolf-judge](./wolf-judge/README.md) | 5 | Tauri + Rust + Vue 3 | 120+ tasks | P0-P3 tiered review, Sub-Agent context memory |
+| [wolf-judge](./wolf-judge/README_en.md) | 5 | Tauri + Rust + Vue 3 | 120+ tasks | P0-P3 tiered review, Sub-Agent context memory |
 
 ---
 

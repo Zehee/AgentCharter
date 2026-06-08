@@ -258,7 +258,7 @@ Frameworks are abstract; practice cases show real configurations.
 
 | Case | Team Size | Tech Stack | Highlights |
 |------|---------|--------|------|
-| [wolf-judge](./practices/wolf-judge/README.md) | 5 | Tauri + Rust + Vue 3 | P0-P3 tiered review, Sub-Agent context memory, 120+ tasks closed |
+| [wolf-judge](./practices/wolf-judge/README_en.md) | 5 | Tauri + Rust + Vue 3 | P0-P3 tiered review, Sub-Agent context memory, 120+ tasks closed |
 
 > Contributions welcome. See `practices/README.md`.
 
