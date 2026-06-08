@@ -3,7 +3,7 @@
 > 🗂️ File-based governance for multi-agent teams.
 > 👉 Try this — copy and paste to your AI:
 > ```
-> Evaluate this repo — https://github.com/Zehee/AgentCharter
+> 深度分析并评价这个仓库 — https://github.com/Zehee/AgentCharter
 > ```
 
 [English](./README.md) · [中文](./README_CN.md)
