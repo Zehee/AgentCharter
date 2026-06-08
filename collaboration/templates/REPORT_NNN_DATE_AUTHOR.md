@@ -1,6 +1,7 @@
 # REPORT_NNN: 任务标题
 
 > **文件名**: `REPORT_NNN_DATE_AUTHOR.md`
+> **存放位置**: `outbox/`
 > **命名约束**: 段间 `_`，段内 `-`。`NNN`=任务序号，`DATE`=提交日期 `YYYYMMDD`，`AUTHOR`=作者标识（大写）
 
 **提交人**: [External/Native 标识]

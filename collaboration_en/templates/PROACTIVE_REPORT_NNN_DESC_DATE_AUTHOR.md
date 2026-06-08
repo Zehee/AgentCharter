@@ -1,40 +1,80 @@
 <!--
   File Type: Proactive Report
-  Maintainer: TPM
-  Purpose: Agents submit reports without a corresponding TASK
-  Handling: TPM reads → decides → annotates → archive
+  Author: Reporter (any role can double as one)
+  Nature: No corresponding TASK, bypasses inbox task system
+  Handling: TPM read-and-burn — read → decide → annotate → archive
   Naming: PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md
-    - NNN: sequential number
-    - DESC: short English description
-    - DATE: submission date YYYYMMDD
-    - AUTHOR: submitter identifier (UPPERCASE)
+    - NNN: sequential number (independent of task numbers)
+    - DESC: short English description, within segment use `-`
+    - DATE: submission date `YYYYMMDD`
+    - AUTHOR: author identifier (UPPERCASE)
 -->
 
-# PROACTIVE_REPORT_NNN: Report Title
+# 🔍 PROACTIVE_REPORT_NNN: Report Title
 
-**Submitter**: [AUTHOR]
+> **Filename**: `PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md`
+> **Location**: `outbox/`
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN`=sequential number, `DESC`=short English description, `DATE`=submission date `YYYYMMDD`, `AUTHOR`=author identifier (UPPERCASE)
+
+**Author**: [AUTHOR]
 **Date**: YYYY-MM-DD
-**Priority**: 🔴 P0 / 🟡 P1 / 🟢 P2
 
 ---
 
-## Content
+## Scope & Objective
 
-Report body.
-
----
-
-## Suggestions / Findings
-
-| # | Category | Description | Recommendation |
-|---|------|------|------|
-| 1 | | | |
+Describe the scope and target audience of this audit/analysis/proposal.
 
 ---
 
-## TPM Processing
+## Analysis Method (optional)
 
-(TPM fills after reading)
+Describe the analysis approach, reference standards, comparison targets, etc.
 
+---
+
+## Findings & Analysis
+
+### [Module/Page/Topic] — Score: X/10
+
+| # | Issue | Severity | Location | Notes |
+|---|------|----------|------|------|
+| 1 | Issue description | 🔴/🟡/💡 | File:line | Details |
+
+**Improvement suggestions**:
+- Suggestion 1
+- Suggestion 2
+
+---
+
+## Priority Improvement List
+
+### 🔴 P0 — Fix Immediately
+1. **Issue**: ... | **Suggestion**: ...
+
+### 🟡 P1 — Fix Soon
+1. **Issue**: ... | **Suggestion**: ...
+
+### 💡 P2 — Suggested Improvement
+1. **Issue**: ... | **Suggestion**: ...
+
+---
+
+## Summary
+
+**Overall Score**: X/10
+
+**Strengths**:
+- ...
+
+**Areas for Improvement**:
+- ...
+
+**Recommended Actions**:
+1. ...
+2. ...
+
+---
+
+**Author**: [AUTHOR]
 **Date**: YYYY-MM-DD
-**Decision**: ✅ Accept / ❌ Reject / 📋 Task / 📅 Backlog / ✓ Done

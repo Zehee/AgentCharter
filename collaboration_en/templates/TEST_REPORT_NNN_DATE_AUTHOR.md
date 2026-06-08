@@ -1,6 +1,7 @@
 # TEST_REPORT_NNN: Test Report
 
 > **Filename**: `TEST_REPORT_NNN_DATE_AUTHOR.md`
+> **Location**: `outbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = test task number, `DATE` = test date `YYYYMMDD`, `AUTHOR` = tester identifier (UPPERCASE)
 
 **Tester**: [AUTHOR]

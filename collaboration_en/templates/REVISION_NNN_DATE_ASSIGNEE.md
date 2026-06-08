@@ -1,26 +1,31 @@
-# REVISION_NNN_DATE: Revision Task
+# REVISION_NNN: Fix Issues Found in REVIEW_NNN
 
 > **Filename**: `REVISION_NNN_DATE_ASSIGNEE.md`
 > **Location**: `inbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `DATE` = creation date, `ASSIGNEE` = executor (UPPERCASE)
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN`=corresponding review number, `DATE`=creation date `YYYYMMDD`, `ASSIGNEE`=executor identifier (UPPERCASE)
 
-**Dispatcher**: TPM
-**Executor**: [ASSIGNEE]
+**Dispatcher**: [TPM identifier]
+**Executor**: [External/Native identifier]
 **Date**: YYYY-MM-DD
 **Priority**: 🔴 P0 | 🟡 P1
-**Related**: REPORT_NNN / REVIEW_REPORT_NNN
+**Corresponding**: REVIEW_REPORT_NNN
 
 ---
 
-## Issues to Fix
+## Goal
 
-| # | Severity | File | Issue (from review report) |
-|---|------|------|------|
-| 1 | 🔴 | | |
-| 2 | 🟡 | | |
+One sentence describing what needs to be fixed.
+
+## Issue List
+
+| # | Issue | File/Location | Fix Requirement |
+|---|------|----------|---------|
+| 1 | Issue description | `xxx:line` | Expected behavior |
+| 2 | Issue description | `xxx:line` | Expected behavior |
 
 ## Acceptance Criteria
 
-- [ ] All issues above resolved
-- [ ] Build verification passes
-- [ ] Submit `outbox/REPORT_NNN_R1_DATE_AUTHOR.md` with [Review Summary] section
+- [ ] Fix item 1
+- [ ] Fix item 2
+- [ ] `[type check command]` 0 errors
+- [ ] Submit `outbox/REPORT_NNN_R1_DATE_AUTHOR.md`

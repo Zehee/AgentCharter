@@ -1,13 +1,14 @@
 # REVISION_NNN: 修复 XXX 发现的问题
 
-**分派人**: [your-TPM-name]
+> **文件名**: `REVISION_NNN_DATE_ASSIGNEE.md`
+> **存放位置**: `inbox/`
+> **命名约束**: 段间 `_`，段内 `-`。`NNN`=对应审查序号，`DATE`=创建日期 `YYYYMMDD`，`ASSIGNEE`=领取者标识（大写）
+
+**分派人**: [TPM 标识]
 **执行人**: [External/Native 标识]
-**优先级**: 🟡 P1
-**对应**: REVIEW_NNN
-**说明**: 文件名 `REVISION_NNN_DATE_ASSIGNEE.md`
-  - `NNN`: 对应审查序号，如 `044`
-  - `DATE`: 创建日期 `YYYYMMDD`
-  - `ASSIGNEE`: 领取者标识，如 `[External 标识]`、`[TPM 标识]`
+**日期**: YYYY-MM-DD
+**优先级**: 🔴 P0 | 🟡 P1
+**对应**: REVIEW_REPORT_NNN
 
 ---
 

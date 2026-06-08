@@ -2,7 +2,7 @@
 
 > **文件名**: `REVIEW_REPORT_NNN_DATE_AUTHOR.md`
 > **存放位置**: `reviews/`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=审查序号，`DATE`=提交日期 `YYYYMMDD`，`AUTHOR`=审查人标识
+> **命名约束**: 段间 `_`，段内 `-`。`NNN`=审查序号，`DATE`=提交日期 `YYYYMMDD`，`AUTHOR`=审查人标识（大写）
 
 **审查人**: [审查人标识]
 **日期**: YYYY-MM-DD

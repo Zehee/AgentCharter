@@ -1,7 +1,8 @@
 # TASK_NNN: 任务标题
 
 > **文件名**: `TASK_NNN_DESC_ASSIGNEE.md`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=3位序号，`DESC`=英文简短描述，`ASSIGNEE`=领取者标识
+> **存放位置**: `inbox/`
+> **命名约束**: 段间 `_`，段内 `-`。`NNN`=3位序号，`DESC`=英文简短描述，`ASSIGNEE`=领取者标识（大写）
 
 **分派人**: [TPM 标识]
 **执行人**: [External/Native 标识] / ALL

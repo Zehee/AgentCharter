@@ -1,7 +1,8 @@
 # BLOCKING_REPLY_NNN: 阻塞已解除
 
 > **文件名**: `BLOCKING_REPLY_NNN_DATE_AUTHOR.md`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=对应阻塞序号，`DATE`=回复日期 `YYYYMMDD`，`AUTHOR`=回复人标识
+> **存放位置**: `outbox/`
+> **命名约束**: 段间 `_`，段内 `-`。`NNN`=对应阻塞序号，`DATE`=回复日期 `YYYYMMDD`，`AUTHOR`=回复人标识（大写）
 
 **回复人**: [回复人标识]
 **日期**: YYYY-MM-DD

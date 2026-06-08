@@ -1,6 +1,7 @@
 # BLOCKING_REPLY_NNN: Blocking Resolution Reply
 
 > **Filename**: `BLOCKING_REPLY_NNN_DATE_AUTHOR.md`
+> **Location**: `outbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = corresponding blocking number, `DATE` = resolution date, `AUTHOR` = resolver identifier (UPPERCASE)
 
 **Resolver**: [AUTHOR]

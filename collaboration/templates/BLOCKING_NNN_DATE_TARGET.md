@@ -1,7 +1,8 @@
 # BLOCKING_NNN: 阻塞原因简述
 
 > **文件名**: `BLOCKING_NNN_DATE_TARGET.md`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=被阻塞的任务序号，`DATE`=创建日期 `YYYYMMDD`，`TARGET`=需要处理的人标识
+> **存放位置**: `outbox/`
+> **命名约束**: 段间 `_`，段内 `-`。`NNN`=被阻塞的任务序号，`DATE`=创建日期 `YYYYMMDD`，`TARGET`=需要处理的人标识（大写）
 
 **提交人**: [提交人标识]
 **日期**: YYYY-MM-DD
