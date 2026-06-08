@@ -1,100 +1,100 @@
-# PROJECT: 新狼官
+# PROJECT: Wolf Judge
 
-> 本文件由 TPM 维护。记录项目基本信息、团队成员、技术栈和构建命令。
-> 通用协作框架见 `README.md`。
+> Maintained by the TPM. Records basic project info, team members, tech stack, and build commands.
+> General collaboration framework: see `README.md`.
 
 ---
 
-## 项目信息
+## Project Info
 
-- **名称**: 新狼官（狼人杀法官助手）
-- **版本**: v2.0
-- **技术栈**: 前端 Vue 3 + TypeScript / 后端 Rust + Tauri
+- **Name**: Wolf Judge (Werewolf Judge Assistant)
+- **Version**: v2.0
+- **Tech Stack**: Frontend Vue 3 + TypeScript / Backend Rust + Tauri
 
-## 团队成员
+## Team Members
 
-| 角色 | 标识 | 类型 | 说明 |
+| Role | Identifier | Type | Notes |
 |------|------|------|------|
-| TPM | Kimi | Native Host | 技术产品经理，兼 Native Sub-Agent 宿主 |
-| External Agent | flash | External | 前端开发、测试、专项审查 |
-| Sub-Agent | Peter | Native | 后端 Rust 开发 |
-| Sub-Agent | Jim | Native Sub-Agent (常驻) | 后端 Rust 开发，**兼任 CodeReviewer** |
-| External Agent | buddy | External | 测试员，执行手动和端到端测试 |
-| External Agent | Designer | External | 前端视觉/交互审查、设计提案，**兼任 Reporter**（主动报告） |
+| TPM | Kimi | Native Host | Task Planning Manager, also Native Sub-Agent host |
+| External Agent | flash | External | Frontend development, testing, special review |
+| Sub-Agent | Peter | Native | Backend Rust development |
+| Sub-Agent | Jim | Native Sub-Agent (resident) | Backend Rust development, **dual-role as CodeReviewer** |
+| External Agent | buddy | External | Tester, manual and end-to-end testing |
+| External Agent | Designer | External | Frontend visual/interaction review, design proposals, **dual-role as Reporter** (proactive reports) |
 
-## 构建命令
+## Build Commands
 
-| 类型 | 命令 |
+| Type | Command |
 |------|------|
-| 前端类型检查 | `vue-tsc --noEmit` |
-| 前端构建 | `vite build` |
-| 后端检查 | `cargo check` |
-| 后端测试 | `cargo test` |
+| Frontend type check | `vue-tsc --noEmit` |
+| Frontend build | `vite build` |
+| Backend check | `cargo check` |
+| Backend test | `cargo test` |
 
-## 项目特定规则
+## Project-Specific Rules
 
-1. **前后端分工**: 前端 UI/动画，后端 Rust 管状态/逻辑/存储，IPC 为唯一桥梁
-2. **TypeScript 严格类型**: 核心模块禁 `any`
-3. **后端 IPC 接口**: 44 个 IPC 命令（`docs/tech/ipc-contract.md`）
-4. **双重审查**: 任何代码必须经过另一位 AI 审查后才能合并
-5. **Native Sub-Agent 通信**: Peter/Jim 可读写全部协作文件（同 External Agent），按 memory 中循环读取规则执行
+1. **Frontend/backend division**: Frontend handles UI/animation; backend Rust manages state/logic/storage; IPC is the sole bridge
+2. **TypeScript strict types**: core modules forbid `any`
+3. **Backend IPC interface**: 44 IPC commands (`docs/tech/ipc-contract.md`)
+4. **Dual review**: any code must be reviewed by another AI before merging
+5. **Native Sub-Agent communication**: Peter/Jim can read/write all collaboration files (same as External Agents), following the loop-reading rules specified in their memory files
 
-### 纪律红线
+### Discipline Red Lines
 
-| 规则 | 说明 | 适用范围 |
+| Rule | Description | Scope |
 |------|------|---------|
-| **Git 禁令** | 任何 agent 严禁执行任何 git 命令（status、log、diff、checkout、restore、reset、stash 等），一刀切，无白名单 | 所有 agent |
-| **前端隔离** | Peter 严禁修改任何前端文件（api/index.ts、views/、components/、stores/ 等） | Peter |
-| **越界报告** | 工作目录问题、权限问题立即报告 Kimi，不得自行处理 | Peter、Jim |
+| **Git Ban** | Any agent strictly forbidden from any git command (status, log, diff, checkout, restore, reset, stash, etc.), absolute, no whitelist | All agents |
+| **Frontend Isolation** | Peter must not modify any frontend files (api/index.ts, views/, components/, stores/, etc.) | Peter |
+| **Boundary Report** | Workspace issues, permission problems — immediately report to Kimi; do not resolve autonomously | Peter, Jim |
 
-### 审查分工
+### Review Division
 
-| 产出者 | 代码审查 | 设计审查 | 最终决策 |
+| Producer | Code Review | Design Review | Final Decision |
 |--------|---------|---------|---------|
-| Peter | Jim（CodeReviewer） | — | Kimi |
-| flash | Jim（CodeReviewer） | Designer | Kimi |
+| Peter | Jim (CodeReviewer) | — | Kimi |
+| flash | Jim (CodeReviewer) | Designer | Kimi |
 | Designer | — | Kimi | Kimi |
 
-**跨端改动**（IPC/数据结构/共享模型）：Jim 审查 → flash 专项审查 → Kimi 最终决策
+**Cross-module changes** (IPC/data structures/shared models): Jim review → flash special review → Kimi final decision
 
 ---
 
-## 项目实例特有规则
+## Instance-Specific Rules
 
-### Dashboard 与归档
+### Dashboard & Archive
 
-| 规则 | 设置 | 说明 |
+| Rule | Setting | Notes |
 |------|------|------|
-| Dashboard 更新频率 | **每日更新**（非实时） | 在每日巡检时一并更新 |
-| 归档保留期限 | 按文件类型区分（见 README.md 3.6 节） | TASK/REVISION 领取后即归档；REPORT/REVIEW_REPORT 保留 1 天；NOTICE 及时归档 |
-| 报告格式 | 保持模板详细格式 | 确保可追溯性和用户可读性 |
+| Dashboard update frequency | **Daily** (not real-time) | Updated alongside daily patrol |
+| Archive retention period | By file type (see README.md §3.6) | TASK/REVISION archived immediately after pickup; REPORT/REVIEW_REPORT kept 1 day; NOTICE archived promptly |
+| Report format | Maintain detailed template format | Ensures traceability and human readability |
 
-### 任务分发原则
+### Task Dispatch Principles
 
-**核心目标**：不让 agents 空闲，但避免 sub-agent 超时。
+**Core goal**: Keep agents busy, but prevent Sub-Agent timeout.
 
-| Agent | 策略 | 说明 |
+| Agent | Strategy | Notes |
 |-------|------|------|
-| **Peter**（Native Sub-Agent） | **尽量少** | sub-agent 不稳定，任务过多易超时。保持 1-2 个活跃任务即可 |
-| **flash**（External） | **可以多一点** | 稳定，可并行处理多个任务 |
-| **Jim**（Native Sub-Agent） | 按需唤醒 | 不通过 inbox 分派，由 Kimi 在代码产出后主动唤醒 |
-| **Designer**（External） | **主动指派** | 不同于 flash 的被动领取模式。Kimi 主动指派设计任务，Designer 完成后主动提交报告 |
+| **Peter** (Native Sub-Agent) | **Minimize** | Sub-agents unstable, prone to timeout. Keep 1-2 active tasks |
+| **flash** (External) | **Can be more** | Stable, can handle multiple parallel tasks |
+| **Jim** (Native Sub-Agent) | Wake on demand | Not dispatched through inbox; Kimi wakes after code production |
+| **Designer** (External) | **Active assignment** | Different from flash's passive pickup. Kimi actively assigns design tasks; Designer submits proactive reports on completion |
 
-**分发原则**：
-1. **积极分发** — inbox 为空时立即分配新任务
-2. **至少 2 条** — 尽量保证每个成员至少有 2 个任务（Peter 除外）
-3. **至多不限** — flash 和 Designer 不设上限
-4. **确定需求先发** — 已经明确需要执行的需求要全部作为任务设置好优先级分发出去，避免遗忘
-5. **任务粒度** — 复杂场景拆细（1-2 天可交付）、简单场景保持完整
+**Dispatch principles**:
+1. **Active dispatch** — Immediately assign new tasks when inbox is empty
+2. **At least 2 each** — Ensure each member has ≥2 tasks (except Peter)
+3. **No upper limit** — flash and Designer have no cap
+4. **Confirmed needs first** — All confirmed requirements must be dispatched as tasks with priority to avoid forgetting
+5. **Task granularity** — Break down complex scenarios (1-2 days deliverable); keep simple scenarios intact
 
-## 开发模式
+## Development Model
 
-**敏捷渐进式开发（Agile Incremental）**
+**Agile Incremental**
 
-| 原则 | 说明 |
+| Principle | Description |
 |------|------|
-| 迭代周期 | **无固定 Sprint**，看板驱动，任务完成即交付 |
-| 设计基线 | `PRODUCT_DESIGN` / `INTERACTION_SPEC` / `USER_FLOWS` 为基线参考，变更走轻量评审（Kimi 快速批准） |
-| 任务粒度 | TPM 按需判断，复杂场景拆细（1-2 天可交付）、简单场景保持完整 |
-| 交付节奏 | 持续流动，不批处理审查，完成即审查即合并 |
-| 变更控制 | 取消 CHANGE_REQ 重流程，设计/需求变更由 Kimi 评估后直接分派 |
+| Iteration cycle | **No fixed Sprint**; dashboard-driven; task completes → deliver |
+| Design baseline | `PRODUCT_DESIGN` / `INTERACTION_SPEC` / `USER_FLOWS` as baseline reference; changes go through lightweight review (Kimi fast approval) |
+| Task granularity | TPM judges case by case; complex split fine, simple kept complete |
+| Delivery cadence | Continuous flow; no batch review; complete → review → merge |
+| Change control | CHANGE_REQ heavy process abolished; design/requirement changes evaluated and dispatched directly by Kimi |

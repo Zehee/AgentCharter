@@ -1,30 +1,30 @@
-# 协作链路表
+# Collaboration Link Table
 
-定义协作网络中谁与谁通过什么通道通信。新人入职后由 TPM 从 `REGISTER.md` 移入此表。
+Defines who communicates with whom through which channel in the collaboration network. New members are moved here by the TPM from `REGISTER.md` after onboarding.
 
 ---
 
-| 动作 | 发起方 → 接收方 | 通道 |
+| Action | From → To | Channel |
 |------|----------------|------|
-| 分配任务 | Kimi → flash | inbox/TASK |
-| 分配任务 | Kimi → Peter | 内部通道 + inbox/TASK(记录用) |
-| 提交报告 | flash → Kimi | outbox/REPORT |
-| 提交报告 | Peter → Kimi | 内部通道（代码diff）+ outbox/REPORT |
-| 阻塞通知 | flash → Peter | outbox/BLOCKING |
-| 阻塞通知 | Peter → flash | outbox/BLOCKING |
-| 主动指派设计任务 | 用户 → Designer | 直接交付（不经过 inbox） |
-| 提交主动报告 | Designer → Kimi | outbox/PROACTIVE_REPORT |
-| 阻塞通知 | Designer → flash | outbox/BLOCKING |
-| 阻塞通知 | flash → Designer | outbox/BLOCKING |
-| 阻塞通知 | Designer → Kimi | outbox/BLOCKING（设计基线变更审批） |
-| **审查代码** | **Jim → flash** | **REPORT → REVIEW_REPORT（P1/P2/P3，Jim 直接闭环）** |
-| **审查代码** | **Jim → Peter** | **REPORT → REVIEW_REPORT（P1/P2/P3，Jim 直接闭环）** |
-| **审查结论** | **Jim → flash** | **reviews/REVIEW_REPORT（直接面向代码作者）** |
-| **审查结论** | **Jim → Peter** | **reviews/REVIEW_REPORT（直接面向代码作者）** |
-| **质量确认** | **Jim → Kimi** | **内部通道 "ACCEPT 通知"（P1/P2/P3）** |
-| **唤醒审查** | **Kimi → Jim** | **内部通道轻量通知（只发 REPORT 编号）** |
-| **P0 自动通过** | **—** | **Kimi 直接 commit，无 Jim 参与** |
-| 分配任务 | Kimi → buddy | inbox/TASK_TEST |
-| 提交报告 | buddy → Kimi | outbox/TEST_REPORT |
-| 提交主动报告 | buddy → Kimi | outbox/PROACTIVE_REPORT |
-| 阻塞通知 | buddy → Kimi | outbox/BLOCKING
+| Assign Task | Kimi → flash | inbox/TASK |
+| Assign Task | Kimi → Peter | Internal Channel + inbox/TASK (record) |
+| Submit Report | flash → Kimi | outbox/REPORT |
+| Submit Report | Peter → Kimi | Internal Channel (code diff) + outbox/REPORT |
+| Blocking Notice | flash → Peter | outbox/BLOCKING |
+| Blocking Notice | Peter → flash | outbox/BLOCKING |
+| Active Design Assignment | User → Designer | Direct delivery (not through inbox) |
+| Submit Proactive Report | Designer → Kimi | outbox/PROACTIVE_REPORT |
+| Blocking Notice | Designer → flash | outbox/BLOCKING |
+| Blocking Notice | flash → Designer | outbox/BLOCKING |
+| Blocking Notice | Designer → Kimi | outbox/BLOCKING (design baseline change approval) |
+| **Review Code** | **Jim → flash** | **REPORT → REVIEW_REPORT (P1/P2/P3, Jim closes loop directly)** |
+| **Review Code** | **Jim → Peter** | **REPORT → REVIEW_REPORT (P1/P2/P3, Jim closes loop directly)** |
+| **Review Conclusion** | **Jim → flash** | **reviews/REVIEW_REPORT (direct to code author)** |
+| **Review Conclusion** | **Jim → Peter** | **reviews/REVIEW_REPORT (direct to code author)** |
+| **Quality Confirmation** | **Jim → Kimi** | **Internal Channel "ACCEPT notification" (P1/P2/P3)** |
+| **Wake for Review** | **Kimi → Jim** | **Internal Channel lightweight notice (REPORT number only)** |
+| **P0 Auto-pass** | **—** | **Kimi directly commits; no Jim involvement** |
+| Assign Task | Kimi → buddy | inbox/TASK_TEST |
+| Submit Report | buddy → Kimi | outbox/TEST_REPORT |
+| Submit Proactive Report | buddy → Kimi | outbox/PROACTIVE_REPORT |
+| Blocking Notice | buddy → Kimi | outbox/BLOCKING |
