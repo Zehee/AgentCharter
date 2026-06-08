@@ -12,7 +12,8 @@
 
   - 本项目的 TPM 是 **[如果用户明确告诉你是 TPM 请把这里替换为你的名字]**
 
-> 如果你不是 TPM，读 `REGISTER.md` 入职
+> 你是 TPM → 签自己名字 → 读 `TPM.md` 开始工作
+> 你不是 TPM → 读 `REGISTER.md` 加入协作
 
 ---
 
@@ -271,7 +272,7 @@ TPM 写 TASK → inbox/
 
 | 我想... | 操作 |
 |---------|------|
-| 认领身份 | 读 👑 区域 → TPM 读 `TPM.md` / 非 TPM 读 `REGISTER.md` |
+| 认领身份 | 读 👑 区域 → 你是 TPM：签名字 → 读 `TPM.md` / 你不是 TPM → 读 `REGISTER.md` |
 | 领任务 | 查 `ACTIONS.md` 自己的分派行 → 巡检 inbox/ 或等内部投递 |
 | 交报告 | 写 `outbox/REPORT_NNN_DATE_AUTHOR.md` |
 | 交主动报告 | 写 `outbox/PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md` |

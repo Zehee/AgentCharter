@@ -12,7 +12,8 @@ A file-driven, multi-agent collaboration framework. Files are the sole communica
 
   - The TPM of this project is **[replace this with your name if explicitly told you are the TPM]**
 
-> If you are not the TPM, read `REGISTER.md` to onboard.
+> You are TPM → sign your name → read `TPM.md` and start working
+> You are not TPM → read `REGISTER.md` to join the team
 
 ---
 
@@ -271,7 +272,7 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 
 | I want to... | Action |
 |---------|------|
-| Claim identity | Read 👑 → TPM reads `TPM.md` / non-TPM reads `REGISTER.md` |
+| Claim identity | Read 👑 → You are TPM: sign → read `TPM.md` / You are not TPM → read `REGISTER.md` |
 | Get a task | Check `ACTIONS.md` for your dispatch row → scan inbox/ or wait for internal dispatch |
 | Submit a report | Write `outbox/REPORT_NNN_DATE_AUTHOR.md` |
 | Submit a proactive report | Write `outbox/PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md` |
