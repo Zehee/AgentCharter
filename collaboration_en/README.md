@@ -187,7 +187,7 @@ A staging area for backlog items. When the TPM decides a requirement is **not fo
 
 **Sources**: 📅 Backlog decisions from proactive reports, deferred milestone items, low-priority ideas from users.
 
-**Lifecycle**: TODO gets scheduled → TPM converts to TASK in inbox/ → original TODO archived. Long-unstarted TODOs remain in todos/ as a reminder for the TPM to review periodically.
+**Lifecycle**: TODO gets scheduled → TPM converts to TASK in inbox/ → original TODO archived. Expired or discarded TODOs are archived directly. Long-unstarted TODOs remain in todos/ as a reminder for the TPM to review periodically.
 
 ---
 
@@ -226,7 +226,10 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 | TASK / REVISION | Immediately after pickup |
 | NOTICE / REPLY | After recipient has read |
 | BLOCKING / BLOCKING_REPLY | After block is resolved |
-| REPORT / REVIEW_REPORT / PROACTIVE_REPORT | After TPM has processed |
+| REPORT | After TPM reads and decides |
+| REVIEW_REPORT | After ACCEPT or REVISION_NEEDED conclusion |
+| PROACTIVE_REPORT | After TPM annotates and places REPLY |
+| TODO | When converted to TASK / expired and discarded |
 
 **Target paths**: `archive/inbox/` / `archive/outbox/` / `archive/reviews/` / `archive/events/`
 

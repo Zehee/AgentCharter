@@ -187,7 +187,7 @@ TPM 写 TASK → inbox/
 
 **来源**：主动报告中 📅 排期的建议、里程碑规划中暂缓的需求、用户提出的低优先级想法。
 
-**生命周期**：TODO 被排入计划 → TPM 转为 TASK 放入 inbox/ → 原 TODO 归档。长期未启动的 TODO 保留在 todos/，提醒 TPM 定期审视。
+**生命周期**：TODO 被排入计划 → TPM 转为 TASK 放入 inbox/ → 原 TODO 归档。过期或决定废弃的 TODO 直接归档。长期未启动的 TODO 保留在 todos/，提醒 TPM 定期审视。
 
 ---
 
@@ -226,7 +226,10 @@ TPM 写 TASK → inbox/
 | TASK / REVISION | 被领取后立即归档 |
 | NOTICE / REPLY | 接收方读取后归档 |
 | BLOCKING / BLOCKING_REPLY | 阻塞解除后归档 |
-| REPORT / REVIEW_REPORT / PROACTIVE_REPORT | TPM 处理后归档 |
+| REPORT | TPM 读取并决策后归档 |
+| REVIEW_REPORT | ACCEPT 或 REVISION_NEEDED 结论后归档 |
+| PROACTIVE_REPORT | TPM 批注并放置 REPLY 后归档 |
+| TODO | 转为 TASK 后归档 / 过期废弃后归档 |
 
 **目标路径**：`archive/inbox/` / `archive/outbox/` / `archive/reviews/` / `archive/events/`
 
