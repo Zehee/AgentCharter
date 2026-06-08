@@ -19,7 +19,7 @@ cp -r collaboration/ /my-project/
 ### 2. 告诉你的核心 Agent
 
 ```
-你是 TPM，分析 collaboration 目录并初始化
+你是 TPM，阅读 collaboration 目录并开始工作
 ```
 
 TPM 读取框架、在 👑 区签上自己的名字、填写 `PROJECT.md` + `CHARTER.md`、把宪章移至项目根目录。**这就完了。**
@@ -27,7 +27,7 @@ TPM 读取框架、在 👑 区签上自己的名字、填写 `PROJECT.md` + `CH
 ### 3. 引入更多 Agent
 
 ```
-分析 collaboration 目录并按照流程入职
+阅读 collaboration 目录并开始工作
 ```
 
 它们读 👑 区、看到不是自己的名字、按 `REGISTER.md` 自助入职。你不再需要碰任何文件。

@@ -20,8 +20,8 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **AGENTS.md → TPM.md**: prevents AI tools from auto-loading it into non-TPM Agent prompts
 - **Guard statement**: TPM.md top line `🛑 Your user must have explicitly told you "You are the TPM"`
 - **Initialization extracted**: moved from §1 to standalone `## Initialization` section (6 steps)
-- **TPM init command**: `你是 TPM，分析 collaboration 目录并初始化`
-- **Agent onboarding command**: `分析 collaboration 目录并按照流程入职`
+- **TPM init command**: `你是 TPM，阅读 collaboration 目录并开始工作`
+- **Agent onboarding command**: `阅读 collaboration 目录并开始工作`
 - **TPM authority tabularized**: §2 rewritten as T-P-M 3D authority table (18 items + 6 red lines)
 - **Outer README rewritten**: philosophy, TPM-centric mode, comparison table (4 types × 9 dimensions), MCP comparison (7 dimensions), extensibility, zero-touch onboarding, user project structure
 - **collaboration/README.md streamlined**: 580 → 268 lines, removed marketing language, Agent-focused

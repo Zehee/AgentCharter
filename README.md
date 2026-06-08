@@ -19,7 +19,7 @@ cp -r collaboration_en/ /my-project/
 ### 2. Tell your core Agent
 
 ```
-You are TPM. Analyze the collaboration directory and initialize.
+You are TPM. Read the collaboration directory and start working.
 ```
 
 The TPM reads the framework, signs 👑, fills `PROJECT.md` + `CHARTER.md`, and moves the charter to your project root. **That's it.**
@@ -27,7 +27,7 @@ The TPM reads the framework, signs 👑, fills `PROJECT.md` + `CHARTER.md`, and 
 ### 3. Bring in more Agents
 
 ```
-Analyze the collaboration directory and onboard.
+Read the collaboration directory and start working.
 ```
 
 They read 👑, see they're not TPM, follow `REGISTER.md` to self-onboard. You never touch a file again.
