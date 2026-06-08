@@ -51,7 +51,7 @@ Collaboration flows are defined by `ACTIONS.md`, not hardcoded by the framework.
 | Rule | Content |
 |------|------|
 | **Files are the Contract** | All tasks, reports, reviews, and blocks must go through files |
-| **Concurrency safety** | Each Agent's write target is pre-assigned by `ACTIONS.md` — inbox/ is TPM-only, outbox/ each Agent has its own namespace. Two Agents can never write to the same file. File conflict is eliminated at the design level |
+| **Concurrency safety** | Every file an Agent writes is **directed, unique, and incremental**. `ACTIONS.md` pre-assigns channels — inbox/ is TPM-only, outbox/ each Agent has its own namespace. Every write creates a new file (TASK_NNN, REPORT_NNN_DATE_AUTHOR, etc.). There is no overwrite, no append to shared files, no shared write targets. File conflict is eliminated at the design level |
 | **Git Isolation** | Only the TPM may execute any git command. All other Agents are forbidden. No exceptions |
 | **Dual Review** | Any code must be reviewed by another AI before merging |
 | **Append-Only Logs** | logs/, ACTIONS.md, dashboard.md — append only, never modify history |
