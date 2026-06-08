@@ -20,12 +20,12 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **AGENTS.md → TPM.md**: prevents AI tools from auto-loading it into non-TPM Agent prompts
 - **Guard statement**: TPM.md top line `🛑 Your user must have explicitly told you "You are the TPM"`
 - **Initialization extracted**: moved from §1 to standalone `## Initialization` section (6 steps)
-- **TPM init command**: `你是 TPM，阅读 collaboration 目录并开始工作`
-- **Agent onboarding command**: `阅读 collaboration 目录并开始工作`
+- **TPM init command**: `You are TPM. Read the collaboration directory and start working.`
+- **Agent onboarding command**: `Read the collaboration directory and join the team.`
 - **TPM authority tabularized**: §2 rewritten as T-P-M 3D authority table (18 items + 6 red lines)
 - **Outer README rewritten**: philosophy, TPM-centric mode, comparison table (4 types × 9 dimensions), MCP comparison (7 dimensions), extensibility, zero-touch onboarding, user project structure
 - **collaboration/README.md streamlined**: 580 → 268 lines, removed marketing language, Agent-focused
-- **Removed scripts/**: Reasonix-specific file-editor, polluting the framework
+- **Deleted scripts/**: runtime tools violate the framework's "files-only" philosophy
 - **CONTRIBUTING.md rewritten**: updated project structure, Agent-perspective rules
 
 ### Fixed
@@ -33,7 +33,7 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - TPM.md §3.1 patrol flow residual "keep for one day" (abolished)
 - TPM.md §5.5 stale section reference → §5, Task Lifecycle
 - REGISTER.md stale REVIEW_TASK references → REPORT → REVIEW_REPORT direct-write pattern
-- PROJECT.md TPM role "技术产品经理" → "Task Planning Manager"
+- PROJECT.md TPM role description updated to "Task Planning Manager"
 - TPM.md §10 .gitignore description changed from blanket to tiered exclusion
 - .gitignore comment stale name AGENTS
 

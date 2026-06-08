@@ -135,17 +135,17 @@ See it working in a real project:
 ## 📦 File Hierarchy (Highest → Lowest)
 
 ```
-/CHARTER.md              ← 项目级宪章 — TPM 根据模板生成，移至项目根，所有 Agent 的最高规则
+/CHARTER.md              ← Project charter — authored by TPM from template, moved to root; supreme rules for all Agents
 /collaboration/
-  ├── README.md          ← Agent 操作手册 — 只定义规则和流程，不落地具体决策
-  ├── TPM.md             ← TPM 行为准则
-  ├── PROJECT.md         ← 项目配置
-  ├── REGISTER.md        ← Agent 入职登记
-  ├── ACTIONS.md         ← 协作链路表
-  └── inbox/ outbox/ reviews/ logs/ ...  ← 运行时通信空间
+  ├── README.md          ← Agent operating manual — defines rules and processes, not project-specific decisions
+  ├── TPM.md             ← TPM code of conduct
+  ├── PROJECT.md         ← Project config
+  ├── REGISTER.md        ← Agent registration
+  ├── ACTIONS.md         ← Collaboration link table
+  └── inbox/ outbox/ reviews/ logs/ ...  ← Runtime communication space
 ```
 
-> **关键区分**：`collaboration/README.md` 定义"如何协作"的规则；`/CHARTER.md` 定义"我们这个项目的具体选择"。
+> **Key distinction**: `collaboration/README.md` defines "how to collaborate"; `/CHARTER.md` defines "what our specific project chose".
 
 ## 📦 Repository Structure
 
