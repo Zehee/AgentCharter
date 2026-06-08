@@ -46,6 +46,8 @@ Collaboration flows are defined by `ACTIONS.md`, not hardcoded by the framework.
 
 > **On scale**: scanning a directory with 100 files costs roughly the same as scanning one with 1,000 — the bottleneck is your LLM's context window, not filesystem I/O. The framework's flat directory structure is the index. Start using it, optimize when you hit the wall.
 
+> **Incremental file chain**: the entire task lifecycle is not one file being modified — it's a chain of incremental files stitched together. `TASK_NNN` → `REPORT_NNN` → `REVIEW_REPORT_NNN` → `REPORT_NNN_R1` → … Each Agent writes **new files** only in its own namespace, never modifying or overwriting anyone else's. History is a chain of immutable, append-only files — non-repudiable by design.
+
 ### 1.4 Hard Rules
 
 | Rule | Content |
