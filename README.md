@@ -128,7 +128,7 @@ See it working in a real project:
 
 | Case | Team | Stack | Highlights |
 |------|------|-------|------------|
-| [wolf-judge](./practices/wolf-judge/README_en.md) | 5 Agents | Tauri + Rust + Vue 3 | P0–P3 tiered review, Sub-Agent memory injection, 120+ tasks closed — [see real TASK + REPORT examples](./practices/wolf-judge/examples/) |
+| [wolf-judge](./practices/wolf-judge/README_en.md) | 5 Agents | Tauri + Rust + Vue 3 | P0–P3 tiered review, Sub-Agent memory injection, 120+ tasks closed — [see real TASK → REPORT → REVIEW files](./practices/wolf-judge/examples/) |
 
 ---
 

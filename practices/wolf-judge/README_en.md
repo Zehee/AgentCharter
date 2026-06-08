@@ -4,7 +4,7 @@
 >
 > This case demonstrates a **frontend/backend split, multi-Agent hybrid type** collaboration paradigm.
 >
-> 📂 [See real TASK + REPORT + Dashboard examples](./examples/)
+> 📂 [See real file examples](./examples/) — TASK_113 → REPORT_113 → REVIEW_REPORT_113 + ACTIONS.md + PROJECT.md + dashboard.md
 
 ---
 
