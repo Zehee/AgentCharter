@@ -3,6 +3,13 @@
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Versioning Policy
+
+- **`collaboration/README.md`** carries the runtime version (`v3.2`) — Agents see this. Updated on every release.
+- **`CHANGELOG.md`** carries the full history with patch versions (`3.2.1`). The `[Unreleased]` section accumulates changes between releases.
+- **Git tags** mark releases (e.g. `v3.2.1`).
+- **`README.md` (outer)** is a marketing page — it does not carry a version number.
+
 ## [Unreleased]
 
 ### Added
