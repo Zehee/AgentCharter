@@ -24,6 +24,20 @@ You are TPM. Read the collaboration directory and start working.
 
 The TPM reads the framework, signs 👑, fills `PROJECT.md` + `CHARTER.md`, and moves the charter to your project root. **That's it.**
 
+<details>
+<summary>👇 What exactly happens when you say that?</summary>
+
+The Agent reads `collaboration/` and discovers:
+1. **👑 signs itself in** — replaces the placeholder in `README.md` with its name
+2. **Fills `PROJECT.md`** — asks you for the project name, tech stack, build commands, team members
+3. **Fills `CHARTER.md`** — summarizes key rules from `README.md` and `TPM.md` into the cooperation charter
+4. **Moves `CHARTER.md` to project root** — now every Agent (including humans) can read the supreme rules
+5. **Reads `TPM.md`** — learns its full authority: dispatch tasks, drive reviews, own Git, update dashboard
+
+From this point forward, no Agent touches `src/` without a `TASK` file. No Agent runs `git` except the TPM. Everything is a file in `inbox/` → `outbox/` → `reviews/` → `archive/`.
+
+</details>
+
 ### 3. Bring in more Agents
 
 ```
@@ -114,9 +128,24 @@ See it working in a real project:
 
 | Case | Team | Stack | Highlights |
 |------|------|-------|------------|
-| [wolf-judge](./practices/wolf-judge/README_en.md) | 5 Agents | Tauri + Rust + Vue 3 | P0–P3 tiered review, Sub-Agent memory injection, 120+ tasks closed |
+| [wolf-judge](./practices/wolf-judge/README_en.md) | 5 Agents | Tauri + Rust + Vue 3 | P0–P3 tiered review, Sub-Agent memory injection, 120+ tasks closed — [see real TASK + REPORT examples](./practices/wolf-judge/examples/) |
 
 ---
+
+## 📦 File Hierarchy (Highest → Lowest)
+
+```
+/CHARTER.md              ← 项目级宪章 — TPM 根据模板生成，移至项目根，所有 Agent 的最高规则
+/collaboration/
+  ├── README.md          ← Agent 操作手册 — 只定义规则和流程，不落地具体决策
+  ├── TPM.md             ← TPM 行为准则
+  ├── PROJECT.md         ← 项目配置
+  ├── REGISTER.md        ← Agent 入职登记
+  ├── ACTIONS.md         ← 协作链路表
+  └── inbox/ outbox/ reviews/ logs/ ...  ← 运行时通信空间
+```
+
+> **关键区分**：`collaboration/README.md` 定义"如何协作"的规则；`/CHARTER.md` 定义"我们这个项目的具体选择"。
 
 ## 📦 Repository Structure
 
@@ -142,7 +171,9 @@ AgentCharter/
 └── LICENSE (MIT)
 ```
 
-> **Deployment**: copy `collaboration/` (CN) or `collaboration_en/` (EN) to your project root. Add `inbox/ outbox/ logs/ reviews/ context/ todos/` to `.gitignore`. **Keep `archive/` in Git** — permanent audit trail. Framework files are tracked normally.
+> **Deployment**: copy `collaboration/` (CN) or `collaboration_en/` (EN) to your project root.
+>
+> **`.gitignore`**: Add `inbox/ outbox/ logs/ reviews/ context/ todos/` — these are runtime state. Tracking them causes harm (`git checkout` would roll back live task assignments and review progress). **But keep `archive/` in Git** — completed TASKs, REPORTs, and REVIEW_REPORTs are permanent audit trails. Framework files (`TPM.md`, `README.md`, etc.) are tracked normally.
 >
 > **After initialization**, your project looks like:
 > ```

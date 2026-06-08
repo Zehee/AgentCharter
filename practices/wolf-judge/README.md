@@ -3,6 +3,8 @@
 > 5 人团队 · Tauri v2 + Rust + Vue 3 · 桌面应用 · 120+ 任务闭环
 >
 > 本案例展示了一个**前后端分离、多 Agent 混合类型**的协作范式。
+>
+> 📂 [查看真实 TASK + REPORT + Dashboard 样例](./examples/)
 
 ---
 

@@ -3,6 +3,8 @@
 > 5-person team · Tauri v2 + Rust + Vue 3 · Desktop app · 120+ tasks closed
 >
 > This case demonstrates a **frontend/backend split, multi-Agent hybrid type** collaboration paradigm.
+>
+> 📂 [See real TASK + REPORT + Dashboard examples](./examples/)
 
 ---
 

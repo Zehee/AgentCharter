@@ -24,6 +24,20 @@ cp -r collaboration/ /my-project/
 
 TPM 读取框架、在 👑 区签上自己的名字、填写 `PROJECT.md` + `CHARTER.md`、把宪章移至项目根目录。**这就完了。**
 
+<details>
+<summary>👇 说这句话后到底发生了什么？</summary>
+
+Agent 读取 `collaboration/` 后发现：
+1. **👑 签自己名字** — 把 `README.md` 中的占位符替换为自己的名字
+2. **填写 `PROJECT.md`** — 向你询问项目名称、技术栈、构建命令、团队成员
+3. **填写 `CHARTER.md`** — 从 `README.md` 和 `TPM.md` 汇总关键规则形成协作宪章
+4. **把 `CHARTER.md` 移到项目根目录** — 所有 Agent（包括人类）都能读到最高规则
+5. **读 `TPM.md`** — 了解完整权限：分派任务、驱动审查、独掌 Git、更新看板
+
+从此以后，没有任何 Agent 会不经 `TASK` 文件就去改 `src/`。除了 TPM，没有人执行 `git`。一切都在 `inbox/` → `outbox/` → `reviews/` → `archive/` 里流转。
+
+</details>
+
 ### 3. 引入更多 Agent
 
 ```
@@ -114,9 +128,24 @@ AgentCharter 围绕一个中心角色构建——**TPM (Task Planning Manager)**
 
 | 案例 | 团队 | 技术栈 | 亮点 |
 |------|------|-------|------------|
-| [wolf-judge](./practices/wolf-judge/README.md) | 5 人 | Tauri + Rust + Vue 3 | P0–P3 分级审查、Sub-Agent 记忆注入、120+ 任务闭环 |
+| [wolf-judge](./practices/wolf-judge/README.md) | 5 人 | Tauri + Rust + Vue 3 | P0–P3 分级审查、Sub-Agent 记忆注入、120+ 任务闭环 — [查看真实 TASK + REPORT 样例](./practices/wolf-judge/examples/) |
 
 ---
+
+## 📦 文件层级（从高到低）
+
+```
+/CHARTER.md              ← 项目级宪章 — TPM 根据模板生成，移至项目根，所有 Agent 的最高规则
+/collaboration/
+  ├── README.md          ← Agent 操作手册 — 只定义规则和流程，不落地具体决策
+  ├── TPM.md             ← TPM 行为准则
+  ├── PROJECT.md         ← 项目配置
+  ├── REGISTER.md        ← Agent 入职登记
+  ├── ACTIONS.md         ← 协作链路表
+  └── inbox/ outbox/ reviews/ logs/ ...  ← 运行时通信空间
+```
+
+> **关键区分**：`collaboration/README.md` 定义"如何协作"的规则；`/CHARTER.md` 定义"我们这个项目的具体选择"。
 
 ## 📦 仓库结构
 
@@ -142,7 +171,9 @@ AgentCharter/
 └── LICENSE (MIT)
 ```
 
-> **部署**：复制 `collaboration/`（中文）或 `collaboration_en/`（英文）到你的项目根目录。把 `inbox/ outbox/ logs/ reviews/ context/ todos/` 加入 `.gitignore`。**`archive/` 留在 Git 里**——永久审计线索。框架文件正常纳入版本控制。
+> **部署**：复制 `collaboration/`（中文）或 `collaboration_en/`（英文）到你的项目根目录。
+>
+> **`.gitignore`**：忽略 `inbox/ outbox/ logs/ reviews/ context/ todos/`——这些是运行时状态，纳入版本控制反而有害（`git checkout` 会回滚正在执行的任务分派和审查进度）。**但 `archive/` 留在 Git 里**——已完成的 TASK、REPORT、REVIEW_REPORT 是永久审计线索。框架文件正常纳入版本控制。
 >
 > **初始化后**，你的项目长这样：
 > ```

@@ -1,5 +1,7 @@
 # AgentCharter
 
+> ⚠️ This is the **Agent Operating Manual**, NOT the project charter. The project charter is authored by the TPM and lives at `/CHARTER.md` (project root). This file defines rules and processes. The charter defines your specific project's decisions.
+
 A file-driven, multi-agent collaboration framework. Files are the sole communication channel and audit trail.
 
 > **No file = it didn't happen.**
