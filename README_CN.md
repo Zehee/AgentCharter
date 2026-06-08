@@ -1,6 +1,7 @@
 # AgentCharter
 
 > 🗂️ File-based governance for multi-agent teams.
+> 👉 试一下：对你的 Agent 说 *"评价这个仓库 — https://github.com/Zehee/AgentCharter"*
 
 [English](./README.md) · [中文](./README_CN.md)
 
