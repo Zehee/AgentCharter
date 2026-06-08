@@ -2,6 +2,8 @@
 
 > File-based governance for multi-agent teams.
 
+[English](./README.md) · [中文](./README_CN.md)
+
 基于文件的 AI 多智能体协作框架。通过目录结构、命名规范和协作链路表约束协作行为，不依赖任何平台或协议。
 
 **AgentCharter 不是平等的协作**。它采用**中心化调度模式**——团队有一位最高管理者（TPM），统领全局、指挥调度、分析决策。其他 Agent 各司其职，通过他向 TPM 交付工作。这与 AutoGen/CrewAI 等"Agent 之间平等对话"的范式有根本不同。

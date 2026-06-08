@@ -2,6 +2,8 @@
 
 > File-based governance for multi-agent teams.
 
+[English](./README.md) · [中文](./README_CN.md)
+
 A file-driven, multi-agent collaboration framework. Agents communicate through directory structure, naming conventions, and a collaboration link table — no platform or protocol dependencies.
 
 **AgentCharter is not egalitarian.** It uses a **centralized dispatch model** — the team has one supreme manager (TPM) who oversees, orchestrates, and decides. Other Agents report to them. This differs fundamentally from the "peer-to-peer agents" paradigm of AutoGen or CrewAI.
@@ -299,7 +301,3 @@ my-project/
 ## License
 
 MIT License — see `LICENSE`.
-
----
-
-> 📖 中文版见 [README_CN.md](./README_CN.md)
