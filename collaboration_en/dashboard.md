@@ -9,6 +9,22 @@
 
 ---
 
+## Project Snapshot
+
+| | |
+|------|------|
+| **Tech Stack** | [Frontend] / [Backend] — e.g. Vue 3 + TypeScript / Rust + Tauri |
+| **Build** | Type Check: `[cmd]` \| Build: `[cmd]` \| Test: `[cmd]` |
+
+### Team
+
+| Role | Agent | Type | Notes |
+|------|-------|------|------|
+| TPM | [Name] | Native Host | Task Planning Manager |
+| [Role] | [Agent] | [External / Sub-Agent] | [Brief responsibility] |
+
+---
+
 ## Overview
 
 | Dimension | Status | Notes |
