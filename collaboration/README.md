@@ -44,11 +44,14 @@
 
 **主动报告**：任何人写 PROACTIVE_REPORT → TPM 批注决策 → 归档
 
+> **规模说明**：文件系统扫描是常数时间操作。100 个文件还是 1000 个文件，Agent 打开目录的开销几乎相同——瓶颈是 LLM 上下文窗口，不是 I/O。框架的简洁目录结构就是天然的索引。先用起来，规模到了再说。
+
 ### 1.4 硬性规则
 
 | 规则 | 内容 |
 |------|------|
 | **文件即契约** | 所有任务、报告、审查、阻塞必须通过文件传递 |
+| **文件即锁** | 谁先写文件谁拥有它。两个 Agent 无法同时认领同一个 TASK——文件系统本身就是互斥锁。Agent 写文件前检查目标是否已存在 |
 | **Git 权限隔离** | 只有 TPM 可执行任何 git 命令。其他 Agent 严禁。一刀切，无白名单 |
 | **双重审查** | 任何代码经另一位 AI 审查后才能合并 |
 | **日志只追加** | logs/、ACTIONS.md、dashboard.md 只追加，不修改历史 |
@@ -70,7 +73,7 @@ collaboration/
 ├── PROJECT.md             项目配置（技术栈、成员、规则）
 ├── REGISTER.md            入职登记表
 ├── ACTIONS.md             协作链路表（空模板，TPM 维护）
-├── dashboard.md           TPM 维护，给人类看的进度报告
+├── dashboard.md           TPM 维护，给人类看的进度报告；人类发现错误可以在这里写指令，TPM 巡检时读取
 ├── context/               Sub-Agent 上下文记忆（TPM 维护）
 ├── inbox/                 TASK / REVISION / NOTICE / REPLY
 ├── outbox/                REPORT / PROACTIVE_REPORT / BLOCKING
@@ -131,6 +134,8 @@ REVISION_049C_20260530_FLASH.md
 | 日志 | `{标识}-log.md` | logs/ | 每人 |
 
 ### 写文件规则
+
+> 团队通常从 3-4 个模板开始（TASK、REPORT、REVIEW_REPORT），随需求增长逐步引入。14 个模板是框架提供的最大集合，不是必用清单。
 
 1. 从 `templates/` 复制对应模板到目标位置，替换占位符
 2. 严格遵循模板顶部的命名规范
@@ -247,6 +252,8 @@ TPM 写 TASK → inbox/
 **职责**：创建与分派 TASK、编排计划、终审、Git 操作、维护 ACTIONS.md / dashboard.md / todos/、归档、为 Sub-Agent 注入上下文
 
 **红线**：任务先行、不修改 outbox/、审查委派 Reviewer、不写业务代码
+
+> **单点不是你选的**：最小的团队就是 1 个 TPM。如果你的 TPM 崩溃或产生幻觉，`ACTIONS.md` 可以增加一个备用 TPM 行——审查和 Git 权限可以多人持有。框架不强制只有一个人有钥匙。
 
 ### External Agent
 

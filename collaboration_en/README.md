@@ -44,11 +44,14 @@ Collaboration flows are defined by `ACTIONS.md`, not hardcoded by the framework.
 
 **Proactive Report**: Anyone writes PROACTIVE_REPORT → TPM reviews and decides → archive
 
+> **On scale**: scanning a directory with 100 files costs roughly the same as scanning one with 1,000 — the bottleneck is your LLM's context window, not filesystem I/O. The framework's flat directory structure is the index. Start using it, optimize when you hit the wall.
+
 ### 1.4 Hard Rules
 
 | Rule | Content |
 |------|------|
 | **Files are the Contract** | All tasks, reports, reviews, and blocks must go through files |
+| **Files are the Lock** | Whoever writes the file first owns it. Two Agents can't claim the same TASK simultaneously — the filesystem IS the mutex. Check the target doesn't exist before writing |
 | **Git Isolation** | Only the TPM may execute any git command. All other Agents are forbidden. No exceptions |
 | **Dual Review** | Any code must be reviewed by another AI before merging |
 | **Append-Only Logs** | logs/, ACTIONS.md, dashboard.md — append only, never modify history |
@@ -70,7 +73,7 @@ collaboration/
 ├── PROJECT.md             Project config (tech stack, members, rules)
 ├── REGISTER.md            Registration form
 ├── ACTIONS.md             Collaboration link table (empty template, TPM maintains)
-├── dashboard.md           TPM-maintained progress report for humans
+├── dashboard.md           TPM-maintained progress report for humans; humans can write instructions here, TPM reads them during patrol
 ├── context/               Sub-Agent context memory (TPM maintains)
 ├── inbox/                 TASK / REVISION / NOTICE / REPLY
 ├── outbox/                REPORT / PROACTIVE_REPORT / BLOCKING
@@ -131,6 +134,8 @@ REVISION_049C_20260530_FLASH.md
 | Log | `{identifier}-log.md` | logs/ | Per person |
 
 ### File Writing Rules
+
+> Teams typically start with 3-4 templates (TASK, REPORT, REVIEW_REPORT) and introduce more as needs grow. The 14 templates are the framework's maximum set, not a checklist.
 
 1. Copy the corresponding template from `templates/` to the target location, replacing placeholders
 2. Strictly follow the naming convention at the top of each template
@@ -247,6 +252,8 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 **Responsibilities**: Create and dispatch TASKs, orchestrate plans, final review, Git operations, maintain ACTIONS.md / dashboard.md / todos/, archive, inject context for Sub-Agents
 
 **Red lines**: Task-first, never modify outbox/, delegate reviews to Reviewer, never write business code
+
+> **Single point isn't mandatory**: the simplest team has one TPM. If your TPM hallucinates or crashes, add a backup TPM row in `ACTIONS.md` — review and Git authority can be held by multiple people. The framework doesn't force a single keyholder.
 
 ### External Agent
 
