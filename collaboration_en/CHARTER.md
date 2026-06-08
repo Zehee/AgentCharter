@@ -34,7 +34,7 @@
 
 ### 1.3 File Templates
 
-See `collaboration/templates/`. Copy the corresponding template, replace placeholders before writing.
+See `templates/`. Copy the corresponding template, replace placeholders before writing.
 
 ---
 
