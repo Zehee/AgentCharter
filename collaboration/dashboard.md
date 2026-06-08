@@ -1,106 +1,106 @@
 # Dashboard
 
-> TPM-maintained progress report for humans. Updated daily alongside patrol.
-> This is what humans read — keep it concrete, keep it current.
+> TPM 维护，给人类看的进度报告。每日巡检时一并更新。
+> 这是人读的东西——保持具体，保持及时。
 
-**Last Updated**: YYYY-MM-DD HH:MM  
-**Project**: [Project Name]  
-**Version**: [Version]
+**最后更新**: YYYY-MM-DD HH:MM  
+**项目**: [项目名称]  
+**版本**: [版本]
 
 ---
 
-## Project Snapshot
+## 项目快照
 
 | | |
 |------|------|
-| **Tech Stack** | [Frontend] / [Backend] — e.g. Vue 3 + TypeScript / Rust + Tauri |
-| **Build** | Type Check: `[cmd]` \| Build: `[cmd]` \| Test: `[cmd]` |
+| **技术栈** | [前端] / [后端] — 例：Vue 3 + TypeScript / Rust + Tauri |
+| **构建** | 类型检查: `[命令]` \| 构建: `[命令]` \| 测试: `[命令]` |
 
-### Team
+### 团队
 
-| Role | Agent | Type | Notes |
+| 角色 | Agent | 类型 | 说明 |
 |------|-------|------|------|
-| TPM | [Name] | Native Host | Task Planning Manager |
-| [Role] | [Agent] | [External / Sub-Agent] | [Brief responsibility] |
+| TPM | [名称] | Native Host | Task Planning Manager |
+| [角色] | [Agent] | [External / Sub-Agent] | [职责简述] |
 
 ---
 
-## Overview
+## 总览
 
-| Dimension | Status | Notes |
+| 维度 | 状态 | 说明 |
 |------|------|------|
-| **Overall Progress** | 🟢 / 🟡 / 🔴 | e.g. 🟢 ~75% — Core features complete, entering testing phase |
-| **Build Health** | 🟢 / 🟡 / 🔴 | e.g. 🟢 Healthy — `check` ✅ / `test` 98 pass ✅ / commit `abc1234` |
-| **Active Tasks** | N | e.g. 3 — Alice: TASK_042 / Bob: TASK_043 / Charlie: TASK_TEST_010 |
-| **Pending Review** | N | e.g. 1 — REPORT_041 awaiting review |
-| **Blocked** | N | e.g. 0 — no BLOCKING |
-| **Risk** | 🟢 / 🟡 / 🔴 | e.g. 🟡 Medium — performance concern on search module, investigation planned |
+| **整体进度** | 🟢 / 🟡 / 🔴 | 例：🟢 ~75% — 核心功能完成，进入测试阶段 |
+| **构建健康度** | 🟢 / 🟡 / 🔴 | 例：🟢 健康 — `check` ✅ / `test` 98 pass ✅ / commit `abc1234` |
+| **活跃任务** | N | 例：3 — Alice: TASK_042 / Bob: TASK_043 / Charlie: TASK_TEST_010 |
+| **待审查** | N | 例：1 — REPORT_041 等待审查 |
+| **阻塞** | N | 例：0 — 无 BLOCKING |
+| **风险** | 🟢 / 🟡 / 🔴 | 例：🟡 中等 — 搜索模块性能隐患，计划排查 |
 
 ---
 
-## Team Status
+## 人员状态
 
-| Role | Current Work | Status |
+| 角色 | 当前工作 | 状态 |
 |------|----------|------|
-| **TPM** | Patrol, task dispatch, review approvals, dashboard update | 🟢 Active |
-| **[Agent 1]** | TASK_042 — Search module optimization | 🔵 ASSIGNED |
-| **[Agent 2]** | TASK_043 — User settings page | 🟡 IN_PROGRESS |
-| **[Agent 3]** | Idle | ✅ Standby |
-| **[User]** | — | ⚪ Observing |
+| **TPM** | 巡检、任务分派、审查审批、dashboard 更新 | 🟢 活跃 |
+| **[Agent 1]** | TASK_042 — 搜索模块优化 | 🔵 ASSIGNED |
+| **[Agent 2]** | TASK_043 — 用户设置页 | 🟡 IN_PROGRESS |
+| **[Agent 3]** | 待命 | ✅ 空闲 |
+| **[用户]** | — | ⚪ 观察中 |
 
 ---
 
-## Active Tasks
+## 活跃任务
 
-| # | Task | Executor | Status | Review Level | Priority | Notes |
+| # | 任务 | 执行人 | 状态 | 审查级别 | 优先级 | 备注 |
 |------|------|--------|------|----------|--------|------|
-| TASK_042 | Search module optimization | [Agent] | 🟡 IN_PROGRESS | P1 | 🟡 P1 | |
-| TASK_043 | User settings page | [Agent] | 🔵 ASSIGNED | P1 | 🟢 P2 | |
+| TASK_042 | 搜索模块优化 | [Agent] | 🟡 IN_PROGRESS | P1 | 🟡 P1 | |
+| TASK_043 | 用户设置页 | [Agent] | 🔵 ASSIGNED | P1 | 🟢 P2 | |
 
 ---
 
-## Recent Activity
+## 最近动态
 
-> Most recent first. Each entry: date, what happened, who did it, outcome.
+> 最新在前。每条：日期、发生了什么、谁做的、结果。
 
-- **YYYY-MM-DD HH:MM** — TASK_041 completed: [Agent] submitted REPORT_041, Reviewer scored 9/10 ✅ ACCEPT, commit `abc1234`, archived
-- **YYYY-MM-DD HH:MM** — REVIEW_REPORT_040: [Reviewer] flagged 🟡 issue in error handling → REVISION_040 created → [Agent] notified
-- **YYYY-MM-DD HH:MM** — [Agent] submitted REPORT_040 for review
+- **YYYY-MM-DD HH:MM** — TASK_041 完成：[Agent] 提交 REPORT_041，审查 9/10 ✅ ACCEPT，commit `abc1234`，已归档
+- **YYYY-MM-DD HH:MM** — REVIEW_REPORT_040：[Reviewer] 发现 🟡 错误处理问题 → REVISION_040 创建 → [Agent] 已通知
+- **YYYY-MM-DD HH:MM** — [Agent] 提交 REPORT_040 等待审查
 
 ---
 
-## Completed This Cycle
+## 本周期完成
 
-| # | Task | Executor | Score | Rounds | Status |
+| # | 任务 | 执行人 | 评分 | 轮次 | 状态 |
 |---|------|--------|------|------|------|
-| TASK_041 | [Description] | [Agent] | 9/10 | R0 | ✅ ACCEPT |
-| REVISION_040 | Fix error handling edge case | [Agent] | 8/10 | R1 | ✅ ACCEPT |
+| TASK_041 | [描述] | [Agent] | 9/10 | R0 | ✅ ACCEPT |
+| REVISION_040 | 修复错误处理边界 | [Agent] | 8/10 | R1 | ✅ ACCEPT |
 
 ---
 
-## Known Issues
+## 已知问题
 
-| Issue | Priority | Status |
+| 问题 | 优先级 | 状态 |
 |------|--------|------|
-| Performance degradation on search with >10K records | 🟡 P1 | Investigating — TASK_045 planned |
-| Login timeout under slow network | 🟡 P1 | ✅ REVISION_042 fixed |
+| 搜索 >10K 记录时性能下降 | 🟡 P1 | 排查中 — 计划 TASK_045 |
+| 弱网下登录超时 | 🟡 P1 | ✅ REVISION_042 已修复 |
 
-## Decisions
+## 决策
 
-| Item | Decision | Impact |
+| 事项 | 决策 | 影响 |
 |------|------|------|
-| Database query optimization strategy | **Batch prefetch** (Option A) | TASK_042 scope adjusted to include batch query rewrite |
-| TEST_REPORT_005 conclusion | **🟡 Conditional pass** | 8 pending items → TASK_TEST_006; 2 bugs → TASK_046/047 |
+| 数据库查询优化策略 | **批量预取**（方案 A） | TASK_042 范围调整为含批量查询重写 |
+| TEST_REPORT_005 结论 | **🟡 有条件通过** | 8 项 PENDING → TASK_TEST_006；2 个 Bug → TASK_046/047 |
 
 ---
 
-## Milestones
+## 里程碑
 
-| Milestone | Status | Completion |
+| 里程碑 | 状态 | 完成度 |
 |------|------|------|
-| M0 — Framework Setup | ✅ | 100% |
-| M1 — Core Features | ✅ | 95% |
-| M2 — Polish & Performance | 🟡 | 60% |
-| M3 — Public Release | 🔵 | 0% |
+| M0 — 框架搭建 | ✅ | 100% |
+| M1 — 核心功能 | ✅ | 95% |
+| M2 — 打磨与性能 | 🟡 | 60% |
+| M3 — 公开发布 | 🔵 | 0% |
 
-> **Archive**: completed tasks in `archive/inbox/` and `archive/outbox/`
+> **归档**: 已完成任务见 `archive/inbox/` 和 `archive/outbox/`

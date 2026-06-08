@@ -8,29 +8,35 @@
 **Date**: YYYY-MM-DD
 **Corresponding**: TASK_NNN / REPORT_NNN
 
+> **Summary flow**: [Review Summary] is mandatory. First round: write only `### R0`. Subsequent rounds: copy all historical text from the executor's REPORT_RN [Review Summary], append this round at the bottom. Must not modify historical text.
+
 ---
 
-## [Review Summary]
+## [Review Summary] (mandatory)
 
-### R0
-
+### R0 (YYYY-MM-DD)
 - Score: X/10
 - This round: 🔴 N | 🟡 N | 💡 N
 - Status: 🔄 Revision Needed / ✅ ACCEPT
-- One-liner: (brief summary of this review round)
+- One-liner: ...
 
----
+| Dimension | Score | Notes |
+|------|------|------|
+| Code Quality | 9 | |
+| Logic Correctness | 8 | |
+| Type Safety | 9 | |
+| Test Coverage | 8 | |
+| **Overall** | **X** | |
 
 ## Issues Found
 
 | # | Severity | File | Issue | Suggestion |
-|---|------|------|------|------|
+|---|--------|------|------|------|
 | 1 | 🔴 | `src/file.rs:42` | | |
 | 2 | 🟡 | | | |
+| 3 | 💡 | | | |
 
----
-
-## Specialized Checks (P2/P3)
+## Specialized Checks (P2/P3 mandatory)
 
 | Check | Result | Notes |
 |------|------|------|
@@ -38,8 +44,6 @@
 | Type safety | ✅ / ❌ | |
 | Error handling | ✅ / ❌ | |
 | State management | ✅ / ❌ | |
-
----
 
 ## Merge Recommendation
 

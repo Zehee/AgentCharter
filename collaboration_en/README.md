@@ -227,7 +227,7 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 
 | File Type | Archive Timing |
 |----------|----------|
-| TASK / REVISION | Immediately after pickup |
+| TASK / REVISION | Immediately upon completion |
 | NOTICE / REPLY | After recipient has read |
 | BLOCKING / BLOCKING_REPLY | After block is resolved |
 | REPORT | After TPM reads and decides |

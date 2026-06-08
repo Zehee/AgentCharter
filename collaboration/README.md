@@ -227,7 +227,7 @@ TPM 写 TASK → inbox/
 
 | 文件类型 | 归档时机 |
 |----------|----------|
-| TASK / REVISION | 被领取后立即归档 |
+| TASK / REVISION | 处理完即归档 |
 | NOTICE / REPLY | 接收方读取后归档 |
 | BLOCKING / BLOCKING_REPLY | 阻塞解除后归档 |
 | REPORT | TPM 读取并决策后归档 |
