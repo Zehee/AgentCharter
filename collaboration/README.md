@@ -135,7 +135,7 @@ REVISION_049C_20260530_FLASH.md
 1. 从 `templates/` 复制对应模板到目标位置，替换占位符
 2. 严格遵循模板顶部的命名规范
 3. 不修改 `templates/` 本身——发现缺陷通过主动报告反馈给 TPM
-4. **效率建议**：反复读取相同模板浪费上下文。TPM 可根据运行环境的能力，为高频使用的模板（TASK、REPORT、REVIEW_REPORT）创建快捷指令，直接传核心内容生成文件，不再逐次读模板。Recommendation, not requirement — 平台不同，实现方式由 TPM 决定。
+4. **效率建议**：模板内容固定，反复读取浪费上下文。TPM 可以将高频模板（TASK、REPORT、REVIEW_REPORT）的核心结构记在 prompt 里，直接生成文件。纯手动照着模板写也完全没问题。本条为建议，非强制。
 
 ---
 
