@@ -162,6 +162,7 @@ TPM 写 TASK → inbox/
 | ✅ RESOLVED | 已解除 |
 
 > 审查流程的可选分级（P0-P3）见 `TPM.md`。实际审查链由 `ACTIONS.md` 定义。
+> **TPM 不豁免**：TPM 自己的改动也必须先建 TASK，完成后写 REPORT，与其他 Agent 同等追溯。
 
 ---
 

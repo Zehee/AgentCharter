@@ -162,6 +162,7 @@ TPM writes TASK → inbox/
 | ✅ RESOLVED | Resolved |
 
 > Optional tiered review (P0-P3) is documented in `TPM.md`. The actual review chain is defined by `ACTIONS.md`.
+> **The TPM is not exempt**: the TPM's own changes must also go through TASK → REPORT, with the same traceability as every other Agent.
 
 ---
 
