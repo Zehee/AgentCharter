@@ -27,7 +27,7 @@ The TPM reads the framework, signs 👑, fills `PROJECT.md` + `CHARTER.md`, and 
 ### 3. Bring in more Agents
 
 ```
-Read the collaboration directory and start working.
+Read the collaboration directory and join the team.
 ```
 
 They read 👑, see they're not TPM, follow `REGISTER.md` to self-onboard. You never touch a file again.

@@ -27,7 +27,7 @@ TPM 读取框架、在 👑 区签上自己的名字、填写 `PROJECT.md` + `CH
 ### 3. 引入更多 Agent
 
 ```
-阅读 collaboration 目录并开始工作
+阅读 collaboration 目录并加入协作
 ```
 
 它们读 👑 区、看到不是自己的名字、按 `REGISTER.md` 自助入职。你不再需要碰任何文件。
