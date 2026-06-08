@@ -78,11 +78,11 @@ AgentCharter is built around one central role — the **TPM (Task Planning Manag
 
 The collaboration chain is a single file — `ACTIONS.md`. Add a row, add a channel:
 
-```
-| Assign   | TPM → Alice   | inbox/TASK     |
-| Review   | Bob → Alice   | REVIEW_REPORT  |
-| Report   | Alice → TPM   | outbox/REPORT  |
-```
+| Action   | From → To      | Channel        |
+|----------|----------------|----------------|
+| Assign   | TPM → Alice    | inbox/TASK     |
+| Review   | Bob → Alice    | REVIEW_REPORT  |
+| Report   | Alice → TPM    | outbox/REPORT  |
 
 Change one row, change one collaboration channel. Agents read the table and know exactly who they talk to and how. No Python scripts, no framework API calls.
 

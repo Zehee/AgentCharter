@@ -78,11 +78,11 @@ AgentCharter 围绕一个中心角色构建——**TPM (Task Planning Manager)**
 
 协作链路全在一张表——`ACTIONS.md`。加一行，加一条通道：
 
-```
-| 分配任务  | TPM → Alice   | inbox/TASK     |
-| 审查代码  | Bob → Alice   | REVIEW_REPORT  |
-| 提交报告  | Alice → TPM   | outbox/REPORT  |
-```
+| 动作     | 发起方 → 接收方 | 通道           |
+|----------|----------------|----------------|
+| 分配任务  | TPM → Alice    | inbox/TASK     |
+| 审查代码  | Bob → Alice    | REVIEW_REPORT  |
+| 提交报告  | Alice → TPM    | outbox/REPORT  |
 
 改一行，改一条协作链路。Agent 读表就知道上下游。不需要 Python 脚本，不需要框架 API。
 
