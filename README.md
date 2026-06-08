@@ -18,6 +18,8 @@ cp -r collaboration_en/ /my-project/
 
 ### 2. Tell your core Agent
 
+> Paste this directly into your AI — wherever you normally talk to it (IDE chat, terminal, web). Yes, it's that simple.
+
 ```
 You are TPM. Read the collaboration directory and start working.
 ```
@@ -39,6 +41,8 @@ From this point forward, no Agent touches `src/` without a `TASK` file. No Agent
 </details>
 
 ### 3. Bring in more Agents
+
+> Same thing — paste this to each new Agent:
 
 ```
 Read the collaboration directory and join the team.

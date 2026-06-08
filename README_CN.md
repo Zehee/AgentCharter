@@ -18,6 +18,8 @@ cp -r collaboration/ /my-project/
 
 ### 2. 告诉你的核心 Agent
 
+> 把这句话直接发给你的 AI——在任何你平时跟它对话的地方（IDE 对话框、终端、网页）。就这么简单。
+
 ```
 你是 TPM，阅读 collaboration 目录并开始工作
 ```
@@ -39,6 +41,8 @@ Agent 读取 `collaboration/` 后发现：
 </details>
 
 ### 3. 引入更多 Agent
+
+> 同样 — 把这句话发给每个新 Agent：
 
 ```
 阅读 collaboration 目录并加入协作
