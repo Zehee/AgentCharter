@@ -13,7 +13,7 @@ A file-driven, multi-agent collaboration framework. Agents communicate through d
 ### 1. Copy the framework into your project
 
 ```bash
-cp -r collaboration/ /my-project/
+cp -r collaboration_en/ /my-project/
 ```
 
 ### 2. Tell your core Agent one sentence

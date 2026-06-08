@@ -1,31 +1,31 @@
-<!-- 
-  文件类型: TODO
-  维护者: TPM
-  用途: 记录排期事项，来源包括主动报告、里程碑、用户反馈、技术债务等
-  创建时机: 处理主动报告时，对"排期"状态的建议创建；或 TPM 识别需要排期的需求时创建
-  归档时机: 状态变为"已处理"后，随对应任务一并归档
-  命名规范: TODO_NNN_DESC_SOURCE.md
-    - NNN: 顺序编号（与任务编号独立）
-    - DESC: 英文简短描述，段内用 `-`
-    - SOURCE: 来源标识，如 DESIGNER-077、MILESTONE-M6
+<!--
+  File Type: TODO
+  Maintainer: TPM
+  Purpose: Backlog items from proactive reports, milestones, user feedback, tech debt
+  Naming: TODO_NNN_DESC_SOURCE.md
+    - NNN: sequential number (independent of task numbering)
+    - DESC: short English description, within segment use `-`
+    - SOURCE: source identifier, e.g., REPORTER-077, MILESTONE-M6
 -->
 
-# ⏳ TODO_NNN: 描述
+# ⏳ TODO_NNN: Description
 
-| 字段 | 内容 | 说明 |
+| Field | Content | Notes |
 |------|------|------|
-| **编号** | TODO_001 | 顺序编号 |
-| **描述** | SETTINGS-NFORM | 简短描述，段内用 `-` |
-| **来源** | `REPORT_077_20260602_DESIGNER.md` | 来源文件完整名 |
-| **来源类型** | 主动报告 | 主动报告 / 里程碑 / 用户反馈 / 技术债务 |
-| **优先级** | 🟢 P2 | 🔴 P0 / 🟡 P1 / 🟢 P2 / ⚪ P3 |
-| **状态** | ⏳ 待排期 | ⏳ 待排期 → 📅 已排期 → 📋 已创建任务 → ✅ 已处理 |
-| **计划时间** | — | 如已排期，填写预计执行日期 |
-| **关联任务** | — | 如已创建任务，填写 TASK/REVISION 编号 |
-| **处理意见** | 排期 | 采纳 / 忽略 / 任务 / 排期 |
+| **Number** | TODO_001 | Sequential number |
+| **Description** | SETTINGS-REFORM | Short description, within segment use `-` |
+| **Source** | `REPORT_077_20260602_DESIGNER.md` | Full source filename |
+| **Source Type** | Proactive Report | Proactive Report / Milestone / User Feedback / Tech Debt |
+| **Priority** | 🟢 P2 | 🔴 P0 / 🟡 P1 / 🟢 P2 / ⚪ P3 |
+| **Status** | ⏳ Pending | ⏳ Pending → 📅 Scheduled → 📋 Task Created → ✅ Done |
+| **Planned Date** | — | If scheduled, estimated execution date |
+| **Linked Task** | — | If task created, TASK/REVISION number |
+| **Decision** | Backlog | Accept / Reject / Task / Backlog |
 
-## 来源建议摘要
-<!-- 摘录来源报告中的具体建议原文，保留上下文 -->
+## Source Excerpt
 
-## 备注
-<!-- 补充说明、阻碍因素、依赖关系等 -->
+<!-- Excerpt of the relevant suggestion from the source report, preserving context -->
+
+## Notes
+
+<!-- Additional notes, blockers, dependencies, etc. -->

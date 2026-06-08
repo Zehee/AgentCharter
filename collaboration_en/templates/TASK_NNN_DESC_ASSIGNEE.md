@@ -1,41 +1,28 @@
-# TASK_NNN: 任务标题
+# TASK_NNN: Task Title
 
-> **文件名**: `TASK_NNN_DESC_ASSIGNEE.md`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=3位序号，`DESC`=英文简短描述，`ASSIGNEE`=领取者标识
+> **Filename**: `TASK_NNN_DESC_ASSIGNEE.md`
+> **Location**: `inbox/`
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `DESC` = short English description, `ASSIGNEE` = executor identifier (UPPERCASE)
 
-**分派人**: [TPM 标识]
-**执行人**: [External/Native 标识] / ALL
-**优先级**: 🔴 P0 | 🟡 P1 | 🟢 P2
-**依赖**: 如 TASK_XXX 已完成（可选）
+**Dispatcher**: TPM
+**Executor**: [ASSIGNEE]
+**Date**: YYYY-MM-DD
+**Priority**: 🔴 P0 | 🟡 P1 | 🟢 P2
+**Review Level**: P0 / P1 / P2 / P3
+**Related**: (related TASK / REVISION)
 
 ---
 
-## 目标
+## Goal
 
-一句话描述这个任务要完成什么。
+One sentence describing what this task aims to achieve.
 
-## 当前状态
+## Acceptance Criteria
 
-已有的基础是什么，缺什么，为什么需要做这个任务。
+- [ ] Criterion 1
+- [ ] Criterion 2
+- [ ] Submit `outbox/REPORT_NNN_DATE_AUTHOR.md`
 
-## 详细需求
+## Notes
 
-### 1. 子模块一（按功能拆）
-
-概述 + 涉及文件 + 关键逻辑
-
-### 2. 子模块二
-
-同上
-
-## 验收标准
-
-- [ ] 验收条目 1
-- [ ] 验收条目 2
-- [ ] `[类型检查命令]` 0 错误
-- [ ] 提交 `outbox/REPORT_NNN_YYYYMMDD.md`
-
-## 参考文件
-
-- `[前端源码路径]`
-- `[后端源码路径]`
+(Scope constraints, known risks, dependencies)

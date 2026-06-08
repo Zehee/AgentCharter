@@ -1,99 +1,61 @@
-# TASK_TEST_NNN: 测试标题
+# TASK_TEST_NNN: Test Task Title
 
-> **文件名**: `TASK_TEST_NNN_DESC_ASSIGNEE.md`
-> **存放位置**: `inbox/`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=测试轮次序号，`DESC`=英文简短描述，`ASSIGNEE`=测试员标识（ALL / TESTER / 用户）
+> **Filename**: `TASK_TEST_NNN_DESC_ASSIGNEE.md`
+> **Location**: `inbox/`
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = test round number, `DESC` = short English description, `ASSIGNEE` = tester identifier (UPPERCASE)
 
-**分派人**: TPM
-**测试员**: [标识]
-**日期**: YYYY-MM-DD
-**优先级**: 🔴 P0 | 🟡 P1 | 🟢 P2
-**关联**: TASK_NNN（对应的功能开发任务）/ REVISION_NNN（修复验证）
-**测试轮次**: 第 X 轮（回归 / 验收 / 探索性）
-
----
-
-## 一、测试目标
-
-一句话描述本次测试要验证什么、为什么现在做。
+**Dispatcher**: TPM
+**Tester**: [ASSIGNEE]
+**Date**: YYYY-MM-DD
+**Priority**: 🔴 P0 | 🟡 P1 | 🟢 P2
+**Related**: TASK_NNN (functional dev task) / REVISION_NNN (fix verification)
+**Test Round**: Round X (Regression / Acceptance / Exploratory)
 
 ---
 
-## 二、环境要求
+## 1. Test Objective
 
-> 测试开始前必须确认的环境条件。
+One sentence describing what this test verifies and why now.
 
-| 项 | 要求 |
+## 2. Environment Requirements
+
+| Item | Requirement |
 |---|---|
-| **操作系统** | Windows 11 / macOS / Linux |
-| **App 版本** | 基于 commit `abc1234` / 打包后的 `.exe` |
-| **运行方式** | `cargo tauri dev` /  release 构建 |
-| **屏幕分辨率** | 建议 ≥ 1920×1080 |
-| **测试版型** | 标准版型 / 自定义版型 |
-| **前置条件** | 上一轮问题已修复 / 新功能已合并 |
+| **OS** | Windows 11 / macOS / Linux |
+| **App Version** | Commit `abc1234` / packaged binary |
+| **Run Mode** | `command` / release build |
+| **Resolution** | Recommended ≥ 1920×1080 |
+| **Preconditions** | Previous issues fixed / new feature merged |
 
----
+## 3. Verification Checklist
 
-## 三、验证清单
+### 3.1 [Module Name]
 
-> 按功能模块分组，每项必须填写结果。测试完成后将结果列填入 `outbox/TEST_REPORT_NNN_DATE_AUTHOR.md`。
-
-### 3.1 [模块名，如 Setup 配置]
-
-| # | 场景 | 操作步骤 | 预期结果 |
-|---|------|----------|----------|
-| 1 | | | |
-| 2 | | | |
-
-### 3.2 [模块名，如 Night 流程]
-
-| # | 场景 | 操作步骤 | 预期结果 |
+| # | Scenario | Steps | Expected Result |
 |---|------|----------|----------|
 | 1 | | | |
 
----
+## 4. Regression Items (if applicable)
 
-## 四、回归项（如适用）
-
-> 本轮需要验证的历史问题，确保已修复未复发。
-
-| 历史 Bug | 修复版本 | 验证场景 | 验证方式 |
+| Historical Bug | Fix Version | Verification Scenario | Method |
 |----------|----------|----------|----------|
-| Bug-1 | REVISION_098 | 角色持久 | 分配角色→返回→重新进入 |
 
----
+## 5. Known Risks & Exclusions
 
-## 五、已知风险 & 未测项
-
-> 提前声明哪些不测、为什么，避免测试员浪费时间。
-
-| # | 风险/未测项 | 说明 | 计划 |
+| # | Risk / Exclusion | Explanation | Plan |
 |---|-------------|------|------|
-| 1 | | | |
 
----
+## 6. Minimum Pass Criteria
 
-## 六、最低通过标准
+- [ ] Category A (regression): all PASS, or 🔴 defects ≤ 0
+- [ ] Category B (core flow): PASS rate ≥ 80%, no 🔴 defects
+- [ ] Category C (new feature): PASS rate ≥ 60%, no 🔴 defects
+- [ ] Complete core user flow from start to finish
 
-- [ ] A 类（回归验证）：全部 PASS，或 🔴 缺陷 ≤ 0 个
-- [ ] B 类（核心流程）：PASS 率 ≥ 80%，无 🔴 缺陷
-- [ ] C 类（新增功能）：PASS 率 ≥ 60%，无 🔴 缺陷
-- [ ] 能完整跑完核心用户流程
+## 7. Feedback Requirements
 
-> 不满足最低通过标准 = 本轮测试 **不通过**，需修复后重新测试。
-
----
-
-## 七、反馈要求
-
-测试完成后提交 `outbox/TEST_REPORT_NNN_DATE_AUTHOR.md`，必须包含：
-1. 验证清单结果（PASS / FAIL / BLOCK / N/A）
-2. 缺陷清单（🔴 / 🟡 / 💡，附复现步骤）
-3. 环境信息确认
-4. 总体结论（通过 / 有条件通过 / 阻塞）
-
----
-
-## 八、备注
-
-（任何需要测试员特别注意的事项）
+Submit `outbox/TEST_REPORT_NNN_DATE_AUTHOR.md`, must include:
+1. Verification checklist results (PASS / FAIL / BLOCK / N/A)
+2. Defect list (🔴 / 🟡 / 💡, with repro steps)
+3. Environment confirmation
+4. Overall conclusion (Pass / Conditional Pass / Blocked)

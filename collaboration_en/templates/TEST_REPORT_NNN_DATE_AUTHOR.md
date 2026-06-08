@@ -1,137 +1,43 @@
-# TEST_REPORT_NNN: 测试标题 — 总体结论
+# TEST_REPORT_NNN: Test Report
 
-> **文件名**: `TEST_REPORT_NNN_DATE_AUTHOR.md`
-> **存放位置**: `outbox/`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=对应测试任务序号，`DATE`=提交日期 `YYYYMMDD`，`AUTHOR`=测试员标识（大写）
+> **Filename**: `TEST_REPORT_NNN_DATE_AUTHOR.md`
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = test task number, `DATE` = test date `YYYYMMDD`, `AUTHOR` = tester identifier (UPPERCASE)
 
-**测试员**: [标识]
-**日期**: YYYY-MM-DD
-**对应**: TASK_NNN
-**测试类型**: 手动实测 / 自动化测试 / 回归验证
-**总体结论**: ✅ 通过 / 🟡 有条件通过 / ❌ 阻塞
+**Tester**: [AUTHOR]
+**Date**: YYYY-MM-DD
+**Related**: TASK_TEST_NNN
+**Test Round**: Round X
 
 ---
 
-## 一、环境信息
+## Environment
 
-| 项 | 值 |
+| Item | Detail |
 |---|---|
-| **操作系统** | Windows 11 / macOS / Linux |
-| **App 版本** | 基于 commit `abc1234` / 构建号 |
-| **运行方式** | `cargo tauri dev` / 打包后的 `.exe` |
-| **屏幕分辨率** | 1920×1080 / 其他 |
-| **浏览器/CDP** | WebView2 版本 / Playwright 版本（自动化测试填写） |
-| **后端构建** | `cargo check` ✅ / `cargo test` X pass |
-| **前端构建** | `vue-tsc --noEmit` ✅ / ❌ |
+| OS | |
+| App Version | |
+| Resolution | |
 
 ---
 
-## 二、验证清单
+## Verification Results
 
-> 逐项执行测试场景，标记结果。PASS=符合预期，FAIL=不符合，N/A=不适用，BLOCK=被阻塞无法执行。
-
-### 2.1 [功能模块名，如 Setup 配置]
-
-| # | 场景 | 操作步骤 | 预期结果 | 结果 | 备注 |
-|---|------|----------|----------|------|------|
-| 1 | | | | PASS | |
-| 2 | | | | FAIL | 见 Bug-1 |
-
-### 2.2 [功能模块名，如 Night 流程]
-
-| # | 场景 | 操作步骤 | 预期结果 | 结果 | 备注 |
-|---|------|----------|----------|------|------|
-| 1 | | | | PASS | |
+| # | Scenario | Result | Notes |
+|---|------|------|------|
+| 1 | | ✅ PASS / ❌ FAIL / 🔲 BLOCK / N/A | |
 
 ---
 
-## 三、缺陷清单
+## Defects
 
-> 所有 FAIL/BLOCK 项必须在此详细记录。如未发现缺陷，写「本次测试未发现缺陷」。
-
-### 🔴 Bug-1: [一句话描述]
-
-| 字段 | 内容 |
-|------|------|
-| **严重级别** | 🔴 严重 / 🟡 一般 / 💡 建议 |
-| **阶段** | Setup / Night / Dawn / DayDebate / Vote / Exile / Nomination / GameOver / 全局 |
-| **复现步骤** | 1. … 2. … 3. … |
-| **实际现象** | 观察到的错误行为 |
-| **预期行为** | 应该发生什么 |
-| **截图/录屏** | `screenshots/bug1_20240604.png` |
-| **根因分析** | （如已知） |
-| **修复建议** | （可选） |
-| **关联任务** | TASK_NNN / REVISION_NNN |
-
-### 🟡 Bug-2: [一句话描述]
-
-（同上格式）
+| # | Severity | Description | Repro Steps |
+|---|------|------|------|
+| 1 | 🔴 / 🟡 / 💡 | | |
 
 ---
 
-## 四、已确认功能（通过项汇总）
+## Overall Conclusion
 
-> 记录本次测试中验证通过的关键功能点，供后续回归测试参考。
+✅ Pass / 🟡 Conditional Pass / 🔴 Blocked
 
-| # | 功能点 | 验证方式 | 结果 |
-|---|--------|----------|------|
-| 1 | | | ✅ |
-
----
-
-## 五、已知限制 & 未测项
-
-| # | 限制/未测项 | 原因 | 计划 |
-|---|-------------|------|------|
-| 1 | | | 下一轮 / M5+ / 不修复 |
-
----
-
-## 六、测试数据统计
-
-| 维度 | 数值 |
-|------|------|
-| 总验证项数 | X |
-| PASS | X |
-| FAIL | X |
-| BLOCK | X |
-| N/A | X |
-| 🔴 严重缺陷 | X |
-| 🟡 一般缺陷 | X |
-| 💡 建议项 | X |
-
----
-
-## 七、结论与建议
-
-**总体结论**: ✅ 通过 / 🟡 有条件通过 / ❌ 阻塞
-
-**结论理由**:
-- （一句话说明为什么是这个结论）
-
-**下一步行动**:
-- [ ] 修复 🔴 缺陷后重新测试
-- [ ] 修复 🟡 缺陷后可进入下一轮
-- [ ] 当前状态可直接合并 / 发布
-
----
-
-## 附录
-
-### A. 截图目录
-```
-test-assets/
-├── screenshots/
-│   ├── bug1_20240604.png
-│   └── bug2_20240604.png
-└── logs/
-    └── test-run.log
-```
-
-### B. 自动化测试输出（如适用）
-```
-（粘贴测试框架的输出摘要，或注明输出文件位置）
-```
-
-### C. 备注
-（任何不适合放在正文的补充信息）
+**Reason**: (summary of why)

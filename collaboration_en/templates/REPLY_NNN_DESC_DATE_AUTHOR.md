@@ -1,42 +1,41 @@
 <!--
-  文件类型: 主动报告处理回执
-  维护者: TPM
-  用途: 通知主动报告提交者处理结果
-  创建时机: TPM 处理完主动报告后
-  命名规范: REPLY_NNN_DESC_DATE_AUTHOR.md
-    - NNN: 对应主动报告编号
-    - DATE: 处理日期 YYYYMMDD
-    - AUTHOR: 报告提交者标识（大写）
+  File Type: Proactive Report Processing Reply
+  Maintainer: TPM
+  Purpose: Notify proactive report submitter of processing results
+  Naming: REPLY_NNN_DESC_DATE_AUTHOR.md
+    - NNN: corresponding proactive report number
+    - DATE: processing date YYYYMMDD
+    - AUTHOR: report submitter identifier (UPPERCASE)
 -->
 
-# REPLY_NNN: 主动报告处理回执
+# REPLY_NNN: Proactive Report Processing Reply
 
-**来源报告**: `PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md`
-**处理日期**: YYYY-MM-DD
-**提交人**: [AUTHOR]（报告提交者）
+**Source Report**: `PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md`
+**Processing Date**: YYYY-MM-DD
+**Submitter**: [AUTHOR]
 
 ---
 
-## 处理结果摘要
+## Result Summary
 
-| 状态 | 数量 | 说明 |
+| Status | Count | Notes |
 |------|------|------|
-| 📋 任务 | N | 已纳入现有任务或新建 TASK/REVISION |
-| 📅 排期 | N | 创建 TODO 文件，待后续安排 |
-| ✅ 采纳 | N | 直接接受，无需额外任务 |
-| ❌ 忽略 | N | 不采纳（理由见详细批注） |
-| ✓ 已处理 | N | 已实现/修复 |
+| 📋 Task | N | Incorporated into existing tasks or new TASK/REVISION created |
+| 📅 Backlog | N | TODO file created; scheduled for later |
+| ✅ Accept | N | Accepted directly; no extra task needed |
+| ❌ Reject | N | Not adopted (reason in detailed annotation) |
+| ✓ Done | N | Already implemented / fixed |
 
-**详细批注**: 见 `archive/outbox/{来源报告文件名}`
-
----
-
-## 关键决策（可选）
-
-- 决策 1：...
-- 决策 2：...
+**Detailed annotation**: see `archive/outbox/{source report filename}`
 
 ---
 
-**处理人**: [TPM]  
-**日期**: YYYY-MM-DD
+## Key Decisions (optional)
+
+- Decision 1: ...
+- Decision 2: ...
+
+---
+
+**Processor**: TPM  
+**Date**: YYYY-MM-DD

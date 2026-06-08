@@ -1,28 +1,20 @@
-# REVIEW_TASK_NNN: 审查对象简述
+# REVIEW_TASK_NNN: Review Subject
 
-> **文件名**: `REVIEW_TASK_NNN.md`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=被审查的任务序号
+> **Filename**: `REVIEW_TASK_NNN.md`
+> **Location**: `inbox/`
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = review task number
 
-**审查人**: [审查人标识]
-**被审查人**: [被审查人标识]
-**优先级**: 🔴 P0 | 🟡 P1
+**Dispatcher**: TPM
+**Reviewer**: [ASSIGNEE]
+**Date**: YYYY-MM-DD
+**Review Scope**: (what REPORT / code to review)
+**Review Level**: P1 / P2 / P3
 
 ---
 
-## 审查范围
+## Review Requirements
 
-| 文件 | 路径 | 说明 |
-|------|------|------|
-| 文件名 | `src/xxx` | 为什么审查 |
-
-## 审查重点
-
-- [ ] 检查项 1
-- [ ] 检查项 2
-
-## 输出要求
-
-提交 `reviews/REVIEW_REPORT_NNN_DATE_AUTHOR.md`，包含：
-1. 总体评分（1-10）
-2. 发现的问题（🔴严重 / 🟡一般 / 💡建议）
-3. 是否建议合并（通过 / 需修订）
+- Read the corresponding REPORT in `outbox/`
+- Verify the actual code changes (do not rely solely on REPORT descriptions)
+- Run build verification commands
+- Output `reviews/REVIEW_REPORT_NNN_DATE_AUTHOR.md` with scores, issues (file:line), and merge recommendation

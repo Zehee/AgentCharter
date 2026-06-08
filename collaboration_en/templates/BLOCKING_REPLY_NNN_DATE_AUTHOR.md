@@ -1,20 +1,19 @@
-# BLOCKING_REPLY_NNN: 阻塞已解除
+# BLOCKING_REPLY_NNN: Blocking Resolution Reply
 
-> **文件名**: `BLOCKING_REPLY_NNN_DATE_AUTHOR.md`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=对应阻塞序号，`DATE`=回复日期 `YYYYMMDD`，`AUTHOR`=回复人标识
+> **Filename**: `BLOCKING_REPLY_NNN_DATE_AUTHOR.md`
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = corresponding blocking number, `DATE` = resolution date, `AUTHOR` = resolver identifier (UPPERCASE)
 
-**回复人**: [回复人标识]
-**日期**: YYYY-MM-DD
+**Resolver**: [AUTHOR]
+**Original Blocker**: [BLOCKER]
+**Date**: YYYY-MM-DD
+**Related**: BLOCKING_NNN
 
 ---
 
-## 处理结果
+## Resolution
 
-| # | 阻塞项 | 状态 | 解决详情 |
-|---|--------|------|----------|
-| 1 | 问题描述 | ✅ 已解决 | 怎么修的 |
-| 2 | 问题描述 | ✅ 已解决 | 怎么修的 |
+(How the block was resolved)
 
-## 下一步
+## Verification
 
-阻塞解除后的后续动作。
+(How to confirm the block is lifted)

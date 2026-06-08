@@ -1,94 +1,28 @@
-# REPORT_NNN: 任务标题
+# REPORT_NNN: Task Title
 
-> **文件名**: `REPORT_NNN_DATE_AUTHOR.md`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=任务序号，`DATE`=提交日期 `YYYYMMDD`，`AUTHOR`=作者标识（大写）
+> **Filename**: `REPORT_NNN_DATE_AUTHOR.md`
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `DATE` = submission date `YYYYMMDD`, `AUTHOR` = author identifier (UPPERCASE)
 
-**提交人**: [External/Native 标识]
-**日期**: YYYY-MM-DD
-**状态**: REVIEW_PENDING
-**对应**: TASK_NNN 或 REVISION_NNN
-**报告性质**: 通信信号（External）/ [Audit Only] 审计记录（Native）
+**Author**: [AUTHOR]
+**Date**: YYYY-MM-DD
+**Task**: TASK_NNN
 
 ---
 
-<!--
-## 【审查摘要】（多轮修复时取消注释）
-从 REVIEW_REPORT 的【摘要】节复制全部历史原文到此处，
-在每轮下方追加你的修复回应。首轮 REPORT 无需此节。
+## Changes Made
 
-### R0 (YYYY-MM-DD)
-- 评分：X/10 | 状态：🔄 需修复
-- 回应：
-  - 🔴/🟡 问题描述：✅ 已修复 / 🔄 未修复（说明原因）
--->
+| File | Action | Description |
+|------|--------|------|
+| `src/xxx.vue` | Edit | Fixed bug Y |
 
-## 完成情况
+## Build Verification
 
-| 任务 | 状态 | 说明 |
+| Check | Command | Result |
 |------|------|------|
-| 功能点 1 | ✅ | 做了什么，关键文件 |
-| 功能点 2 | ✅ | 同上 |
+| [type check] | `[command]` | ✅ / ❌ |
+| [build] | `[command]` | ✅ / ❌ |
+| [test] | `[command]` | ✅ / ❌ |
 
-## 改动的文件
+## Notes
 
-| 文件 | 修改内容 |
-|------|----------|
-| `[项目文件路径]` | 新增/修改了什么 |
-
-## 待确认（可选）
-
-- [ ] 联调时需要注意的点
-
-## 补充说明（可选）
-
-自定义内容
-
----
-
-## 构建结果
-
-| 命令 | 结果 |
-|------|------|
-| `[类型检查命令]` | ✅ 0 错误 |
-| `[构建命令]` | ✅ 成功 |
-| `[后端检查命令]` | ✅ 0 错误 0 警告 |
-
----
-
-**当前状态**: REVIEW_PENDING — 等待 [your-TPM-name] 审查
-
----
-
-## Native Sub-Agent 专用格式（可选）
-
-> 以下格式供 Native Sub-Agent 参考。Native 的报告是审计记录，受众是人类开发者。
-
-```markdown
-# REPORT_NNN: 任务标题
-
-> **报告性质**: [Audit Only] 本报告为执行记录，TPM 已通过内部通道获知结果。
-> 受众：人类开发者（复盘、QA 验收）。
-
-## 执行摘要
-- 任务 ID: NNN
-- 状态: ✅ 成功 / ⚠️ 需人工确认
-- 核心目标: 一句话说明做了什么
-
-## 核心改动
-*(自然语言描述，不贴全量代码，只列文件和改动性质)*
-- `[项目文件路径]` — 新增 Y 函数，替换旧的 Z 实现
-- `[项目文件路径]` — 修改错误处理逻辑
-
-## 决策理由
-*(解释 WHY，这是最有价值的部分)*
-- **为什么选方案 A 而不是 B？** ...
-- **遇到的阻塞/权衡** ...
-
-## 风险点 & 需人工确认
-- [ ] `[源码文件]:行号` 临时兼容性处理，建议后续重构
-- [ ] 并发逻辑未充分验证，需人工 review
-
-## 自检清单
-- [x] `[后端检查命令]` 0 错误 0 警告
-- [x] 核心逻辑符合约束规范
-```
+(Optional: anything the reviewer should know)

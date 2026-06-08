@@ -1,23 +1,27 @@
-# BLOCKING_NNN: 阻塞原因简述
+# BLOCKING_NNN: Blocking Notice
 
-> **文件名**: `BLOCKING_NNN_DATE_TARGET.md`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=被阻塞的任务序号，`DATE`=创建日期 `YYYYMMDD`，`TARGET`=需要处理的人标识
+> **Filename**: `BLOCKING_NNN_DATE_TARGET.md`
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = blocking number, `DATE` = date, `TARGET` = blocked party (UPPERCASE)
 
-**提交人**: [提交人标识]
-**日期**: YYYY-MM-DD
-**优先级**: 🔴 P0 | 🟡 P1
+**Blocker**: [AUTHOR]
+**Blocked Party**: [TARGET]
+**Date**: YYYY-MM-DD
+**Severity**: 🔴 Critical / 🟡 General
 
 ---
 
-## 阻塞原因
+## What is Blocked
 
-描述什么被阻塞了，为什么。
+(Describe the task / action being blocked)
 
-## 需要的动作
+## Why
 
-- [ ] 对方需要做什么
-- [ ] 优先级和时间要求
+(Specific reason for the block)
 
-## 解除条件
+## Unblock Condition
 
-什么情况下可以解除阻塞。
+(What needs to happen for the block to be lifted)
+
+## Action Needed From
+
+(Who needs to do what)

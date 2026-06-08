@@ -1,38 +1,45 @@
-# REVIEW_REPORT_NNN: 审查对象 — 审查结论
+# REVIEW_REPORT_NNN: Review Subject
 
-> **文件名**: `REVIEW_REPORT_NNN_DATE_AUTHOR.md`
-> **存放位置**: `reviews/`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=审查序号，`DATE`=提交日期 `YYYYMMDD`，`AUTHOR`=审查人标识
+> **Filename**: `REVIEW_REPORT_NNN[_R{N}]_DATE_AUTHOR.md`
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `R{N}` = revision round (R1, R2), `DATE` = review date `YYYYMMDD`, `AUTHOR` = reviewer identifier (UPPERCASE)
 
-**审查人**: [审查人标识]
-**日期**: YYYY-MM-DD
-**对应**: REVIEW_TASK_NNN
-
-> **摘要流转规则**：【摘要】节必填。首轮只写 `### R0`，后续轮次从执行者的 REPORT_RN【审查摘要】复制全部历史原文，底部追加本轮，不得修改历史原文。
+**Reviewer**: [AUTHOR]
+**Date**: YYYY-MM-DD
+**Corresponding**: TASK_NNN / REPORT_NNN
 
 ---
 
-## 【审查摘要】（必填）
+## [Review Summary]
 
-### R0 (YYYY-MM-DD)
-- 评分：X/10
-- 本轮：🔴 N / 🟡 N / 💡 N
-- 状态：✅ ACCEPT / 🔄 需修复
-- 一句话：...
+### R0
 
-| 维度 | 评分 | 说明 |
+- Score: X/10
+- This round: 🔴 N | 🟡 N | 💡 N
+- Status: 🔄 Revision Needed / ✅ ACCEPT
+- One-liner: (brief summary of this review round)
+
+---
+
+## Issues Found
+
+| # | Severity | File | Issue | Suggestion |
+|---|------|------|------|------|
+| 1 | 🔴 | `src/file.rs:42` | | |
+| 2 | 🟡 | | | |
+
+---
+
+## Specialized Checks (P2/P3)
+
+| Check | Result | Notes |
 |------|------|------|
-| 维度 1 | 9 | 评语 |
-| **总体** | **X** | **结论** |
+| Cross-module consistency | ✅ / ❌ | |
+| Type safety | ✅ / ❌ | |
+| Error handling | ✅ / ❌ | |
+| State management | ✅ / ❌ | |
 
-## 发现的问题
+---
 
-| # | 严重度 | 文件 | 问题 | 建议 |
-|---|--------|------|------|------|
-| 1 | 🔴严重 | `xxx:行` | 问题描述 | 修复建议 |
-| 2 | 🟡一般 | `xxx:行` | 问题描述 | 修复建议 |
-| 3 | 💡建议 | `xxx:行` | 问题描述 | 修复建议 |
+## Merge Recommendation
 
-## 合并建议
-
-**✅ 建议通过** / **🔄 需修订**
+**✅ Recommend Accept** / **🔄 Revision Needed**

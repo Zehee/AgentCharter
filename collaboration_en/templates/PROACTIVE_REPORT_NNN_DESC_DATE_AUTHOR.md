@@ -1,85 +1,40 @@
 <!--
-  文件类型: 主动报告 (Proactive Report)
-  提交者: Reporter (任何角色均可兼任)
-  特点: 无对应 TASK，不经过 inbox 任务系统
-  处理: TPM 阅后即焚 — 阅读 → 决策 → 批注 → 归档
-  命名规范: PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md
-    - NNN: 自主顺序编号（与任务编号独立）
-    - DESC: 英文简短描述，段内用 `-`
-    - DATE: 提交日期 `YYYYMMDD`
-    - AUTHOR: 作者标识（大写）
+  File Type: Proactive Report
+  Maintainer: TPM
+  Purpose: Agents submit reports without a corresponding TASK
+  Handling: TPM reads → decides → annotates → archive
+  Naming: PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md
+    - NNN: sequential number
+    - DESC: short English description
+    - DATE: submission date YYYYMMDD
+    - AUTHOR: submitter identifier (UPPERCASE)
 -->
 
-# 🔍 PROACTIVE_REPORT_NNN: 报告标题
+# PROACTIVE_REPORT_NNN: Report Title
 
-> **文件名**: `PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md`
-> **性质**: 主动报告（无对应 TASK）
-> **提交人**: [AUTHOR]
-> **日期**: YYYY-MM-DD
-
----
-
-## 一、范围与目标
-
-说明本次审计/分析/提案的范围和目标受众。
+**Submitter**: [AUTHOR]
+**Date**: YYYY-MM-DD
+**Priority**: 🔴 P0 / 🟡 P1 / 🟢 P2
 
 ---
 
-## 二、分析方法（可选）
+## Content
 
-描述使用的分析方法、参考标准、对比对象等。
-
----
-
-## 三、发现与分析
-
-### 3.1 [模块/页面/主题] — 评分: X/10
-
-| # | 问题 | 严重级别 | 位置 | 说明 |
-|---|------|----------|------|------|
-| 1 | 问题描述 | 🔴/🟡/💡 | 文件:行号 | 具体说明 |
-| 2 | 问题描述 | 🔴/🟡/💡 | 文件:行号 | 具体说明 |
-
-**改进建议**:
-- 建议 1
-- 建议 2
+Report body.
 
 ---
 
-### 3.2 [模块/页面/主题] — 评分: X/10
+## Suggestions / Findings
 
-（同上格式）
-
----
-
-## 四、优先级改进清单
-
-### 🔴 P0 - 立即修复
-1. **问题**: ... | **建议**: ...
-
-### 🟡 P1 - 近期修复
-1. **问题**: ... | **建议**: ...
-
-### 💡 P2 - 建议改进
-1. **问题**: ... | **建议**: ...
+| # | Category | Description | Recommendation |
+|---|------|------|------|
+| 1 | | | |
 
 ---
 
-## 五、总结
+## TPM Processing
 
-**整体评分**: X/10
+(TPM fills after reading)
 
-**优势**:
-- ...
-
-**待改进**:
-- ...
-
-**建议行动**:
-1. ...
-2. ...
-
----
-
-**提交人**: [AUTHOR]
-**日期**: YYYY-MM-DD
+**Date**: YYYY-MM-DD
+**Decision**: ✅ Accept / ❌ Reject / 📋 Task / 📅 Backlog / ✓ Done

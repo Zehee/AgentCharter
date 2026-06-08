@@ -1,25 +1,25 @@
-# 安全政策
+# Security Policy
 
-## 报告漏洞
+## Reporting a Vulnerability
 
-AgentCharter 是一个框架项目，本身不包含运行时代码。如果你发现规则设计或模板中存在安全风险（如可能导致 Agent 权限越界、数据泄露的规则缺陷），请：
+AgentCharter is a framework project with no runtime code. If you discover a security risk in its rule design or templates (e.g., privilege escalation vectors, data leak scenarios), please:
 
-- **不要公开提交 Issue**
-- 发送邮件至项目维护者（若未公布邮箱，通过 GitHub 私信联系）
-- 我们会在 48 小时内确认并启动修复
+- **Do not open a public Issue**
+- Contact the project maintainer (via GitHub private message if no email is published)
+- We will acknowledge within 48 hours and begin remediation
 
-## 支持版本
+## Supported Versions
 
-| 版本 | 支持状态 |
+| Version | Support Status |
 |------|----------|
-| v3.x (current) | ✅ 活跃支持 |
+| v3.x (current) | ✅ Actively supported |
 
-## 安全考量
+## Security Considerations
 
-AgentCharter 框架本身的风险面主要在于：
+AgentCharter's risk surface is primarily in:
 
-- **Git 隔离规则**：确保非 TPM Agent 无法执行 git 命令
-- **权限表准确性**：`ACTIONS.md` 错误的读写方向可能导致 Agent 意外篡改他人文件
-- **上下文注入安全**：`context/` 记忆文件若包含敏感凭证，需由 TPM 在注入前脱敏
+- **Git isolation rules**: ensuring non-TPM Agents cannot execute git commands
+- **Permission table accuracy**: incorrect read/write directions in `ACTIONS.md` could allow Agents to accidentally modify others' files
+- **Context injection safety**: `context/` memory files containing sensitive credentials must be sanitized by the TPM before injection
 
-以上风险由使用者项目的 TPM 在 `CHARTER.md` 中负责防范，框架只提供规则范式。
+These risks are mitigated by the user project's TPM through `CHARTER.md`. The framework provides only the rule templates.

@@ -1,30 +1,26 @@
-# REVISION_NNN: 修复 XXX 发现的问题
+# REVISION_NNN_DATE: Revision Task
 
-**分派人**: [your-TPM-name]
-**执行人**: [External/Native 标识]
-**优先级**: 🟡 P1
-**对应**: REVIEW_NNN
-**说明**: 文件名 `REVISION_NNN_DATE_ASSIGNEE.md`
-  - `NNN`: 对应审查序号，如 `044`
-  - `DATE`: 创建日期 `YYYYMMDD`
-  - `ASSIGNEE`: 领取者标识，如 `[External 标识]`、`[TPM 标识]`
+> **Filename**: `REVISION_NNN_DATE_ASSIGNEE.md`
+> **Location**: `inbox/`
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `DATE` = creation date, `ASSIGNEE` = executor (UPPERCASE)
+
+**Dispatcher**: TPM
+**Executor**: [ASSIGNEE]
+**Date**: YYYY-MM-DD
+**Priority**: 🔴 P0 | 🟡 P1
+**Related**: REPORT_NNN / REVIEW_REPORT_NNN
 
 ---
 
-## 目标
+## Issues to Fix
 
-一句话说明要修复什么。
+| # | Severity | File | Issue (from review report) |
+|---|------|------|------|
+| 1 | 🔴 | | |
+| 2 | 🟡 | | |
 
-## 问题清单
+## Acceptance Criteria
 
-| # | 问题 | 文件/位置 | 修复要求 |
-|---|------|----------|---------|
-| 1 | 问题描述 | `xxx:行号` | 期望的行为 |
-| 2 | 问题描述 | `xxx:行号` | 期望的行为 |
-
-## 验收标准
-
-- [ ] 修复条目 1
-- [ ] 修复条目 2
-- [ ] `[类型检查命令]` 0 错误
-- [ ] 提交 `outbox/REPORT_NNN_R1_DATE_AUTHOR.md`
+- [ ] All issues above resolved
+- [ ] Build verification passes
+- [ ] Submit `outbox/REPORT_NNN_R1_DATE_AUTHOR.md` with [Review Summary] section

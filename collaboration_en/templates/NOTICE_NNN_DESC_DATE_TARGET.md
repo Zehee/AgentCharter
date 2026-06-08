@@ -1,24 +1,24 @@
-# NOTICE_NNN: 通知标题
+# NOTICE_NNN: Notice Title
 
-> **文件名**: `NOTICE_NNN_DESC_DATE_TARGET.md`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=通知序号，`DESC`=通知内容简述，`DATE`=发布日期 `YYYYMMDD`，`TARGET`=目标受众标识（ALL / 执行者标识）
+> **Filename**: `NOTICE_NNN_DESC_DATE_TARGET.md`
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = notice number, `DESC` = brief description, `DATE` = publish date `YYYYMMDD`, `TARGET` = target audience identifier (ALL / agent identifier)
 
-**发布人**: TPM
-**日期**: YYYY-MM-DD
-**目标受众**: ALL / 执行者标识
-**优先级**: 🔴 P0 / 🟡 P1 / 🟢 P2
+**Publisher**: TPM
+**Date**: YYYY-MM-DD
+**Target**: ALL / [agent identifier]
+**Priority**: 🔴 P0 / 🟡 P1 / 🟢 P2
 
 ---
 
-## 内容
+## Content
 
-通知正文。
+Notice body.
 
-## 影响范围
+## Impact Scope
 
-- 影响文件/模块：...
-- 需要 action 的角色：...
+- Affected files/modules: ...
+- Roles needing action: ...
 
-## 生效时间
+## Effective Time
 
-立即生效 / 从 TASK_NNN 开始生效
+Immediate / From TASK_NNN
