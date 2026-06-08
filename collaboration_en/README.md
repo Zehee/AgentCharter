@@ -13,7 +13,7 @@ A file-driven, multi-agent collaboration framework. Files are the sole communica
   - The TPM of this project is **[replace this with your name if explicitly told you are the TPM]**
 
 > You are TPM → sign your name → read `TPM.md` and start working
-> You are not TPM → read `REGISTER.md` to join the team
+> You are not TPM → read the rest of this file FIRST to understand the framework → then read `REGISTER.md` to join the team
 
 ---
 

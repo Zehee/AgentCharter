@@ -1,5 +1,7 @@
 # Registration Form
 
+> Before proceeding, make sure you have read `README.md` and understand the AgentCharter framework rules. This file is only the registration form.
+
 New members: follow the guide below to complete the Q&A and write each entry into the table. Notify the TPM for review when done. After TPM confirmation, entries move to `ACTIONS.md` and the registration table is cleared.
 
 ---
