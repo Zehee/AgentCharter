@@ -108,20 +108,15 @@ DeepSeek proposed a three-layer decision recording architecture:
 
 Core mechanism: "Degradation still happens, but information is no longer lost."
 
-### 3.3 TPM's Own Decisions — A Symmetry Gap
+### 3.3 Decision Equality (Author Correction)
 
-Zehee further pointed out that TPM is itself a standard human-AI pair entry point, and its strategic decisions are also not recorded. DeepSeek identified this as a **symmetry gap**:
+DeepSeek suggested naming TPM decisions `STRATEGIC_DELTA` and external Agent decisions `TACTICAL_DECISION`, stored in separate directories. Zehee corrected: **they are the same substance — decisions produced by human-AI pairs.** TPM and external Agents are not two types of entities; both operate as human-AI pairs. The difference is only in the reporting line, not in the nature of the decision.
 
-- External Agents have PROACTIVE_REPORT + DECISION_DELTA
-- But TPM's strategic-level decisions have no corresponding mechanism
-- Because PROACTIVE_REPORT's semantics is "bottom-up feedback," unsuited for TPM's "top-down" design function
+Therefore:
 
-Solution: Introduce `STRATEGIC_DELTA`, symmetric with `TACTICAL_DECISION`:
-
-| Role | Decision Type | Location | Flow |
-|------|---------|---------|------|
-| TPM + human | Strategic planning, architecture, milestone adjustments | `decisions/strategic/` | → converted to TASKs |
-| External pair | Execution issues, improvement suggestions | `decisions/tactical/` | → packaged as PROACTIVE_REPORT → TPM |
+- ✅ One file type suffices: `DECISION_NNN_DATE_AUTHOR.md`, in `decisions/`
+- ✅ TPM decisions flow to TASKs, external Agent decisions flow to PROACTIVE_REPORTs — that's what ACTIONS.md defines, not the file type
+- ✅ No artificial "strategic" vs "tactical" layering
 
 ---
 
