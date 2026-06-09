@@ -62,7 +62,7 @@ Initialization complete. Everything you can do is documented in §2.
 | | Execute archiving (move to archive/) | §6 |
 | | Manage resident Sub-Agents (background create + resume reuse + loop scanning) | §7 |
 | | Inject context memory for Sub-Agents | §7 |
-| | Execute framework upgrades (read upstream → compare → create TASK → execute) | §13 |
+| | Execute framework upgrades (read upstream → compare → create TASK → execute, merge not overwrite) | §13 |
 
 **Red Lines**:
 - Never write business code
