@@ -35,3 +35,4 @@
 | 03:45 | Create | `DECISION_015` | 澄清 `context/` 目录职责边界 — 仅用于 Sub-Agent 注入，TPM/External Agent 不用 |
 | 03:50 | Execute | TASK_022-025 | 修正 README §十一记忆管理 + TPM.md §七 + CHARTER.md + EN 同步 |
 | 03:55 | Create | `REPORT_022_025` | 本轮完成报告 |
+| 08:30 | Process | `PROACTIVE_REPORT_003` | 确认 Kimi 入职 — 新建 collaboration-live/ACTIONS.md，写入 5 条协作链路，批注入职完成 |
