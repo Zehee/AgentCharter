@@ -5,12 +5,35 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Versioning Policy
 
-- **`collaboration/README.md`** carries the runtime version (`v3.2`) — Agents see this. Updated on every release.
+- **`collaboration/README.md`** carries the runtime version (`v3.3`) — Agents see this. Updated on every release.
 - **`CHANGELOG.md`** carries the full history with patch versions (`3.2.1`). The `[Unreleased]` section accumulates changes between releases.
 - **Git tags** mark releases (e.g. `v3.2.1`).
 - **`README.md` (outer)** is a marketing page — it does not carry a version number.
 
 ## [Unreleased]
+
+## [3.3.0] - 2026-06-10
+
+### Added
+
+- **DECISION file type**: 15th template (`DECISION_NNN_DATE_AUTHOR.md`) — structured records of human-AI pair decisions with verbatim reasoning chains
+- **collaboration-live/**: the framework's own collaboration instance — 9 DECISIONs, 12 TASKs, 2 TODOs, open to the community
+- **Pair decision recording guidelines** in `collaboration/README.md` §6
+- **TPM principle #10**: strategic decisions must be filed as DECISION files
+- **`docs/decision-protocol.md`**: complete optional spec
+- **`docs/deep-dive-20260609.md`**: 21-round dialogue analysis with DeepSeek
+
+### Changed
+
+- **Human-AI pair is now first-class**: TPM and External Agent explicitly labeled as "default human-AI pair." Sub-Agent (Native) as "pure AI"
+- **Bidirectional reference chain**: TASK/PROACTIVE_REPORT/TODO all link back to DECISION files
+- **README.md / README_CN.md rewritten**: "Trust, not control" philosophy front and center, human-AI pair narrative replaces framework-feature narrative
+- **collaboration/README.md v3.2 → v3.3**: DECISION type in quick reference, archive rules, directory tree. 14 → 15 templates
+
+### Philosophy
+
+- **Trust, not control**: the framework's foundational belief — agents follow the protocol by reading files, not by code-level enforcement
+- **Every byte traceable**: from DECISION → TASK → REPORT, the full causal chain is preserved in immutable Markdown files
 
 ### Added
 
