@@ -311,6 +311,8 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 
 **Reporter is not a standalone role** — any role can double as one. When you submit a `PROACTIVE_REPORT`, you are the Reporter.
 
+**Human-AI pair Agents (TPM and External Agent) should additionally read** `templates/DECISION_NNN_DATE_AUTHOR.md` after onboarding to understand the decision recording format. Sub-Agents do not need this.
+
 ---
 
 ## 12. Quick Reference
@@ -321,6 +323,7 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 | Get a task | Check `ACTIONS.md` for your dispatch row → scan inbox/ or wait for internal dispatch |
 | Submit a report | Write `outbox/REPORT_NNN_DATE_AUTHOR.md` |
 | Submit a proactive report | Write `outbox/PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md` |
+| Record a decision | Write `decisions/DECISION_NNN_DATE_AUTHOR.md` (human-AI pair) |
 | Write a review conclusion | Write `reviews/REVIEW_REPORT_NNN_DATE_AUTHOR.md` with file:line + severity |
 | Report a block | Write `outbox/BLOCKING_NNN_DATE_TARGET.md` (state the unblock condition) |
 | Resolve a block | Write `outbox/BLOCKING_REPLY_NNN_DATE_AUTHOR.md` |

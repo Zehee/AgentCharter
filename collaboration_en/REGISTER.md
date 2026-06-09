@@ -15,6 +15,7 @@ New members: follow the guide below to complete the Q&A and write each entry int
 | Review Code | | |
 | Proactive Report | | |
 | Blocking Notice | | |
+| Decision Record | | |
 
 ---
 
@@ -71,6 +72,13 @@ Action 5 — Blocking Dependencies
   Write: | Blocking Notice | Me → Selected | outbox/BLOCKING |
   Q: Who gets blocked because of me?
   Write: | Blocking Notice | Selected → Me | outbox/BLOCKING |
+
+Action 6 — Decision Recording (human-AI pairs only; Sub-Agent skip)
+  Q: Do I need to record decision processes?
+  If Yes — You are a human-AI pair Agent. When significant consensus is reached with your human, create DECISION files recording the reasoning chain.
+  Write: | Decision Record | Me → decisions/ | DECISION_NNN_DATE_AUTHOR.md |
+  If TPM action is needed, feed the DECISION into a PROACTIVE_REPORT.
+  If No — skip (not applicable to Sub-Agent).
 ```
 
 **After writing: status = Onboarding Pending. Tell the developer "Registration complete, please ask the TPM to review." After TPM confirmation, entries move to ACTIONS.md and the registration table is cleared.**
@@ -84,10 +92,12 @@ External Agent:
   → Scan inbox/ for TASK with ASSIGNEE=you
   → Pick up → code → REPORT to outbox/ → write logs/
   → When doubling as Reporter: proactive report → outbox/PROACTIVE_REPORT → wait for inbox/REPLY receipt
+  → Human-AI pair decisions: write DECISION → decisions/, feed into PROACTIVE_REPORT if TPM action needed
 
 Sub-Agent (Native):
   → Wait for TPM internal dispatch → code
   → Write REPORT to outbox/ → deliver source directly (internal channel) → write logs/
+  → No DECISION — pure AI, no human interaction
 
 Reviewer:
   → Read REPORT → review → write REVIEW_REPORT to reviews/

@@ -15,6 +15,7 @@
 | 审查代码 | | |
 | 主动报告 | | |
 | 阻塞通知 | | |
+| 决策记录 | | |
 
 ---
 
@@ -71,6 +72,13 @@ Reporter 说明: 任何角色均可兼任 Reporter，提交无对应 TASK 的主
   写入: | 阻塞通知 | 我 → 选择 | outbox/BLOCKING |
   Q: 谁会因为我卡住？
   写入: | 阻塞通知 | 选择 → 我 | outbox/BLOCKING |
+
+动作 6 — 决策记录（人机结对适用，Sub-Agent 跳过）
+  Q: 我是否需要记录决策过程？
+  如果"是" — 你是人机结对 Agent。当人类与你达成重要共识时，创建 DECISION 文件记录推理链。
+  写入: | 决策记录 | 我 → decisions/ | DECISION_NNN_DATE_AUTHOR.md |
+  需要 TPM 行动时，将 DECISION 汇入 PROACTIVE_REPORT。
+  如果"否" — 跳过（Sub-Agent 不适用）。
 ```
 
 **写入完成后状态 = 入职中。告知开发者"已填写入职登记，请让 TPM 审查"。TPM 确认后移入 ACTIONS.md，清空入职动作表。**
@@ -84,10 +92,12 @@ External Agent:
   → 巡检 inbox/ 找 ASSIGNEE 是自己的 TASK
   → 领取 → 编码 → REPORT 到 outbox/ → 写 logs/
   → 兼任 Reporter 时: 主动报告 → outbox/PROACTIVE_REPORT → 等 inbox/REPLY 回执
+  → 人机结对决策时: 写 DECISION → decisions/，需 TPM 行动时汇入 PROACTIVE_REPORT
 
 Sub-Agent (Native):
   → 等 TPM 内部投递 → 编码
   → 写 REPORT 到 outbox/ → 源码直推（内部通道）→ 写 logs/
+  → 无 DECISION — 纯 AI，不与人交互
 
 Reviewer:
   → 读 REPORT → 审查 → 写 REVIEW_REPORT 到 reviews/

@@ -311,6 +311,8 @@ TPM 写 TASK → inbox/
 
 **Reporter 不是独立角色**，任何角色均可兼任。提交 `PROACTIVE_REPORT` 时即为 Reporter。
 
+**人机结对 Agent（TPM 和 External Agent）入职后应额外阅读** `templates/DECISION_NNN_DATE_AUTHOR.md` 了解决策记录格式。Sub-Agent 无需关注。
+
 ---
 
 ## 十二、快速参考
@@ -321,6 +323,7 @@ TPM 写 TASK → inbox/
 | 领任务 | 查 `ACTIONS.md` 自己的分派行 → 巡检 inbox/ 或等内部投递 |
 | 交报告 | 写 `outbox/REPORT_NNN_DATE_AUTHOR.md` |
 | 交主动报告 | 写 `outbox/PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md` |
+| 记录决策 | 写 `decisions/DECISION_NNN_DATE_AUTHOR.md`（人机结对适用） |
 | 写审查结论 | 写 `reviews/REVIEW_REPORT_NNN_DATE_AUTHOR.md`，附文件:行号 + 严重度 |
 | 报告阻塞 | 写 `outbox/BLOCKING_NNN_DATE_TARGET.md`（写明解除条件） |
 | 解除阻塞 | 写 `outbox/BLOCKING_REPLY_NNN_DATE_AUTHOR.md` |
