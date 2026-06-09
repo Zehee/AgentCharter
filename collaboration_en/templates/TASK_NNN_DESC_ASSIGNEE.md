@@ -10,6 +10,7 @@
 **Priority**: 🔴 P0 | 🟡 P1 | 🟢 P2
 **Review Level**: P0 / P1 / P2 / P3
 **Related**: (related TASK / REVISION)
+**Decision Source**: DECISION_NNN / PROACTIVE_REPORT_NNN (optional)
 
 ---
 

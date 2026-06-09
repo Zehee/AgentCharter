@@ -8,6 +8,7 @@
 **执行人**: [External/Native 标识] / ALL
 **优先级**: 🔴 P0 | 🟡 P1 | 🟢 P2
 **依赖**: 如 TASK_XXX 已完成（可选）
+**决策来源**: DECISION_NNN / PROACTIVE_REPORT_NNN（可选，本任务由哪个决策或主动报告触发）
 
 ---
 

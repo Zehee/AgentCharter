@@ -21,7 +21,7 @@
 | **Number** | TODO_001 | Sequential number |
 | **Description** | SETTINGS-REFORM | Short description, within segment use `-` |
 | **Source** | `REPORT_077_20260602_DESIGNER.md` | Full source filename |
-| **Source Type** | Proactive Report | Proactive Report / Milestone / User Feedback / Tech Debt |
+| **Source Type** | Proactive Report | Proactive Report / Decision / Milestone / User Feedback / Tech Debt |
 | **Priority** | 🟢 P2 | 🔴 P0 / 🟡 P1 / 🟢 P2 / ⚪ P3 |
 | **Status** | ⏳ Pending | ⏳ Pending → 📅 Scheduled → 📋 Task Created → ✅ Done |
 | **Planned Date** | — | If scheduled, estimated execution date |

@@ -129,6 +129,7 @@ REVISION_049C_20260530_FLASH.md
 | 任务报告 | `REPORT_NNN_DATE_AUTHOR.md` | outbox/ | 执行者 |
 | 测试报告 | `TEST_REPORT_NNN_DATE_AUTHOR.md` | outbox/ | 测试员 |
 | 主动报告 | `PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md` | outbox/ | 任何人 |
+| 决策记录 | `DECISION_NNN_DATE_AUTHOR.md` | decisions/ | 人机结对 Agent |
 | 审查报告 | `REVIEW_REPORT_NNN_DATE_AUTHOR.md` | reviews/ | Reviewer |
 | 阻塞通知 | `BLOCKING_NNN_DATE_TARGET.md` | outbox/ | 阻塞方 |
 | 阻塞回复 | `BLOCKING_REPLY_NNN_DATE_AUTHOR.md` | outbox/ | 解除方 |
@@ -241,9 +242,10 @@ TPM 写 TASK → inbox/
 | REPORT | TPM 读取并决策后归档 |
 | REVIEW_REPORT | ACCEPT 或 REVISION_NEEDED 结论后归档 |
 | PROACTIVE_REPORT | TPM 批注并放置 REPLY 后归档 |
+| DECISION | 关联的 TASK/TODO 全部完成后归档 |
 | TODO | 转为 TASK 后归档 / 过期废弃后归档 |
 
-**目标路径**：`archive/inbox/` / `archive/outbox/` / `archive/reviews/` / `archive/events/`
+**目标路径**：`archive/inbox/` / `archive/outbox/` / `archive/reviews/` / `archive/decisions/` / `archive/events/`
 
 ---
 

@@ -18,6 +18,7 @@
 
 **Author**: [AUTHOR]
 **Date**: YYYY-MM-DD
+**Linked Decisions**: DECISION_NNN (optional)
 
 ---
 

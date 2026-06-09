@@ -129,6 +129,7 @@ REVISION_049C_20260530_FLASH.md
 | Task Report | `REPORT_NNN_DATE_AUTHOR.md` | outbox/ | Executor |
 | Test Report | `TEST_REPORT_NNN_DATE_AUTHOR.md` | outbox/ | Tester |
 | Proactive Report | `PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md` | outbox/ | Anyone |
+| Decision Record | `DECISION_NNN_DATE_AUTHOR.md` | decisions/ | Human-AI Pair Agent |
 | Review Report | `REVIEW_REPORT_NNN_DATE_AUTHOR.md` | reviews/ | Reviewer |
 | Blocking Notice | `BLOCKING_NNN_DATE_TARGET.md` | outbox/ | Blocker |
 | Blocking Reply | `BLOCKING_REPLY_NNN_DATE_AUTHOR.md` | outbox/ | Resolver |
@@ -241,9 +242,10 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 | REPORT | After TPM reads and decides |
 | REVIEW_REPORT | After ACCEPT or REVISION_NEEDED conclusion |
 | PROACTIVE_REPORT | After TPM annotates and places REPLY |
+| DECISION | After all linked TASK/TODOs are complete |
 | TODO | When converted to TASK / expired and discarded |
 
-**Target paths**: `archive/inbox/` / `archive/outbox/` / `archive/reviews/` / `archive/events/`
+**Target paths**: `archive/inbox/` / `archive/outbox/` / `archive/reviews/` / `archive/decisions/` / `archive/events/`
 
 ---
 
