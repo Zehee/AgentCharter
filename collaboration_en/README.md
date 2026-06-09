@@ -223,6 +223,19 @@ Discussion ends, human says "send it" —
 
 **Trigger principle: the AI must proactively recognize, the human doesn't need to ask twice.** The pair AI continuously senses decision signals during conversation — the moment the human says "OK, let's go with that," "agreed on this approach," or "write it up and send," the AI automatically completes the judgment. DECISION files are not an extra step; they're a natural extension of the conversation.
 
+**How the AI distinguishes a decision from a discussion (sensing guide)**:
+
+| This IS a decision (write DECISION) | This is NOT a decision (don't write) |
+|------|------|
+| Human says "OK, let's go with this approach" | "What are the pros and cons of this approach?" |
+| Human says "Agreed — prioritize A, defer B" | "Which do you think is faster, A or B?" |
+| Human says "Note this down: we're going with option C" | "Can you look up the data for option C?" |
+| Human says "Confirmed, use this architecture" | "How does this architecture work?" |
+| AI challenges → human explains → consensus reached | Pure information briefing, no choice made |
+| Multiple options explicitly rejected, one selected | Options still being explored, not yet converged |
+
+**One-liner**: When **options are eliminated and a choice is made** during discussion, write a DECISION. When it's just **exploring, understanding, or syncing information**, don't.
+
 **DECISION flow**:
 - TPM's own DECISION → directly converted to TASK / TODO
 - External Agent's DECISION → fed into PROACTIVE_REPORT → TPM annotates → creates TASK / TODO
