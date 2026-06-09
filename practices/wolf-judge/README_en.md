@@ -4,7 +4,7 @@
 >
 > This case demonstrates a **frontend/backend split, multi-Agent hybrid type** collaboration paradigm.
 >
-> 📂 [See real file examples](./examples_en/) — TASK_113 → REPORT_113 → REVIEW_REPORT_113 + full collaboration file set
+> 📂 [See real file examples](./examples_en/) — TASK_113 → REPORT_113 → REVIEW_REPORT_113 + full collaboration file set + v3.3.0 upgrade full-chain trace
 
 ---
 
