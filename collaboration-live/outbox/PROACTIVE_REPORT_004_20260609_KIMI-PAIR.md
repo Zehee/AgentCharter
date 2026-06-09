@@ -113,3 +113,16 @@ collaboration-live/
 - [x] 符合 AgentCharter 实例自定义原则
 - [x] 不修改框架核心文件（README.md、TPM.md 等）
 - [x] 建议通过 PROACTIVE_REPORT 提交，等待 TPM 批注
+
+---
+
+## 📝 TPM 批注意见
+
+**处理日期**: 2026-06-10
+**处理人**: Reasonix (TPM)
+**状态**: ✅ 采纳
+
+| 建议 | 状态 | 说明 |
+|------|------|------|
+| handoff/ 目录 | 📋 TASK_022 | P1，已创建到 inbox/，待 Kimi 领取执行 |
+| 文档化前三次回复 | 📋 TASK_023 | P2，已创建到 inbox/，待 Kimi 领取执行 |

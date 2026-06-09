@@ -36,3 +36,5 @@
 | 03:50 | Execute | TASK_022-025 | 修正 README §十一记忆管理 + TPM.md §七 + CHARTER.md + EN 同步 |
 | 03:55 | Create | `REPORT_022_025` | 本轮完成报告 |
 | 08:30 | Process | `PROACTIVE_REPORT_003` | 确认 Kimi 入职 — 新建 collaboration-live/ACTIONS.md，写入 5 条协作链路，批注入职完成 |
+| 08:45 | Dispatch | TASK_022-024 | 评估 Kimi 候选任务 — 2 项否决（CLI 工具）、1 项已完成（速查表）、3 项通过 → TASK_022 handoff/、TASK_023 文档化、TASK_024 索引页 |
+| 08:50 | Process | `PROACTIVE_REPORT_004` | 批注采纳 — handoff/ 和文档化任务已创建到 inbox/ |
