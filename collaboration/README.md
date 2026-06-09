@@ -152,6 +152,8 @@ REVISION_049C_20260530_FLASH.md
 
 ## 五、任务生命周期
 
+> **终极产物只有 TASK 和 TODO** — 无论协作链多复杂（DECISION → PROACTIVE_REPORT → TPM 加工），最终落地永远是 TASK（可执行工作）或 TODO（排期事项）。中间文件是证据，不是终点。
+
 ```
 TPM 写 TASK → inbox/
   → 执行者领取 → 编码 → 写 REPORT → outbox/
@@ -242,6 +244,7 @@ TPM 写 TASK → inbox/
 - 无 DECISION 不产生 DECISION——信息对齐、确认已读、同步认知的对话，没有选择被做出，不产生 DECISION。DECISION 是决策记录，不是会议纪要
 
 **关键约束**：
+- **最终产物只有 TASK 和 TODO** — 所有决策的最终落地形式必须是 TASK（可执行工作）或 TODO（排期事项）。DECISION、PROACTIVE_REPORT、REVIEW_REPORT 都是中间证据，不是最终产物
 - 需要 TPM 行动就必须有 PROACTIVE_REPORT——DECISION 是证据，PROACTIVE_REPORT 是行动请求
 - 没有推理过程就不需要 DECISION——它是可选的质量增强，不是强制环节
 - DECISION 归档时机：关联的所有 TASK/TODO 完成后，移入 `archive/decisions/`

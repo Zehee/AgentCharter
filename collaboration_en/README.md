@@ -152,6 +152,8 @@ REVISION_049C_20260530_FLASH.md
 
 ## 5. Task Lifecycle
 
+> **The only final artifacts are TASK and TODO** — no matter how complex the collaboration chain gets (DECISION → PROACTIVE_REPORT → TPM processing), it always lands as a TASK (executable work) or TODO (backlog item). Intermediate files are evidence, not endpoints.
+
 ```
 TPM writes TASK → inbox/
   → Executor picks up → codes → writes REPORT → outbox/
@@ -245,6 +247,7 @@ Discussion ends, human says "send it" —
 - If TPM action is needed, a PROACTIVE_REPORT is mandatory — DECISION is evidence, PROACTIVE_REPORT is the action request
 - No reasoning chain → no DECISION needed — it's an optional quality enhancement, not a mandatory step
 - DECISION archive timing: after all linked TASK/TODOs complete, move to `archive/decisions/`
+- **Final artifacts are TASK and TODO only** — every decision ultimately lands as a TASK (executable work) or TODO (backlog item). DECISION, PROACTIVE_REPORT, and REVIEW_REPORT are intermediate evidence, not final artifacts
 
 ---
 
