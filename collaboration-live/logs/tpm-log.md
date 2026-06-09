@@ -39,3 +39,8 @@
 | 08:45 | Dispatch | TASK_022-024 | 评估 Kimi 候选任务 — 2 项否决（CLI 工具）、1 项已完成（速查表）、3 项通过 → TASK_022 handoff/、TASK_023 文档化、TASK_024 索引页 |
 | 08:50 | Process | `PROACTIVE_REPORT_004` | 批注采纳 — handoff/ 和文档化任务已创建到 inbox/ |
 | 09:00 | Amend | 候选 TASK 评估 | Zehee 纠正：模板验证器 + CHANGELOG 均为 ✅ 采纳（可选工具/实例工具）；速查表和索引改为先写方案报告 → TASK_024-027 更新至 inbox/ |
+| 09:15 | Review | REPORT_024 | 确认采纳方案 A（按文件类型分类）+ 索引页自身 bilingual — 指令 Kimi 执行 |
+| 09:16 | Review | REPORT_025 | 确认采纳方案 A（最小补全 3 项）— 指令 Kimi 执行 |
+| 09:17 | Review | REPORT_026 | ACCEPT — validate.py 203 行 0 错误，直接并入 extras/ |
+| 09:18 | Review | REPORT_027 | ACCEPT — generate.py 159 行，直接并入 extras/ |
+| 09:20 | Process | PROACTIVE_REPORT_004 | 更新批注：handoff/ 和文档化已执行完成；TASK_026/027 代码 ACCEPT |

@@ -39,3 +39,11 @@
 5. **五步法** — 确认 → DECISION → TASK → 执行 → REPORT → 日志，每一步不可跳过
 6. **人机结对** — Kimi 的默认模式是 Human-AI Pair（Zehee + Kimi）
 7. **handoff/ 自定义** — 实例允许个性化拓展，需通过 PROACTIVE_REPORT 建议并经 TPM 审批
+
+| --:-- | Delete | `collaboration-live/outbox/PROACTIVE_REPORT_005_20260609_KIMI-PAIR.md` | 基于误解，按 Zehee 指令撤回删除 |
+| --:-- | Create | `extras/template-validator/validate.py` | TASK_026：模板验证器 CLI（~200 行）|
+| --:-- | Create | `extras/changelog-automation/generate.py` | TASK_027：CHANGELOG 自动化脚本（~150 行）|
+| --:-- | Test | `validate.py` | 验证 43 个文件，0 错误，13 警告（英文模板头部字段差异）|
+| --:-- | Test | `generate.py` | 成功生成 [Unreleased] CHANGELOG 草稿 |
+| --:-- | Create | `collaboration-live/outbox/REPORT_024_KIMI.md` | TASK_024：examples 索引方案报告 |
+| --:-- | Create | `collaboration-live/outbox/REPORT_025_KIMI.md` | TASK_025：速查表补全方案报告 |
