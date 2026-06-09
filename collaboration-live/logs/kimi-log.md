@@ -68,3 +68,14 @@
 | --:-- | Edit | `collaboration-live/decisions/DECISION_018_20260609_TPM-PAIR.md` | 重写：补充完整讨论原文与 5 个 TASK 优先级细节 |
 
 | --:-- | Edit | `collaboration-live/decisions/DECISION_018_20260609_TPM-PAIR.md` | 按会话往返时间线重写（Round 1-12），可读完整链路 |
+
+| 2026-06-10 | Read | `inbox/TASK_028_ANNOTATE-BOUNDARY_KIMI.md` | -check 巡检发现新 TASK |
+| 2026-06-10 | Read | `inbox/TASK_029_CHARTER-ANNOTATION_KIMI.md` | -check 巡检发现新 TASK |
+| 2026-06-10 | Edit | `collaboration/README.md` §五 | TASK_028：加参考模式注释 |
+| 2026-06-10 | Edit | `collaboration/TPM.md` | TASK_028：加 PART A/B 标记 + 参考模式注释 |
+| 2026-06-10 | Edit | `collaboration/CHARTER.md` | TASK_029：加个性层定位注释 |
+| 2026-06-10 | Edit | `collaboration_en/README.md` §5 | TASK_028：英文同步 |
+| 2026-06-10 | Edit | `collaboration_en/TPM.md` | TASK_028：英文同步 |
+| 2026-06-10 | Edit | `collaboration_en/CHARTER.md` | TASK_029：英文同步 |
+| 2026-06-10 | Write | `outbox/REPORT_028_KIMI.md` | TASK_028 完成报告 |
+| 2026-06-10 | Write | `outbox/REPORT_029_KIMI.md` | TASK_029 完成报告 |
