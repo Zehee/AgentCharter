@@ -30,11 +30,13 @@
 
 ### 1.2 三种角色
 
-| 角色 | 职责 | 通道 |
-|------|------|------|
-| **TPM** | 分派任务 T、编排计划 P、审批协调 M、Git 唯一权限 | 文件 + 内部 |
-| **External Agent** | 巡检 inbox/ 领取任务，编码，提交 REPORT | 文件通道 |
-| **Sub-Agent (Native)** | 等待 TPM 内部投递，编码，内部交付 diff + outbox/REPORT 留痕 | 内部 + 文件 |
+| 角色 | 职责 | 通道 | 人机结对 |
+|------|------|------|----------|
+| **TPM** | 分派任务 T、编排计划 P、审批协调 M、Git 唯一权限 | 文件 + 内部 | ✅ 默认人机结对 — 人类与 AI 在同一对话中协作 |
+| **External Agent** | 巡检 inbox/ 领取任务，编码，提交 REPORT | 文件通道 | ✅ 默认人机结对 — 人类与 AI 在同一对话中协作 |
+| **Sub-Agent (Native)** | 等待 TPM 内部投递，编码，内部交付 diff + outbox/REPORT 留痕 | 内部 + 文件 | ❌ 纯 AI — 无对话入口，后台常驻执行 |
+
+> **人机结对（Human-AI Pair）说明**：TPM 和 External Agent 在默认设定下均为"人机结对综合体"——它们背后可以是 AI 独自运行、人类独自操作、或人类+AI 在对话中协作。当对话中产生重要决策时，通过 `DECISION` 文件记录推理链。Sub-Agent (Native) 为纯 AI，无法直接与人交互，不产生 DECISION。
 
 ### 1.3 通信协议
 
@@ -77,13 +79,14 @@ collaboration/
 ├── ACTIONS.md             协作链路表（空模板，TPM 维护）
 ├── dashboard.md           TPM 维护，给人类看的进度报告；人类发现错误可以在这里写指令，TPM 巡检时读取
 ├── context/               Sub-Agent 上下文记忆（TPM 维护）
+├── decisions/             DECISION 决策记录（人机结对 Agent 写入）
 ├── inbox/                 TASK / REVISION / NOTICE / REPLY
 ├── outbox/                REPORT / PROACTIVE_REPORT / BLOCKING
 ├── reviews/               REVIEW_REPORT（Reviewer 写，所有人读）
 ├── logs/                  每人独占一份操作日志
 ├── todos/                 TODO 排期事项（TPM 维护）
-├── templates/             14 个文件模板（只读基准）
-└── archive/               已完成归档（inbox / outbox / reviews / events）
+├── templates/             15 个文件模板（只读基准）
+└── archive/               已完成归档（inbox / outbox / reviews / decisions / events）
 ```
 
 | 路径 | 谁写 | 谁读 |
@@ -201,6 +204,30 @@ TPM 写 TASK → inbox/
 **来源**：主动报告中 📅 排期的建议、里程碑规划中暂缓的需求、用户提出的低优先级想法。
 
 **生命周期**：TODO 被排入计划 → TPM 转为 TASK 放入 inbox/ → 原 TODO 归档。过期或决定废弃的 TODO 直接归档。长期未启动的 TODO 保留在 todos/，提醒 TPM 定期审视。
+
+---
+
+### `decisions/` 目录 — 结对决策记录
+
+> TPM 和 External Agent 在默认设定下均为"人机结对综合体"。当人类与 AI 在对话中产生重要决策时，通过 `DECISION` 文件记录推理链。
+
+**PROACTIVE_REPORT 记录产物，DECISION 记录过程。** 需要 TPM 行动时：
+
+```
+人机讨论
+  ├── 一句话决策 → 直接写 PROACTIVE_REPORT（不产生 DECISION）
+  └── 多轮推理、有完整推理链 → AI 提取 DECISION（推理链原文）→ 汇入 PROACTIVE_REPORT（行动请求）
+```
+
+**DECISION 的流向**：
+- TPM 自己的 DECISION → 直接转化为 TASK / TODO
+- 外部 Agent 的 DECISION → 汇入 PROACTIVE_REPORT → TPM 批注 → 创建 TASK / TODO
+- 仅在结对内部有效的 DECISION → 归档即可，不需外部行动
+
+**关键约束**：
+- 需要 TPM 行动就必须有 PROACTIVE_REPORT——DECISION 是证据，PROACTIVE_REPORT 是行动请求
+- 没有推理过程就不需要 DECISION——它是可选的质量增强，不是强制环节
+- DECISION 归档时机：关联的所有 TASK/TODO 完成后，移入 `archive/decisions/`
 
 ---
 

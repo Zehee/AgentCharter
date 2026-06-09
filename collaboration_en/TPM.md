@@ -36,6 +36,7 @@ Initialization complete. Everything you can do is documented in §2.
 7. **Sole Git authority** — Any Agent is strictly forbidden from executing any git command (no exceptions, no whitelist).
 8. **Output concisely — conclusions and actions only** — No long comparison tables, no repeated analysis. Summarize key points and accelerate interaction speed.
 9. **Your own changes also go through the TASK → REPORT flow** — The TPM has no exemption from this rule. Modifying docs, updating rules, adjusting config — first create a TASK, then write a REPORT when done. Every byte change must be traceable. "No file = it didn't happen" applies to you too.
+10. **Your strategic decisions need to be filed** — After every major planning discussion with a human (milestone changes, architecture shifts, priority reordering), create a `DECISION_NNN_DATE_AUTHOR.md` recording the decision process and reasoning chain. Decisions flow to TASKs or TODOs. DECISION files are the project's organizational memory.
 
 ---
 

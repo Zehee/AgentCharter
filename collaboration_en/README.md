@@ -30,11 +30,13 @@ A file-driven, multi-agent collaboration framework. Files are the sole communica
 
 ### 1.2 Three Roles
 
-| Role | Responsibility | Channel |
-|------|------|------|
-| **TPM** | Dispatch tasks (T), orchestrate plans (P), approve & coordinate (M), sole Git authority | File + Internal |
-| **External Agent** | Scan inbox/ for tasks, code, submit REPORT | File channel |
-| **Sub-Agent (Native)** | Wait for TPM internal dispatch, code, deliver diff via internal channel + outbox/REPORT for audit | Internal + File |
+| Role | Responsibility | Channel | Human-AI Pair |
+|------|------|------|----------|
+| **TPM** | Dispatch tasks (T), orchestrate plans (P), approve & coordinate (M), sole Git authority | File + Internal | ✅ Default pairing — human + AI collaborate in same conversation |
+| **External Agent** | Scan inbox/ for tasks, code, submit REPORT | File channel | ✅ Default pairing — human + AI collaborate in same conversation |
+| **Sub-Agent (Native)** | Wait for TPM internal dispatch, code, deliver diff via internal channel + outbox/REPORT for audit | Internal + File | ❌ Pure AI — no conversation interface, background worker |
+
+> **Human-AI Pair**: The TPM and External Agent are, by default, "human-AI pair composites" — behind either role can be an AI running alone, a human operating alone, or a human + AI collaborating in conversation. When significant decisions emerge, record the reasoning chain via `DECISION` files. Sub-Agent (Native) is pure AI, cannot directly interact with humans, and does not produce DECISION files.
 
 ### 1.3 Communication Protocols
 
@@ -77,13 +79,14 @@ collaboration/
 ├── ACTIONS.md             Collaboration link table (empty template, TPM maintains)
 ├── dashboard.md           TPM-maintained progress report for humans; humans can write instructions here, TPM reads them during patrol
 ├── context/               Sub-Agent context memory (TPM maintains)
+├── decisions/             DECISION records (written by human-AI pair Agents)
 ├── inbox/                 TASK / REVISION / NOTICE / REPLY
 ├── outbox/                REPORT / PROACTIVE_REPORT / BLOCKING
 ├── reviews/               REVIEW_REPORT (Reviewer writes, all read)
 ├── logs/                  One exclusive operation log per person
 ├── todos/                 TODO backlog (TPM maintains)
-├── templates/             14 file templates (read-only reference)
-└── archive/               Completed archive (inbox / outbox / reviews / events)
+├── templates/             15 file templates (read-only reference)
+└── archive/               Completed archive (inbox / outbox / reviews / decisions / events)
 ```
 
 | Path | Who Writes | Who Reads |
@@ -201,6 +204,30 @@ A staging area for backlog items. When the TPM decides a requirement is **not fo
 **Sources**: 📅 Backlog decisions from proactive reports, deferred milestone items, low-priority ideas from users.
 
 **Lifecycle**: TODO gets scheduled → TPM converts to TASK in inbox/ → original TODO archived. Expired or discarded TODOs are archived directly. Long-unstarted TODOs remain in todos/ as a reminder for the TPM to review periodically.
+
+---
+
+### `decisions/` Directory — Pair Decision Records
+
+> The TPM and External Agent are, by default, "human-AI pair composites." When significant decisions emerge during conversation, record the reasoning chain via `DECISION` files.
+
+**PROACTIVE_REPORT records the product; DECISION records the process.** When TPM action is needed:
+
+```
+Human-AI discussion
+  ├── One-line decision → write PROACTIVE_REPORT directly (no DECISION needed)
+  └── Multi-round reasoning, full chain → AI extracts DECISION (verbatim reasoning) → feeds into PROACTIVE_REPORT (action request)
+```
+
+**DECISION flow**:
+- TPM's own DECISION → directly converted to TASK / TODO
+- External Agent's DECISION → fed into PROACTIVE_REPORT → TPM annotates → creates TASK / TODO
+- Internally-relevant DECISION → archive directly, no external action needed
+
+**Key constraints**:
+- If TPM action is needed, a PROACTIVE_REPORT is mandatory — DECISION is evidence, PROACTIVE_REPORT is the action request
+- No reasoning chain → no DECISION needed — it's an optional quality enhancement, not a mandatory step
+- DECISION archive timing: after all linked TASK/TODOs complete, move to `archive/decisions/`
 
 ---
 
