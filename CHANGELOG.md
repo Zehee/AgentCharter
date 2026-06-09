@@ -12,6 +12,16 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- **Template validator CLI** (`extras/template-validator/`) — optional tool to validate 15 template formats and naming conventions
+- **CHANGELOG automation script** (`extras/changelog-automation/`) — project-only tool to generate Keep a Changelog drafts from Git commits
+- **wolf-judge examples index** (`practices/wolf-judge/examples/README.md`) — bilingual navigation page for real-world collaboration files
+
+### Changed
+
+- **Quick reference expanded** (`collaboration/README.md` §12 / `collaboration_en/README.md` §12) — added 3 entries: pick up revision, pick up test task, check backlog
+
 ## [3.3.0] - 2026-06-10
 
 ### Added

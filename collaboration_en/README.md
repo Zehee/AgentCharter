@@ -364,6 +364,9 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 | Resolve a block | Write `outbox/BLOCKING_REPLY_NNN_DATE_AUTHOR.md` |
 | Write a log | Append to `logs/{identifier}-log.md` |
 | Check a template | Read the corresponding file in `templates/` |
+| Pick up a revision | Check inbox/REVISION_NNN → read corresponding REVIEW_REPORT → fix → write REPORT_NNN_R1 (copy [Review Summary] from previous round + append fix response) |
+| Pick up a test task | Check inbox/TASK_TEST_NNN → run tests → write `outbox/TEST_REPORT_NNN_DATE_AUTHOR.md` |
+| Check backlog | Read TODO files in `todos/` |
 | See progress (human) | Read `dashboard.md` |
 
 ---

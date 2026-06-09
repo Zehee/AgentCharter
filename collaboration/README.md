@@ -364,6 +364,9 @@ TPM 写 TASK → inbox/
 | 解除阻塞 | 写 `outbox/BLOCKING_REPLY_NNN_DATE_AUTHOR.md` |
 | 写日志 | 追加到 `logs/{标识}-log.md` |
 | 查模板 | 读 `templates/` 对应文件 |
+| 领取修订 | 查 inbox/REVISION_NNN → 读对应 REVIEW_REPORT → 修复 → 写 REPORT_NNN_R1（【审查摘要】节复制上轮原文 + 追加修复回应） |
+| 领取测试任务 | 查 inbox/TASK_TEST_NNN → 按测试计划执行 → 写 `outbox/TEST_REPORT_NNN_DATE_AUTHOR.md` |
+| 查看排期 | 读 `todos/` 中的 TODO 文件 |
 | 看进度（人类） | 读 `dashboard.md` |
 
 ---

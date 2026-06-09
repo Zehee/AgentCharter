@@ -47,3 +47,9 @@
 | --:-- | Test | `generate.py` | 成功生成 [Unreleased] CHANGELOG 草稿 |
 | --:-- | Create | `collaboration-live/outbox/REPORT_024_KIMI.md` | TASK_024：examples 索引方案报告 |
 | --:-- | Create | `collaboration-live/outbox/REPORT_025_KIMI.md` | TASK_025：速查表补全方案报告 |
+
+| --:-- | Create | `practices/wolf-judge/examples/README.md` | TASK_024 执行：索引页（bilingual）|
+| --:-- | Edit | `collaboration/README.md` §十二 | TASK_025 执行：添加领取修订/测试任务/查看排期 |
+| --:-- | Edit | `collaboration_en/README.md` §12 | TASK_025 执行：英文同步 |
+| --:-- | Edit | `CHANGELOG.md` [Unreleased] | 记录模板验证器、CHANGELOG 自动化、索引页、速查表补全 |
+| --:-- | Complete | TASK_024-027 | 全部执行完毕，等待归档 |
