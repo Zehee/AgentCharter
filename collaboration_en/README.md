@@ -400,3 +400,5 @@ AgentCharter's "installation" is fundamentally `cp -r collaboration/`. Upgrades 
 | `TPM.md` — insert new principles and capabilities | `CHARTER.md` — user's signed project charter |
 | | `REGISTER.md` — existing onboarding records |
 | | `dashboard.md` — user's live project dashboard |
+
+> 📂 **Real-world reference**: The wolf-judge project was the first external instance to complete a v3.2 → v3.3 upgrade. Its TPM independently scanned upstream, evaluated diffs (5 adopted, 2 declined), and submitted a full upgrade report. See [practices/wolf-judge/examples_en/UPGRADE_REPORT_v3.3.0.md](../practices/wolf-judge/examples_en/UPGRADE_REPORT_v3.3.0.md).
