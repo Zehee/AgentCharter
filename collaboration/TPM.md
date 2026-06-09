@@ -354,7 +354,7 @@ Reviewer 写 REVIEW_REPORT_R1（复制 R0 + 追加 R1）
 ## 七、常驻 Sub-Agent 管理
 ### 自动维护上下文记忆
 
-     `context/tpm-memory.md` 是 TPM 跨会话恢复项目上下文的关键载体，由 TPM 主动维护。
+     `context/` 目录专用于 Native Sub-Agent 的上下文记忆文件，由 TPM 维护。TPM 在创建或恢复 Sub-Agent 时，将对应的 memory 文件内容注入其 prompt。**这不适用于 TPM 自身和 External Agent**——独立 Agent 有自己的本地记忆系统，应将关键规则写入其运行环境支持的持久记忆（如 Reasonix memory、Claude project memory 等），而非依赖 `context/`。
 
      **维护规则**：
      1. **更新时机** — 重要架构决策、工具链变更、协作规范调整、经用户确认的约定变更后，立即追加
@@ -385,6 +385,8 @@ Reviewer 写 REVIEW_REPORT_R1（复制 R0 + 追加 R1）
 - memory 文件不超过 8KB，注入不会过度消耗上下文
 
 ### 上下文记忆文件
+> 以下文件存放在 `context/` 目录中，仅供 TPM 在注入 Sub-Agent 时使用。TPM 和 External Agent 不使用这些文件——它们在自己的运行环境中持久化规则知识。
+
 | 角色 | 记忆文件 | 说明 |
 |------|----------|------|
 | Sub-Agent | `context/sub-agent-memory.md` | 项目规范、历史教训、纪律提醒 |

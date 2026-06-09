@@ -22,7 +22,7 @@
 | `reviews/` | Review reports | Reviewer writes, all read |
 | `logs/` | Operation logs | Exclusive per person |
 | `todos/` | Backlog items | TPM writes |
-| `context/` | Sub-Agent memory | TPM maintains |
+| `context/` | Sub-Agent memory, injection only | TPM maintains |
 | `archive/` | Completed archive | TPM manages |
 
 ### 1.2 Naming Conventions

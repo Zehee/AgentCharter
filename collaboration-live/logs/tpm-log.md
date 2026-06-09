@@ -32,3 +32,6 @@
 | 03:00 | Create | `DECISION_014` | 确立讨论闭环五步法 — Zehee 确认 → DECISION → TASK/TODO → 执行 → 日志 |
 | 03:15 | Execute | TASK_019-021 | 执行五步法原则植入 + 日志补建 |
 | 03:30 | Create | `REPORT_019_021` | 本轮完成报告 |
+| 03:45 | Create | `DECISION_015` | 澄清 `context/` 目录职责边界 — 仅用于 Sub-Agent 注入，TPM/External Agent 不用 |
+| 03:50 | Execute | TASK_022-025 | 修正 README §十一记忆管理 + TPM.md §七 + CHARTER.md + EN 同步 |
+| 03:55 | Create | `REPORT_022_025` | 本轮完成报告 |

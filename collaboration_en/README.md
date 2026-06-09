@@ -78,7 +78,7 @@ collaboration/
 ├── REGISTER.md            Registration form
 ├── ACTIONS.md             Collaboration link table (empty template, TPM maintains)
 ├── dashboard.md           TPM-maintained progress report for humans; humans can write instructions here, TPM reads them during patrol
-├── context/               Sub-Agent context memory (TPM maintains)
+├── context/               Sub-Agent context memory (TPM maintained, for Sub-Agent injection only. TPM and External Agents use their own local memory systems)
 ├── decisions/             DECISION records (written by human-AI pair Agents)
 ├── inbox/                 TASK / REVISION / NOTICE / REPLY
 ├── outbox/                REPORT / PROACTIVE_REPORT / BLOCKING
@@ -332,6 +332,21 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 **Reporter is not a standalone role** — any role can double as one. When you submit a `PROACTIVE_REPORT`, you are the Reporter.
 
 **Human-AI pair Agents (TPM and External Agent) should additionally read** `templates/DECISION_NNN_DATE_AUTHOR.md` after onboarding to understand the decision recording format. Sub-Agents do not need this.
+
+---
+
+### Memory Management — How Each Agent Type Persists Rule Knowledge
+
+**Core principle: the framework rules are the same, but how each Agent remembers them differs.** The `context/` directory has only one role in AgentCharter: preparing context injection files for Native Sub-Agents.
+
+| Agent Type | Memory System | Maintained By |
+|-----------|---------|---------|
+| **TPM** | Runtime environment's local memory (Reasonix memory, Claude project memory, etc.) | TPM self |
+| **External Agent** | Same — their own local memory system. Write the framework's key rules into memory immediately after onboarding | Each Agent self |
+| **Sub-Agent (Native)** | `context/{name}-memory.md` — TPM injects before every session | TPM |
+| **Reviewer** | `context/reviewer-memory.md` — same as above | TPM |
+
+**Example**: You are a TPM running in Reasonix. After onboarding, persist the key rules into your local memory (the memory directory managed by `reasonix.toml`). You are an External Agent running in Cursor — write key rules into your IDE rules file. A Sub-Agent cannot do this — so the TPM prepares `context/` files on its behalf.
 
 ---
 

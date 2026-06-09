@@ -22,7 +22,7 @@
 | `reviews/` | 审查报告 | Reviewer 写，所有人可读 |
 | `logs/` | 工作日志 | 每人独占写 |
 | `todos/` | 排期事项 | TPM 写 |
-| `context/` | Sub-Agent 记忆 | TPM 维护 |
+| `context/` | Sub-Agent 记忆，仅供 Sub-Agent 注入 | TPM 维护 |
 | `archive/` | 已完成归档 | TPM 管理 |
 
 ### 1.2 命名规范

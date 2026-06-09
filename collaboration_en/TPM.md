@@ -355,7 +355,7 @@ File created → Processing → Processing complete → Retention policy → Arc
 
 ### Automatic Context Memory Maintenance
 
-`context/tpm-memory.md` is the key vehicle for TPM cross-session project context recovery, actively maintained by the TPM.
+     The `context/` directory is exclusively for Native Sub-Agent context memory files, maintained by the TPM. When creating or resuming a Sub-Agent, the TPM injects the corresponding memory file content into its prompt. **This does not apply to the TPM itself or External Agents** — independent Agents have their own local memory systems. They should write critical rules to their runtime environment's persistent memory (e.g., Reasonix memory, Claude project memory, etc.), not rely on `context/`.
 
 **Maintenance rules**:
 1. **Update timing** — Append immediately after major architecture decisions, toolchain changes, collaboration spec adjustments, or user-confirmed convention changes
@@ -385,6 +385,8 @@ When you need a Sub-Agent or Reviewer:
 - Memory files are under 8KB; injection does not excessively consume context
 
 ### Context Memory Files
+> The following files live in `context/` and are for TPM injection into Sub-Agents only. The TPM and External Agents do not use these — they persist rule knowledge in their own runtime environments.
+
 | Role | Memory File | Notes |
 |------|----------|------|
 | Sub-Agent | `context/sub-agent-memory.md` | Project specs, historical lessons, discipline reminders |

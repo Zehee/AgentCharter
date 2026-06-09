@@ -78,7 +78,7 @@ collaboration/
 ├── REGISTER.md            入职登记表
 ├── ACTIONS.md             协作链路表（空模板，TPM 维护）
 ├── dashboard.md           TPM 维护，给人类看的进度报告；人类发现错误可以在这里写指令，TPM 巡检时读取
-├── context/               Sub-Agent 上下文记忆（TPM 维护）
+├── context/               Sub-Agent 上下文记忆（TPM 维护，仅用于注入 Sub-Agent。TPM 和 External Agent 用自己的本地记忆系统）
 ├── decisions/             DECISION 决策记录（人机结对 Agent 写入）
 ├── inbox/                 TASK / REVISION / NOTICE / REPLY
 ├── outbox/                REPORT / PROACTIVE_REPORT / BLOCKING
@@ -332,6 +332,21 @@ TPM 写 TASK → inbox/
 **Reporter 不是独立角色**，任何角色均可兼任。提交 `PROACTIVE_REPORT` 时即为 Reporter。
 
 **人机结对 Agent（TPM 和 External Agent）入职后应额外阅读** `templates/DECISION_NNN_DATE_AUTHOR.md` 了解决策记录格式。Sub-Agent 无需关注。
+
+---
+
+### 记忆管理——不同 Agent 类型如何持久化规则知识
+
+**核心原则：框架规则是一样的，但每种 Agent 的记忆方式不同。** `context/` 目录不是给所有 Agent 用的——它在 AgentCharter 中只承担一个职责：为 Native Sub-Agent 准备上下文注入文件。
+
+| Agent 类型 | 记忆方式 | 谁维护 |
+|-----------|---------|------|
+| **TPM** | 运行环境的本地记忆系统（Reasonix memory、Claude project memory 等） | TPM 自己 |
+| **External Agent** | 同上——各自运行环境的本地记忆系统。入职后立即将框架的关键规则写入自己的记忆 | 各 Agent 自己 |
+| **Sub-Agent (Native)** | `context/{name}-memory.md` — TPM 在每次打开 Sub-Agent 前注入 | TPM |
+| **Reviewer** | `context/reviewer-memory.md` — 同上 | TPM |
+
+**Example**: 你是 TPM，你的运行环境是 Reasonix。入职后把关键规则固化到你的本机记忆里（`reasonix.toml` 管理的 memory 目录）。你是 External Agent，在 Cursor 里运行——把关键规则写进你的 IDE 规则文件。Sub-Agent 无法这样做——所以由 TPM 帮它准备 `context/` 文件。
 
 ---
 
