@@ -218,7 +218,7 @@ TPM 写 TASK → inbox/
 
   ├── 多轮推理、有明显推理链 → AI 先写 DECISION（推理链原文）→ 再写 PROACTIVE_REPORT（关联 DECISION）
   ├── 一句话决策，没有推理过程 → 只写 PROACTIVE_REPORT（不产生 DECISION）
-  └── 仅信息对齐，无行动请求 → 可选写 DECISION 存 `decisions/`（内部留档），不写 PROACTIVE_REPORT
+  └── 仅信息对齐，无决策产出 → 不写 DECISION，不写 PROACTIVE_REPORT。这不是决策，只是确认
 ```
 
 **触发原则：AI 必须主动识别，不等人类多此一举。** 结对 AI 在对话中持续感知决策信号——人类说出"好的就这样""同意这个方案""写成报告发出吧"的瞬间，AI 自动完成判断。DECISION 文件不是额外的工序，而是对话的自然延伸。
@@ -226,7 +226,7 @@ TPM 写 TASK → inbox/
 **DECISION 的流向**：
 - TPM 自己的 DECISION → 直接转化为 TASK / TODO
 - 外部 Agent 的 DECISION → 汇入 PROACTIVE_REPORT → TPM 批注 → 创建 TASK / TODO
-- 仅信息对齐、无行动请求的 DECISION → 留在 `decisions/`，作为项目知识资产，后续可被引用
+- 无 DECISION 不产生 DECISION——信息对齐、确认已读、同步认知的对话，没有选择被做出，不产生 DECISION。DECISION 是决策记录，不是会议纪要
 
 **关键约束**：
 - 需要 TPM 行动就必须有 PROACTIVE_REPORT——DECISION 是证据，PROACTIVE_REPORT 是行动请求

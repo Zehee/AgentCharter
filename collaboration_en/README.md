@@ -218,7 +218,7 @@ Discussion ends, human says "send it" —
 
   ├── Multi-round reasoning, clear chain → AI writes DECISION first (verbatim) → then PROACTIVE_REPORT (linked to DECISION)
   ├── One-line decision, no reasoning → PROACTIVE_REPORT only (no DECISION)
-  └── Info alignment only, no action request → optionally write DECISION to decisions/ (internal record), no PROACTIVE_REPORT
+  └── Info alignment only, no decision made → no DECISION, no PROACTIVE_REPORT. Not a decision — just confirmation
 ```
 
 **Trigger principle: the AI must proactively recognize, the human doesn't need to ask twice.** The pair AI continuously senses decision signals during conversation — the moment the human says "OK, let's go with that," "agreed on this approach," or "write it up and send," the AI automatically completes the judgment. DECISION files are not an extra step; they're a natural extension of the conversation.
@@ -226,7 +226,7 @@ Discussion ends, human says "send it" —
 **DECISION flow**:
 - TPM's own DECISION → directly converted to TASK / TODO
 - External Agent's DECISION → fed into PROACTIVE_REPORT → TPM annotates → creates TASK / TODO
-- Info alignment only, no action request → stays in `decisions/` as project knowledge asset, can be cited later
+- No DECISION means no DECISION — info alignment, read confirmation, and context sync conversations where no choice was made do not produce a DECISION. DECISION is a decision record, not meeting minutes
 
 **Key constraints**:
 - If TPM action is needed, a PROACTIVE_REPORT is mandatory — DECISION is evidence, PROACTIVE_REPORT is the action request

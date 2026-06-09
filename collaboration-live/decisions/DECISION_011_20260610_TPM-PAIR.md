@@ -11,12 +11,13 @@
 
 1. **多轮推理 → 先写 DECISION → 再写 PROACTIVE_REPORT**：AI 主动识别推理链，不等人类多此一举
 2. **一句话决策 → 只写 PROACTIVE_REPORT**：无推理过程，不产生 DECISION
-3. **仅信息对齐 → 可选写 DECISION，不写 PROACTIVE_REPORT**：认知对齐无行动请求，DECISION 作为项目知识资产留存
+3. **仅信息对齐 → 不写 DECISION，不写 PROACTIVE_REPORT**：Zehee 修正——"确认已读、同步认知的对话不需要留痕。DECISION 是决策记录，不是会议纪要。这条硬线保证信噪比始终高。"
 
 ## 推理链
 
 - **Zehee**: "外部 Agent 在人机结对多轮对话决策后，人类觉得发送主动报告，外部 Agent 能否知道要先写 DECISION？如果只是认知讨论做信息对齐，没有提交主动报告，是否需要记录 DECISION？"
-- **Reasonix**: "两个问题。第一个——当前文档只说'汇入 PROACTIVE_REPORT'，没说触发时机。需要在 README §六 把'人类说发出去的瞬间'作为触发点，AI 主动判断。第二个——信息对齐无行动请求时 DECISION 是可选的，留在 decisions/ 里作为知识资产。"
+- **Zehee**: "如果只是人机结对过程中对话确认信息，用来统一认知，没有明确提交主动报告的情景下，不需要记录 decision。DECISION 是决策记录，不是会议纪要。保持了极简哲学。"
+- **Reasonix**: "对。改。第三条不是'可选'，是'不需要'。"
 
 ## 替代方案
 
