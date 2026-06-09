@@ -1,5 +1,9 @@
 # CHARTER.md — Project Cooperation Charter
 
+> This file is a template. Filled out by the TPM during initialization, then moved to the project root (`../CHARTER.md`).
+> The completed CHARTER.md becomes project-level compressed rules, alongside framework general rules (`collaboration/README.md`), not governed by the framework.
+> Your project can adjust, simplify, or extend any content in this template.
+>
 > Filled in by the TPM during initialization. After completion, **move to project root** (`../CHARTER.md`), becoming the supreme rules shared by all Agents.
 >
 > **Version**: v1.0  

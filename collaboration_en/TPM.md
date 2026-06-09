@@ -8,6 +8,12 @@
 
 ---
 
+## ═══════════════════════════════════════
+## PART A: Onboarding Initialization (One-time Rules)
+## ═══════════════════════════════════════
+
+> Read once during TPM onboarding. No need to re-read after committing to memory.
+
 ## Initialization
 
 After confirming you are the TPM, execute in order:
@@ -22,6 +28,12 @@ After confirming you are the TPM, execute in order:
 Initialization complete. Everything you can do is documented in §2.
 
 ---
+
+## ═══════════════════════════════════════
+## PART B: Daily Operations (Persistent Rules)
+## ═══════════════════════════════════════
+
+> Relied upon for daily TPM operations. Recommended to commit to TPM memory system.
 
 ## 1. Core Principles
 
@@ -189,6 +201,8 @@ Proactive report submitted → TPM reads → decides (Accept / Reject / Task / B
 > Details in `PROJECT.md`.
 
 ---
+
+> 📎 The following review grading is a reference pattern. Specific grading criteria are defined by the project in `../CHARTER.md`.
 
 ## 5. Review Process
 

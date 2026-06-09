@@ -150,6 +150,9 @@ REVISION_049C_20260530_FLASH.md
 
 ---
 
+> 📎 以下为框架提供的参考分级模式，源自 wolf-judge 实战经验。
+> 具体级别数量和判定标准由你的项目在 `../CHARTER.md` 中定义。
+
 ## 五、任务生命周期
 
 > **终极产物只有 TASK 和 TODO** — 无论协作链多复杂（DECISION → PROACTIVE_REPORT → TPM 加工），最终落地永远是 TASK（可执行工作）或 TODO（排期事项）。中间文件是证据，不是终点。

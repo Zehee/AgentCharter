@@ -150,6 +150,9 @@ REVISION_049C_20260530_FLASH.md
 
 ---
 
+> 📎 The following is a reference grading pattern provided by the framework, based on wolf-judge real-world experience.
+> The number of levels and specific criteria are defined by your project in `../CHARTER.md`.
+
 ## 5. Task Lifecycle
 
 > **The only final artifacts are TASK and TODO** — no matter how complex the collaboration chain gets (DECISION → PROACTIVE_REPORT → TPM processing), it always lands as a TASK (executable work) or TODO (backlog item). Intermediate files are evidence, not endpoints.
