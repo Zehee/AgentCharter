@@ -53,3 +53,18 @@
 | --:-- | Edit | `collaboration_en/README.md` §12 | TASK_025 执行：英文同步 |
 | --:-- | Edit | `CHANGELOG.md` [Unreleased] | 记录模板验证器、CHANGELOG 自动化、索引页、速查表补全 |
 | --:-- | Complete | TASK_024-027 | 全部执行完毕，等待归档 |
+
+| --:-- | Create | `docs/deep-analysis-20260609.md` | 深度扫描分析报告（~9,400 字）|
+| --:-- | Create | `docs/evaluation-20260609.md` | 优缺点系统性评价（~9,600 字）|
+| --:-- | Create | `docs/management-plan-20260609.md` | 管理计划（~9,200 字）|
+| --:-- | Edit | `CHANGELOG.md` [Unreleased] | 补充 3 个 docs/ 文档记录 |
+
+| --:-- | Create | `docs/governance-sharding-20260609.md` | 规则压缩与分片治理分析（~14,700 字）|
+| --:-- | Edit | `CHANGELOG.md` [Unreleased] | 补充 governance-sharding 记录 |
+
+| --:-- | Create | `collaboration-live/decisions/DECISION_018_20260609_TPM-PAIR.md` | 框架通用规则与实例定制边界线（三方共识）|
+| --:-- | Create | `collaboration-live/outbox/PROACTIVE_REPORT_006_20260609_KIMI-PAIR.md` | 建议 5 个最小步 TASK（边界标记 + 模板优化）|
+
+| --:-- | Edit | `collaboration-live/decisions/DECISION_018_20260609_TPM-PAIR.md` | 重写：补充完整讨论原文与 5 个 TASK 优先级细节 |
+
+| --:-- | Edit | `collaboration-live/decisions/DECISION_018_20260609_TPM-PAIR.md` | 按会话往返时间线重写（Round 1-12），可读完整链路 |

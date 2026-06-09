@@ -17,6 +17,10 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Template validator CLI** (`extras/template-validator/`) — optional tool to validate 15 template formats and naming conventions
 - **CHANGELOG automation script** (`extras/changelog-automation/`) — project-only tool to generate Keep a Changelog drafts from Git commits
 - **wolf-judge examples index** (`practices/wolf-judge/examples/README.md`) — bilingual navigation page for real-world collaboration files
+- **Deep analysis doc** (`docs/deep-analysis-20260609.md`) — systematic project scan: architecture, evolution, real-world validation, external audit
+- **Evaluation doc** (`docs/evaluation-20260609.md`) — strengths, weaknesses, applicability, fundamental trade-offs
+- **Management plan doc** (`docs/management-plan-20260609.md`) — three-phase execution roadmap if managed by Kimi
+- **Governance sharding analysis** (`docs/governance-sharding-20260609.md`) — compression vs sharding strategies for rule governance as the framework scales
 
 ### Changed
 

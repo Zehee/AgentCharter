@@ -45,3 +45,7 @@
 | 09:18 | Review | REPORT_027 | ACCEPT — generate.py 159 行，直接并入 extras/ |
 | 09:20 | Process | PROACTIVE_REPORT_004 | 更新批注：handoff/ 和文档化已执行完成；TASK_026/027 代码 ACCEPT |
 | 09:30 | Archive | 全部存档 | 21 个 TASK → archive/inbox/，14 个 REPORT + 4 个 PROACTIVE_REPORT → archive/outbox/，17 个 DECISION → archive/decisions/。协作空间清空，无存活任务 |
+| 10:00 | Discuss | 规则治理与边界线 | 三方（Zehee + DSpro + Kimi）讨论 governance-sharding 分析。锚点确认：框架规则与实例定制的边界线是"虚线"，用注释标记而非重构 |
+| 10:05 | Decision | DECISION_018 | 写入：规则层级定义（铁律/格式契约/字段建议/示例模式/实例自定义）、最小步方针、"先标记再改结构"|
+| 10:10 | Review | PROACTIVE_REPORT_006 | 批准 TASK_028（标注包）+ TASK_029（CHARTER 注释）；暂缓 TASK_030（规范约束字段）和 TASK_032（全模板注释）|
+| 10:12 | Dispatch | TASK_028 + TASK_029 | 放入 inbox/，标记 Kimi 为经办 |
