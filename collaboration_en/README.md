@@ -141,7 +141,7 @@ REVISION_049C_20260530_FLASH.md
 
 ### File Writing Rules
 
-> Teams typically start with 3-4 templates (TASK, REPORT, REVIEW_REPORT) and introduce more as needs grow. The 14 templates are the framework's maximum set, not a checklist.
+> Teams typically start with 3-4 templates (TASK, REPORT, REVIEW_REPORT) and introduce more as needs grow. The 15 templates are the framework's maximum set, not a checklist.
 
 1. Copy the corresponding template from `templates/` to the target location, replacing placeholders
 2. Strictly follow the naming convention at the top of each template

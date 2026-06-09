@@ -12,7 +12,7 @@ collaboration/          # Framework core — Agent-side specs and templates
 ├── PROJECT.md          # Project config template
 ├── REGISTER.md         # Registration form
 ├── ACTIONS.md          # Collaboration link table template
-├── templates/          # 14 file templates
+├── templates/          # 15 file templates
 ├── context/            # Sub-Agent context memory
 ├── inbox/ outbox/ reviews/ logs/ todos/ archive/
 
