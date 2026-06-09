@@ -218,6 +218,16 @@ AgentCharter/
 
 ---
 
+## 🔄 How to Upgrade
+
+AgentCharter has no installer. No `pip install --upgrade`. No migration scripts. Tell your TPM:
+
+> Read the latest AgentCharter repository, compare it to our project, and apply the updates.
+
+The TPM reads the upstream `collaboration/`, lists differences, creates TASKs, applies changes, and writes a REPORT. For anything that changes how your team works, it asks you first.
+
+---
+
 ## 📋 License
 
 MIT — see [LICENSE](./LICENSE).

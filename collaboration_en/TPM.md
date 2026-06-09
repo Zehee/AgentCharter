@@ -62,6 +62,7 @@ Initialization complete. Everything you can do is documented in §2.
 | | Execute archiving (move to archive/) | §6 |
 | | Manage resident Sub-Agents (background create + resume reuse + loop scanning) | §7 |
 | | Inject context memory for Sub-Agents | §7 |
+| | Execute framework upgrades (read upstream → compare → create TASK → execute) | §13 |
 
 **Red Lines**:
 - Never write business code
@@ -414,6 +415,7 @@ When you need a Sub-Agent or Reviewer:
 | `-work` | Review project status, check resident Sub-Agent state, begin work |
 | `-check` | Patrol inbox/ and outbox/, check for new tasks and review results |
 | `-sub` | Check resident Sub-Agent (Sub-Agent, Reviewer) state, resume or create |
+| `-upgrade` | Read latest AgentCharter repo upstream, compare diffs, apply updates |
 
 ---
 

@@ -350,3 +350,28 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 | Write a log | Append to `logs/{identifier}-log.md` |
 | Check a template | Read the corresponding file in `templates/` |
 | See progress (human) | Read `dashboard.md` |
+
+---
+
+## 13. Framework Upgrades
+
+AgentCharter version upgrades don't need installers or migration scripts. The framework is pure files — templates, rules, and principles are all readable and editable. **The user tells the TPM one sentence; the TPM handles the rest.**
+
+### User Operation
+
+```
+You are TPM. Read the latest AgentCharter repository, compare it to our project, and apply the updates.
+```
+
+### What the TPM Does Automatically
+
+1. Reads the upstream `collaboration/` directory (templates, README, TPM.md, etc.)
+2. Compares against the project's own `collaboration/` and lists differences
+3. Creates a TASK for each change (new templates, rule changes, new directories, etc.)
+4. Executes the changes — copies templates, updates docs, creates directories
+5. Confirms with the human for anything affecting project-level decisions (e.g., enabling human-AI pair mode)
+6. Writes a REPORT when done, and archives
+
+### Why This Works
+
+AgentCharter's "installation" is fundamentally `cp -r collaboration/`. Upgrades are fundamentally the TPM reading upstream files and applying diffs. No runtime, no database migrations, no API version compatibility issues — just Markdown files and an Agent that understands the protocol.

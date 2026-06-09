@@ -218,6 +218,16 @@ AgentCharter/
 
 ---
 
+## 🔄 如何升级
+
+AgentCharter 没有安装包。不需要 `pip install --upgrade`。没有迁移脚本。告诉你的 TPM：
+
+> 读取 AgentCharter 仓库的最新版本，对比我们的项目，应用更新
+
+TPM 会读取上游 `collaboration/`、列出差异、建 TASK、应用变更、写 REPORT。涉及团队工作方式变化的，它会先问你。
+
+---
+
 ## 📋 许可证
 
 MIT — 详见 [LICENSE](./LICENSE)。

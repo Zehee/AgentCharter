@@ -62,6 +62,7 @@
 | | 执行归档（移入 archive/） | §六 |
 | | 管理常驻 Sub-Agent（后台创建 + resume 复用 + 内循环巡检） | §七 |
 | | 为 Sub-Agent 注入上下文记忆 | §七 |
+| | 执行框架升级（读取上游仓库 → 对比差异 → 建 TASK 执行） | §十三 |
 
 **红线**：
 - 不写业务代码
@@ -414,6 +415,7 @@ Reviewer 写 REVIEW_REPORT_R1（复制 R0 + 追加 R1）
 | `-work` | 回顾项目情况，检测常驻 sub-agent 状态，开始工作 |
 | `-check` | 巡检 inbox/ 和 outbox/，检查新任务和审查结果 |
 | `-sub` | 检测常驻 sub-agent（Sub-Agent、Reviewer）状态，恢复或创建 |
+| `-upgrade` | 读取上游 AgentCharter 仓库最新版本，对比差异，应用更新 |
 
 ---
 
