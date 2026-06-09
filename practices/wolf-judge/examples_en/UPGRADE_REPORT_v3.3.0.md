@@ -1,6 +1,6 @@
 # AgentCharter v3.3.0 Framework Upgrade Report
 
-> Source: wolf-judge project, executed by TPM Kimi
+> Source: wolf-judge project, executed by TPM DSpro
 > Date: 2026-06-10
 > Note: This is the first external instance to complete an upstream v3.2 → v3.3 upgrade. Demonstrates how a TPM independently scans upstream, evaluates diffs, makes tradeoffs, and submits a report.
 
@@ -36,8 +36,8 @@ Upstream [Zehee/AgentCharter](https://github.com/Zehee/AgentCharter) released v3
 
 | Upstream Decision | Rejection Reason |
 |---------|---------|
-| Delete `scripts/` | `file-gen.js` is the only tool for External Agent (Kimi) to generate files without Reasonix skill |
-| `AGENTS.md` → `TPM.md` | Project-root `AGENTS.md` is designed for Kimi (external CLI auto-load) — upstream doesn't support this scenario |
+| Delete `scripts/` | `file-gen.js` is the only tool for External Agent (DSpro) to generate files without Reasonix skill |
+| `AGENTS.md` → `TPM.md` | Project-root `AGENTS.md` is designed for DSpro (external CLI auto-load) — upstream doesn't support this scenario |
 
 ## Change Summary
 

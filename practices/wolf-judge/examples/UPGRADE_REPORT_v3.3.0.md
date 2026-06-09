@@ -1,6 +1,6 @@
 # AgentCharter v3.3.0 框架更新报告
 
-> 来源: wolf-judge 项目（新狼官）TPM Kimi 的执行报告
+> 来源: wolf-judge 项目（新狼官）TPM DSpro 的执行报告
 > 日期: 2026-06-10
 > 说明: 这是第一个完成上游 v3.2 → v3.3 升级的外部实例。展示了 TPM 如何独立扫描上游、评估差异、取舍变更、提交报告。
 
@@ -39,8 +39,8 @@
 
 | 上游决策 | 否决理由 |
 |---------|---------|
-| 删除 `scripts/` 目录 | `file-gen.js` 是 External Agent（Kimi）不依赖 Reasonix skill 生成文件的唯一工具 |
-| `AGENTS.md` → 改为 `TPM.md` | 项目根 `AGENTS.md` 是我们为 Kimi（外部 CLI 自动加载）设计的特殊场景，上游不支持该模式 |
+| 删除 `scripts/` 目录 | `file-gen.js` 是 External Agent（DSpro）不依赖 Reasonix skill 生成文件的唯一工具 |
+| `AGENTS.md` → 改为 `TPM.md` | 项目根 `AGENTS.md` 是我们为 DSpro（外部 CLI 自动加载）设计的特殊场景，上游不支持该模式 |
 
 ## 文件变更统计
 
