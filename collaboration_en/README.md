@@ -211,18 +211,22 @@ A staging area for backlog items. When the TPM decides a requirement is **not fo
 
 > The TPM and External Agent are, by default, "human-AI pair composites." When significant decisions emerge during conversation, record the reasoning chain via `DECISION` files.
 
-**PROACTIVE_REPORT records the product; DECISION records the process.** When TPM action is needed:
+**PROACTIVE_REPORT records the product; DECISION records the process.** The moment the human says "send it out," the pair's AI should automatically determine whether a DECISION file is needed first:
 
 ```
-Human-AI discussion
-  ├── One-line decision → write PROACTIVE_REPORT directly (no DECISION needed)
-  └── Multi-round reasoning, full chain → AI extracts DECISION (verbatim reasoning) → feeds into PROACTIVE_REPORT (action request)
+Discussion ends, human says "send it" —
+
+  ├── Multi-round reasoning, clear chain → AI writes DECISION first (verbatim) → then PROACTIVE_REPORT (linked to DECISION)
+  ├── One-line decision, no reasoning → PROACTIVE_REPORT only (no DECISION)
+  └── Info alignment only, no action request → optionally write DECISION to decisions/ (internal record), no PROACTIVE_REPORT
 ```
+
+**Trigger principle: the AI must proactively recognize, the human doesn't need to ask twice.** The pair AI continuously senses decision signals during conversation — the moment the human says "OK, let's go with that," "agreed on this approach," or "write it up and send," the AI automatically completes the judgment. DECISION files are not an extra step; they're a natural extension of the conversation.
 
 **DECISION flow**:
 - TPM's own DECISION → directly converted to TASK / TODO
 - External Agent's DECISION → fed into PROACTIVE_REPORT → TPM annotates → creates TASK / TODO
-- Internally-relevant DECISION → archive directly, no external action needed
+- Info alignment only, no action request → stays in `decisions/` as project knowledge asset, can be cited later
 
 **Key constraints**:
 - If TPM action is needed, a PROACTIVE_REPORT is mandatory — DECISION is evidence, PROACTIVE_REPORT is the action request

@@ -211,18 +211,22 @@ TPM 写 TASK → inbox/
 
 > TPM 和 External Agent 在默认设定下均为"人机结对综合体"。当人类与 AI 在对话中产生重要决策时，通过 `DECISION` 文件记录推理链。
 
-**PROACTIVE_REPORT 记录产物，DECISION 记录过程。** 需要 TPM 行动时：
+**PROACTIVE_REPORT 记录产物，DECISION 记录过程。** 人类说"写成主动报告"的那一刻，结对 AI 应自动判断是否需要先在 `decisions/` 中写入 DECISION 文件：
 
 ```
-人机讨论
-  ├── 一句话决策 → 直接写 PROACTIVE_REPORT（不产生 DECISION）
-  └── 多轮推理、有完整推理链 → AI 提取 DECISION（推理链原文）→ 汇入 PROACTIVE_REPORT（行动请求）
+人机讨论结束，人类说"发出去"——
+
+  ├── 多轮推理、有明显推理链 → AI 先写 DECISION（推理链原文）→ 再写 PROACTIVE_REPORT（关联 DECISION）
+  ├── 一句话决策，没有推理过程 → 只写 PROACTIVE_REPORT（不产生 DECISION）
+  └── 仅信息对齐，无行动请求 → 可选写 DECISION 存 `decisions/`（内部留档），不写 PROACTIVE_REPORT
 ```
+
+**触发原则：AI 必须主动识别，不等人类多此一举。** 结对 AI 在对话中持续感知决策信号——人类说出"好的就这样""同意这个方案""写成报告发出吧"的瞬间，AI 自动完成判断。DECISION 文件不是额外的工序，而是对话的自然延伸。
 
 **DECISION 的流向**：
 - TPM 自己的 DECISION → 直接转化为 TASK / TODO
 - 外部 Agent 的 DECISION → 汇入 PROACTIVE_REPORT → TPM 批注 → 创建 TASK / TODO
-- 仅在结对内部有效的 DECISION → 归档即可，不需外部行动
+- 仅信息对齐、无行动请求的 DECISION → 留在 `decisions/`，作为项目知识资产，后续可被引用
 
 **关键约束**：
 - 需要 TPM 行动就必须有 PROACTIVE_REPORT——DECISION 是证据，PROACTIVE_REPORT 是行动请求
