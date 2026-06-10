@@ -65,29 +65,22 @@ append your fix response below each round. Not needed for first REPORT.
 > The following format is for Native Sub-Agent reference. Native reports are audit records, targeted at human developers.
 
 ```markdown
-# REPORT_NNN: {{title}}
+# REPORT_NNN: Task Title
 
-> **Report Type**: {{audit_note}}
-> Audience: {{audience}}
+> **Report Type**: [Audit Only] This report is an execution record. TPM has been informed via internal channel.
+> Audience: Human developers (retrospective, QA review).
 
 ## Executive Summary
-- Task ID: {{task_id}}
-- Status: {{status}}
-- Core Goal: {{core_goal}}
+- Task ID: NNN
+- Status: ✅ Success / ⚠️ Manual Confirmation Needed
+- Core Goal: One sentence explaining what was done.
 
 ## Core Changes
-> Natural language description, no full code dump, only files and nature of changes
-{{core_changes}}
+- `file path` — Added Y function, replaced old Z implementation.
 
 ## Decision Rationale
-> Explain WHY — this is the most valuable part
-{{decision_rationale}}
+- Why was plan A chosen over plan B?
 
 ## Risks & Manual Confirmation Needed
-- [ ] {{risk_item_1}}
-- [ ] {{risk_item_2}}
-
-## Self-Checklist
-- [x] {{check_item_1}}
-- [x] {{check_item_2}}
+- [ ] Concurrent logic not fully verified, needs manual review.
 ```

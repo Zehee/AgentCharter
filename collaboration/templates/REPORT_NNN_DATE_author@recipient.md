@@ -65,29 +65,22 @@
 > 以下格式供 Native Sub-Agent 参考。Native 的报告是审计记录，受众是人类开发者。
 
 ```markdown
-# REPORT_NNN: {{title}}
+# REPORT_NNN: 任务标题
 
-> **报告性质**: {{audit_note}}
-> 受众：{{audience}}
+> **报告性质**: [Audit Only] 本报告为执行记录，TPM 已通过内部通道获知结果。
+> 受众：人类开发者（复盘、QA 验收）。
 
 ## 执行摘要
-- 任务 ID: {{task_id}}
-- 状态: {{status}}
-- 核心目标: {{core_goal}}
+- 任务 ID: NNN
+- 状态: ✅ 成功 / ⚠️ 需人工确认
+- 核心目标: 一句话说明做了什么
 
 ## 核心改动
-> 自然语言描述，不贴全量代码，只列文件和改动性质
-{{core_changes}}
+- `文件路径` — 新增 Y 函数，替换旧的 Z 实现
 
 ## 决策理由
-> 解释 WHY，这是最有价值的部分
-{{decision_rationale}}
+- 为什么选方案 A 而不是 B？
 
 ## 风险点 & 需人工确认
-- [ ] {{risk_item_1}}
-- [ ] {{risk_item_2}}
-
-## 自检清单
-- [x] {{check_item_1}}
-- [x] {{check_item_2}}
+- [ ] 并发逻辑未充分验证，需人工 review
 ```
