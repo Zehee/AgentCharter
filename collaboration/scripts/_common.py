@@ -188,10 +188,21 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
         if missing_required:
             return {"error": f"必填字段未提供（影响文件名生成）: {', '.join(missing_required)}"}
 
-        # 正文可选字段遗漏 → 不阻断，记录 warning
-        body_unfilled = [v for v in unreplaced if v not in name_vars]
+        # 正文字段完整性检查
+        all_vars = set(re.findall(r'\{\{(\w+)\}\}', template_text))
+        # 头部通用字段不算正文
+        head_vars = {"author", "DATE", "NNN", "assignee", "recipient", "priority",
+                     "status", "ref_nnn", "title", "pair", "decision_source",
+                     "dependency", "test_type", "conclusion"}
+        body_vars = all_vars - name_vars - head_vars
+        body_unfilled = [v for v in body_vars if v in unreplaced]
+        body_filled_count = len(body_vars) - len(body_unfilled)
+
         body_warning = None
-        if body_unfilled:
+        if body_vars and body_filled_count == 0:
+            # 正文全部未填 → 强烈警告
+            body_warning = f"⚠️  正文内容为空！请补充说明后重新提交当前文件。遗漏字段: {', '.join(sorted(body_vars)[:6])}"
+        elif body_unfilled:
             body_warning = f"以下正文字段未填写，建议补充后更新文件: {', '.join(body_unfilled)}"
 
         try:
