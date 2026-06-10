@@ -94,9 +94,10 @@ $ python agent.py KIMI
 
 ### `lib/redlines.py` — 红线规则
 
-- 读 `collaboration/CHARTER.md`，提取铁律列表
-- 供所有命令在输出 JSON 末尾固定追加 `"redlines": [...]`
-- 每次脚本调用自动输出，无需手动传入
+- 读 `collaboration/CHARTER.md`，找到 `## 七、红线` 章节
+- 提取所有以 `!` 开头的行，去掉前缀 `!`，拼接为字符串
+- 输出格式：`"redlines": "没有文件 = 没有发生 ! Git 禁令 ! 只追加不覆盖 ! ..."`
+- 所有命令执行完毕时自动追加到输出 JSON 末尾
 
 ### `new-task.py` — 创建 TASK
 
