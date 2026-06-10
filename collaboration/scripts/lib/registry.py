@@ -38,7 +38,7 @@ def get_next_nnn(file_type: str, inbox_dir: str | None = None) -> int:
         "REVISION": ("inbox", False),    # 编号来自关联 REVIEW_REPORT
         "REVIEW_REPORT": ("outbox", False),
         "REVIEW_TASK": ("inbox", False),
-        "DECISION": ("decisions", False),# 编号独立但不在 TASK 体系内
+        "DECISION": ("decisions", True), # 编号独立自增，扫描归档去重
         "PROACTIVE_REPORT": ("outbox", False),
         "NOTICE": ("inbox", False),
         "REPLY": ("inbox", False),
