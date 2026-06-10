@@ -376,7 +376,7 @@ TPM 写 TASK → inbox/
 | 领取测试任务 | 查 inbox/TASK_TEST_NNN → 按测试计划执行 → 写 `outbox/TEST_REPORT_NNN_DATE_author@recipient.md` |
 | 查看排期 | 读 `todos/` 中的 TODO 文件 |
 | 看进度（人类） | 读 `dashboard.md` |
-| 用工具省力 | 运行 `python scripts/agent.py 你的名字`（可选，推荐） |
+| 用工具省力 | 运行 `python collaboration/scripts/agent.py 你的名字`（可选，推荐） |
 
 ---
 

@@ -14,8 +14,8 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- **Script system** (`scripts/`) — Python CLI tools, zero third-party deps. `agent.py` is the single entry point. Templates parsed at runtime via `{{variable}}`. File flow validated against ACTIONS.md. Redlines auto-appended on every call. See `scripts/README.md`.
-- **Daily patrol** (`scripts/daily-check.py`) — full scan of inbox/outbox/decisions for naming, content, and cross-reference compliance.
+- **Script system** (`collaboration/scripts/`) — Python CLI tools, zero third-party deps. `agent.py` is the single entry point. Templates parsed at runtime via `{{variable}}`. File flow validated against ACTIONS.md. Redlines auto-appended on every call. See `collaboration/scripts/README.md`.
+- **Daily patrol** (`collaboration/scripts/daily-check.py`) — full scan of inbox/outbox/decisions for naming, content, and cross-reference compliance.
 - **Three review paradigms** (see `collaboration/review-guide.md`) — TPM direct / delegated / self-loop with file flow diagrams.
 - **Collaboration decoupled from project root** — `collaboration/` can live anywhere. No config files, no environment variables.
 

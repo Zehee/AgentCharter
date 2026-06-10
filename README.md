@@ -10,7 +10,7 @@
 
 > 📎 **Non-invasive by design**: The `collaboration/` directory lives wherever you put it — inside your project, on a shared NAS, or on its own server. Agents work from wherever `collaboration/` is. No config files, no environment variables, no project root assumptions.
 >
-> 🛠️ **Optional enhancement**: `scripts/` provides Python CLI tools — save memory, prevent mistakes. See `scripts/README.md`. No Python? The protocol layer works fine on its own.
+> 🛠️ **Optional enhancement**: `collaboration/scripts/` provides Python CLI tools — save memory, prevent mistakes. See `collaboration/scripts/README.md`. No Python? The protocol layer works fine on its own.
 
 ## 🚀 Quick Start
 

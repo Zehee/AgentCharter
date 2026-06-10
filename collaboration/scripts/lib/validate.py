@@ -66,16 +66,16 @@ _XREF_PATTERNS: Dict[str, str] = {
 # Directories to search, relative to project root
 _XREF_DIRS: Dict[str, List[str]] = {
     "TASK": [
-        "collaboration/inbox",
-        "collaboration/archive/inbox",
+        "inbox",
+        "archive/inbox",
     ],
     "REPORT": [
-        "collaboration/inbox",
-        "collaboration/archive/inbox",
+        "inbox",
+        "archive/inbox",
     ],
     "REVISION": [
-        "collaboration/inbox",
-        "collaboration/archive/inbox",
+        "inbox",
+        "archive/inbox",
     ],
 }
 

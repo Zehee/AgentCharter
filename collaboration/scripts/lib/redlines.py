@@ -28,8 +28,7 @@ from pathlib import Path
 
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent
-PROJECT_DIR = SCRIPTS_DIR.parent
-COLLAB_DIR = PROJECT_DIR / "collaboration"
+COLLAB_DIR = SCRIPTS_DIR.parent
 
 
 def read_redlines() -> list[str]:

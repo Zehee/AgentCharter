@@ -371,7 +371,7 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 | Pick up a test task | Check inbox/TASK_TEST_NNN → run tests → write `outbox/TEST_REPORT_NNN_DATE_author@recipient.md` |
 | Check backlog | Read TODO files in `todos/` |
 | See progress (human) | Read `dashboard.md` |
-| Use tools (optional, recommended) | Run `python scripts/agent.py YOUR_NAME` |
+| Use tools (optional, recommended) | Run `python collaboration/scripts/agent.py YOUR_NAME` |
 
 ---
 

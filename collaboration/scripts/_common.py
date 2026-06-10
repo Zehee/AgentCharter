@@ -19,7 +19,7 @@ from registry import get_next_nnn, format_nnn  # noqa: E402
 from redlines import get_redlines_string  # noqa: E402
 
 SCRIPTS_DIR = _SCRIPTS_DIR
-COLLAB_DIR = SCRIPTS_DIR.parent / "collaboration"
+COLLAB_DIR = SCRIPTS_DIR.parent
 
 
 def resolve_template(file_type: str) -> Path:
