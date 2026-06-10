@@ -24,7 +24,8 @@ scripts/
 │   ├── naming.py        # 文件名生成（NNN + _author@assignee）
 │   ├── validate.py      # 文件合规校验
 │   ├── registry.py      # NNN 序列管理
-│   └── patrol.py        # 巡检 inbox/outbox
+│   ├── patrol.py        # 巡检 inbox/outbox
+│   └── redlines.py      # 红线规则读取（每次输出末尾追加）
 ├── new-task.py          # 创建 TASK
 ├── new-report.py        # 创建 REPORT
 ├── new-revision.py      # 创建 REVISION
@@ -90,6 +91,12 @@ $ python agent.py KIMI
 - 必填字段校验
 - 流向校验（与 ACTIONS.md 匹配）
 - 关联 TASK 存在性校验
+
+### `lib/redlines.py` — 红线规则
+
+- 读 `collaboration/CHARTER.md`，提取铁律列表
+- 供所有命令在输出 JSON 末尾固定追加 `"redlines": [...]`
+- 每次脚本调用自动输出，无需手动传入
 
 ### `new-task.py` — 创建 TASK
 
