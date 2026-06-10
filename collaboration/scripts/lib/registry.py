@@ -29,20 +29,22 @@ def get_next_nnn(file_type: str, inbox_dir: str | None = None) -> int:
         int: next available sequence number
     """
     # 文件类型 → (默认活跃目录, 是否同时扫描归档目录)
+    # TASK 需要扫归档（编号唯一，不能冲突）
+    # REPORT/REVISION/DECISION 等不扫归档（编号来源是关联的 TASK，非独立编号）
     type_dir_map = {
-        "TASK": ("inbox", True),
+        "TASK": ("inbox", True),         # 编号唯一，必须扫描归档去重
         "TASK_TEST": ("inbox", True),
-        "REPORT": ("outbox", True),
-        "REVISION": ("inbox", True),
-        "REVIEW_REPORT": ("outbox", True),
+        "REPORT": ("outbox", False),     # 编号来自关联 TASK，不独立编号
+        "REVISION": ("inbox", False),    # 编号来自关联 REVIEW_REPORT
+        "REVIEW_REPORT": ("outbox", False),
         "REVIEW_TASK": ("inbox", False),
-        "DECISION": ("decisions", True),
-        "PROACTIVE_REPORT": ("outbox", True),
+        "DECISION": ("decisions", False),# 编号独立但不在 TASK 体系内
+        "PROACTIVE_REPORT": ("outbox", False),
         "NOTICE": ("inbox", False),
         "REPLY": ("inbox", False),
         "BLOCKING": ("outbox", False),
         "BLOCKING_REPLY": ("outbox", False),
-        "TEST_REPORT": ("outbox", True),
+        "TEST_REPORT": ("outbox", False),
         "TODO": ("todos", False),
     }
 
