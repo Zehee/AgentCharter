@@ -54,3 +54,5 @@
 | 10:22 | Review | REPORT_029 | ✅ ACCEPT — CHARTER.md 定位注释 + EN 同步到位 |
 | 10:30 | Review | REPORT_030 + DECISION_019 | ✅ ACCEPT — 规则编号体系草案，方向正确。补充：需先定义"一条规则"的粒度标准。DECISION_019 正式化 |
 | 10:32 | Plan | TODO_005 | 规则编号体系排期，设触发条件 + 粒度标准要求 |
+| 11:00 | Decision | DECISION_020 | collaboration/ 与项目代码完全解耦——CHARTER.md 不再搬家，所有 `../` 引用修正为内部引用 |
+| 11:00 | Dispatch | TASK_033 | 放入 inbox/，标记 Kimi 为经办。改动范围：6 个文件约 24 处文字修正 |
