@@ -62,3 +62,5 @@
 | 11:32 | Dispatch | TASK_034 | 放入 inbox/，标记 Kimi 为经办 |
 | 11:35 | Amend | DECISION_021 | 三项校正：REVIEW_REPORT 路径范式相关（委派→outbox，自循环→inbox）；命名规范改双后缀 `_author@assignee`；嵌套移入 TODO_006 |
 | 11:35 | Plan | TODO_006 | collaboration 嵌套架构设计——远期规划 |
+| 11:40 | Decision | DECISION_022 | 审查范式独立文档化——新建 `review-guide.md`，README/TPM.md 精简，默认自循环 |
+| 11:41 | Dispatch | TASK_035 | 放入 inbox/，标记 Kimi 为经办 |
