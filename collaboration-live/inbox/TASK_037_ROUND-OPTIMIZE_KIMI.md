@@ -75,6 +75,45 @@ def _detect_existing_round(file_type, nnn, target_dir) -> tuple[int, str]:
 - 文档中 `NNN` = 3 位编号示例
 - `naming.py` 注释
 
+### Part C：补全 TPM 缺失脚本
+
+补全 REVIEW_REPORT_036 指出的 4 个 TPM 独占脚本：
+
+#### C.1 `new-review-task.py`
+
+- 创建 REVIEW_TASK（委派审查范式用）
+- NNN = 关联 TASK 编号，不自增
+- 模板已存在：`REVIEW_TASK_NNN_author@recipient.md`
+- 走标准 `run_and_exit` 流程
+- 入口：`tpm.py` 独占（`agent.py` 不应包含）
+
+#### C.2 `new-notice.py`
+
+- 创建 NOTICE 通知
+- 不自增编号，NNN 自定义
+- 模板已存在：`NOTICE_NNN_DESC_DATE_author@recipient.md`
+- 入口：`tpm.py` 独占
+
+#### C.3 `new-reply.py`
+
+- 创建 REPLY 处理回执
+- 不自增编号，NNN = 对应 PROACTIVE_REPORT 编号
+- 模板已存在：`REPLY_NNN_DESC_DATE_author@recipient.md`
+- 入口：`tpm.py` 独占
+
+#### C.4 `archive.py`
+
+- 链式归档：根据流程链关系归档全套文件
+- 核心逻辑：
+  1. 输入一个文件（如 TASK_042）
+  2. 扫描其关联的 REPORT、REVIEW_REPORT、REVISION 等
+  3. 全部 ACTEPT 后 → 全部移入 `archive/` 对应子目录
+  4. 同时在文件中追加 `> ✅ 已归档` 标记
+- 复杂度最高，建议实现最小可行版本：
+  - 单文件归档（`archive.py TASK_042` → 归档 TASK 自身）
+  - 链式归档（`archive.py --chain TASK_042` → 归档 TASK + 关联文件）
+- 入口：`tpm.py` 独占（需先加入 COMMANDS 列表）
+
 ---
 
 ## 约束条件
@@ -82,11 +121,17 @@ def _detect_existing_round(file_type, nnn, target_dir) -> tuple[int, str]:
 - ❌ 不改动 TASK/DECISION/TODO 的编号和命名（它们没有轮次）
 - ✅ 历史文件（archive/）不追溯重命名
 - ✅ 不新增模板文件（基础模板回退策略）
+- ✅ `archive.py` 最小版——单文件+链式，不涉及 git 操作
 
 ---
 
 ## 验收标准
 
+### Part A：审阅优化
+- [ ] 回归确认 TPM 修复的 13 个问题无遗漏
+- [ ] 路径/类型注解/异常覆盖全部扫清
+
+### Part B：多轮次
 - [ ] `naming.py` NAME_PATTERNS 支持 `REPORT_NNN_R1_DATE_...` 格式
 - [ ] `generate_filename(round=1)` 生成包含 `_R1` 的文件名
 - [ ] `run_create_flow` 已存在同 NNN 文件时自动使用下一个轮次
@@ -94,5 +139,11 @@ def _detect_existing_round(file_type, nnn, target_dir) -> tuple[int, str]:
 - [ ] `resolve_template` 做 R1 回退
 - [ ] 模板增加 `{{round}}` 占位符
 - [ ] 命名规范注释已修正（049C_R1 错误示例）
-- [ ] 回归确认 TPM 修复的 13 个问题无遗漏
+
+### Part C：TPM 缺失脚本
+- [ ] `new-review-task.py` 已创建，使用 REVIEW_TASK 模板
+- [ ] `new-notice.py` 已创建，使用 NOTICE 模板
+- [ ] `new-reply.py` 已创建，使用 REPLY 模板
+- [ ] `archive.py` 已创建（最小版：单文件+链式归档）
+- [ ] `tpm.py` COMMANDS 已补全上述 4 个脚本
 - [ ] 提交 REPORT_037_KIMI.md 到 outbox/
