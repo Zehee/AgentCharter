@@ -6,6 +6,7 @@ All exceptions are caught and returned as clean JSON errors.
 """
 
 import json
+import re
 import sys
 import traceback
 from pathlib import Path
@@ -22,6 +23,47 @@ from redlines import get_redlines_string  # noqa: E402
 
 SCRIPTS_DIR = _SCRIPTS_DIR
 COLLAB_DIR = SCRIPTS_DIR.parent
+
+# 文件类型 → 应关联的源文件类型 → 源文件所在的扫描目录
+REF_MAP = {
+    "REPORT": ["TASK", "REVISION"],        # REPORT 对应 TASK 或 REVISION
+    "REVISION": ["REVIEW_REPORT"],         # REVISION 对应 REVIEW_REPORT
+    "REVIEW_REPORT": ["TASK", "REPORT"],   # REVIEW_REPORT 对应 TASK 或 REPORT
+    "REVIEW_TASK": ["TASK"],               # REVIEW_TASK 对应 TASK
+    "BLOCKING_REPLY": ["BLOCKING"],        # BLOCKING_REPLY 对应 BLOCKING
+    "TEST_REPORT": ["TASK_TEST"],          # TEST_REPORT 对应 TASK_TEST
+}
+
+
+def _check_ref_exists(ref_nnn: str, file_type: str) -> str | None:
+    """验证 ref_nnn 对应的源文件是否存在。返回错误信息或 None。"""
+    source_types = REF_MAP.get(file_type, [])
+    if not source_types:
+        return None  # 不自增也无关联校验的类型（NOTICE、TODO 等）
+
+    # 每种源类型可能有多个目录（活跃/归档）
+    search_dirs_map = {
+        "TASK": ["inbox", "archive/inbox"],
+        "REVISION": ["inbox", "archive/inbox"],
+        "REVIEW_REPORT": ["outbox", "archive/outbox"],
+        "REPORT": ["outbox", "archive/outbox"],
+        "BLOCKING": ["outbox"],
+        "TASK_TEST": ["inbox", "archive/inbox"],
+    }
+
+    for src_type in source_types:
+        dirs = search_dirs_map.get(src_type, ["inbox"])
+        for d in dirs:
+            search_dir = COLLAB_DIR / d
+            if not search_dir.exists():
+                continue
+            for f in search_dir.iterdir():
+                if f.is_file() and f.suffix == ".md" and f"{src_type}_{ref_nnn}" in f.name:
+                    return None  # 找到了
+        # 没找到 → 继续试下一个源类型
+
+    expected = " 或 ".join(source_types)
+    return f"未找到 {expected}_{ref_nnn} 文件——请先创建对应的 {expected} 或确认编号正确"
 
 
 def resolve_template(file_type: str) -> Path:
@@ -82,23 +124,23 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
         # 4. Generate or require NNN
         nnn = data.get("NNN")
         if not nnn:
-            # 派生类型：ref_nnn → NNN（REPORT/REVISION 等关联的 TASK 编号就是文件名 NNN）
             ref = data.get("ref_nnn")
             if ref and file_type not in AUTO_NNN_TYPES:
                 nnn = ref
-                data["NNN"] = nnn
             elif file_type in AUTO_NNN_TYPES:
                 try:
-                    next_n = get_next_nnn(file_type)
-                    nnn = format_nnn(next_n) if next_n else "001"
-                    data["NNN"] = nnn
+                    nnn = format_nnn(get_next_nnn(file_type))
                 except Exception as e:
                     return {"error": f"无法获取下一个编号: {e}"}
             else:
-                return {"error": f"缺少 NNN 字段。{file_type} 不自增编号，请提供关联的任务编号，例如：new-report.py KIMI '{{\"ref_nnn\":\"042\"}}'"}
-            except Exception as e:
-                return {"error": f"无法获取下一个编号: {e}"}
+                return {"error": f"缺少 NNN 字段。{file_type} 不自增编号，请提供 ref_nnn，例如：new-report.py KIMI '{{\"ref_nnn\":\"042\"}}'"}
         data["NNN"] = nnn
+
+        # 4b. Verify referenced source file exists（BLOCKING_REPLY→BLOCKING、REPORT→TASK……）
+        if file_type in REF_MAP:
+            ref_err = _check_ref_exists(nnn, file_type)
+            if ref_err:
+                return {"error": ref_err}
 
         # 5. Generate filename
         author = data.get("author", agent_name)
