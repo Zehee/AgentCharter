@@ -4,8 +4,8 @@
 > **存放位置**: `inbox/`
 > **命名约束**: 段间 `_`，段内 `-`，后缀 `author@recipient`。`NNN`=3位序号，`DESC`=英文简短描述，`author`=分派人标识（大写，通常为 TPM），`assignee`=领取者标识（大写）
 
-**分派人**: [TPM 标识]
-**执行人**: [External/Native 标识] / ALL
+**分派人**: {{author}}
+**执行人**: {{assignee}}
 **优先级**: 🔴 P0 | 🟡 P1 | 🟢 P2
 **依赖**: 如 TASK_XXX 已完成（可选）
 **决策来源**: DECISION_NNN / PROACTIVE_REPORT_NNN（可选，本任务由哪个决策或主动报告触发）
@@ -35,7 +35,7 @@
 - [ ] 验收条目 1
 - [ ] 验收条目 2
 - [ ] `[类型检查命令]` 0 错误
-- [ ] 提交 `outbox/REPORT_NNN_YYYYMMDD.md`
+- [ ] 提交 `outbox/REPORT_{{NNN}}_{{DATE}}.md`
 
 ## 参考文件
 

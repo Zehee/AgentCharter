@@ -15,9 +15,9 @@
 > **存放位置**: `decisions/`
 > **命名约束**: 段间 `_`，段内 `-`。`NNN`=顺序编号，`DATE`=决策日期 `YYYYMMDD`，`AUTHOR`=结对标识（大写）
 
-**结对**: [结对标识，如 @backend-pair]
-**时间**: YYYY-MM-DD HH:MM
-**关联主动报告**: PROACTIVE_REPORT_NNN（如本次决策将汇入某个主动报告，填此项；TPM 自用决策可不填）
+**结对**: {{pair}}
+**时间**: {{DATE}}
+**关联主动报告**: {{ref_nnn}}
 
 ---
 

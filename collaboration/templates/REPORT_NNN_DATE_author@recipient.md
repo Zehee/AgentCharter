@@ -4,10 +4,10 @@
 > **存放位置**: `outbox/`
 > **命名约束**: 段间 `_`，段内 `-`，后缀 `author@recipient`。`NNN`=任务序号，`DATE`=提交日期 `YYYYMMDD`，`author`=作者标识（大写），`tpm`=接收 TPM 标识（大写）
 
-**提交人**: [External/Native 标识]
-**日期**: YYYY-MM-DD
+**提交人**: {{author}}
+**日期**: {{DATE}}
 **状态**: REVIEW_PENDING
-**对应**: TASK_NNN 或 REVISION_NNN
+**对应**: {{ref_nnn}}
 **报告性质**: 通信信号（External）/ [Audit Only] 审计记录（Native）
 
 ---
@@ -27,14 +27,14 @@
 
 | 任务 | 状态 | 说明 |
 |------|------|------|
-| 功能点 1 | ✅ | 做了什么，关键文件 |
-| 功能点 2 | ✅ | 同上 |
+| {{task_item_1}} | {{status_1}} | {{desc_1}} |
+| {{task_item_2}} | {{status_2}} | {{desc_2}} |
 
 ## 改动的文件
 
 | 文件 | 修改内容 |
 |------|----------|
-| `[项目文件路径]` | 新增/修改了什么 |
+| `{{file_path}}` | {{change_desc}} |
 
 ## 待确认（可选）
 

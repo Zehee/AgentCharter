@@ -4,11 +4,11 @@
 > **存放位置**: `inbox/`
 > **命名约束**: 段间 `_`，段内 `-`，后缀 `author@recipient`。`NNN`=对应审查序号，`DATE`=创建日期 `YYYYMMDD`，`tpm`=分派 TPM 标识（大写），`assignee`=领取者标识（大写）
 
-**分派人**: [TPM 标识]
-**执行人**: [External/Native 标识]
-**日期**: YYYY-MM-DD
-**优先级**: 🔴 P0 | 🟡 P1
-**对应**: REVIEW_REPORT_NNN
+**分派人**: {{author}}
+**执行人**: {{assignee}}
+**日期**: {{DATE}}
+**优先级**: {{priority}}
+**对应**: {{ref_nnn}}
 
 ---
 
