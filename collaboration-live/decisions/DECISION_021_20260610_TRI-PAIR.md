@@ -328,6 +328,37 @@
 - **Kimi 最终结论**: 
   > "命名规范现在确实不需要改。单侧后缀在单空间内完全足够，跨空间通信时目录位置已经表达了层级关系。"
 
+### Round 19: TPM 评价 DECISION_021 并指出未参与的盲区
+
+- **DSpro (TPM)**: 逐条评价 10 个决策点：
+  > "6 个无保留、3 个有细节待优化（REVIEW_REPORT 路径、嵌套落地缺口、范式命名）、1 个有疑问（REVIEW_TASK 是否有人会用）。"
+
+  **有保留的点**：
+  - REVIEW_REPORT 一律放 inbox/ → 在委派范式下 reviewer 写 REVIEW_REPORT 是给 TPM 的，放 inbox 语义不对
+  - REVIEW_TASK 存疑 → 如果 reviewer 被分配后直接读 outbox/REPORT，REVIEW_TASK 就是冗余
+  - 嵌套跨空间通信的"巡检"机制有延迟，无通知机制
+
+### Round 20: Zehee 三项校正（最终定稿）
+
+- **Zehee**: "1、嵌套逻辑我们作为远期规划暂不讨论，可以作为 TODO 注明待细化。"
+
+- **Zehee**: "2、第二种范式我们可以叫委派审查，reviewer 的审查任务是被明确通过 review_task 委派的，这种情况下 tpm 读 report 然后创建 review_task 显式委派（inbox），这种情况下 reviewer 的 review_report 是提交到 outbox 的，并且接收方不是 coder 而是 tpm，这里默认只写 author，这也是我们模板的默认情况。"
+
+- **Zehee**: "3、自循环范式下，reviewer 的出入文件夹发生了翻转，读 outbox 的 coder 写的 report，输出 review_report 到 inbox，接收方变成了对应任务的 coder 而不是 tpm，这就是我为什么建议所有的协作文档都标注 author 和 assignee 的原因，我们可以采用 _author@assignee.md"
+
+### Round 21: DSpro 确认三项校正
+
+- **DSpro**: 完全接受三项校正：
+  1. 嵌套 → TODO_006，不写入本轮改动
+  2. REVIEW_REPORT 路径范式相关：委派→outbox（给 TPM），自循环→inbox（给 coder）
+  3. 命名规范统一为双后缀 `_author@assignee.md`
+
+- **DSpro 撤回对 REVIEW_TASK 的怀疑**:
+  > "在委派范式中 TPM 写 REVIEW_TASK 给 reviewer，reviewer 完成后写 REVIEW_REPORT 到 outbox，收件人是 TPM。REVIEW_TASK 有存在的价值。"
+
+- **DSpro**: "是否按这个方向更新 DECISION_021 并调整 TASK_034？"
+- **Zehee**: "是的。"
+
 ---
 
 ## 替代方案
