@@ -407,4 +407,4 @@ AgentCharter 的"安装"本质上就是 `cp -r collaboration/`。升级本质上
 | | `REGISTER.md` — 已有的入职记录 |
 | | `dashboard.md` — 用户的实时项目进度 |
 
-> 📂 **实战参考**：wolf-judge 项目是第一个完成 v3.2 → v3.3 升级的外部实例。它的 TPM 独立扫描上游、评估差异（5 项采纳、2 项否决），并提交了完整的升级报告。见 [practices/wolf-judge/examples/UPGRADE_REPORT_v3.3.0.md](../practices/wolf-judge/examples/UPGRADE_REPORT_v3.3.0.md)。
+> 📂 **实战参考**：wolf-judge 项目是第一个完成 v3.2 → v3.3 升级的外部实例。它的 TPM 独立扫描上游、评估差异（5 项采纳、2 项否决），并提交了完整的升级报告。可在 AgentCharter 仓库的 `practices/wolf-judge/examples/` 中查看。
