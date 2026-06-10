@@ -14,3 +14,7 @@ collaboration/todos/
 .codegraph/
 .reasonix/
 reasonix.toml
+
+# Python
+__pycache__/
+*.pyc
