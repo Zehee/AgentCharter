@@ -14,10 +14,22 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- **Template validator CLI** (`extras/template-validator/`) — optional tool to validate 15 template formats and naming conventions
-- **CHANGELOG automation script** (`extras/changelog-automation/`) — project-only tool to generate Keep a Changelog drafts from Git commits
-- **wolf-judge examples index** (`practices/wolf-judge/examples/README.md`) — bilingual navigation page for real-world collaboration files
-- **Deep analysis doc** (`docs/deep-analysis-20260609.md`) — systematic project scan: architecture, evolution, real-world validation, external audit
+- **Script system** (`scripts/`) — Python CLI tools, zero third-party deps. `agent.py` is the single entry point. Templates parsed at runtime via `{{variable}}`. File flow validated against ACTIONS.md. Redlines auto-appended on every call. See `scripts/README.md`.
+- **Daily patrol** (`scripts/daily-check.py`) — full scan of inbox/outbox/decisions for naming, content, and cross-reference compliance.
+- **Three review paradigms** (see `collaboration/review-guide.md`) — TPM direct / delegated / self-loop with file flow diagrams.
+- **Collaboration decoupled from project root** — `collaboration/` can live anywhere. No config files, no environment variables.
+
+### Changed
+
+- **Reviews directory removed** (`collaboration/reviews/`, `collaboration_en/reviews/`) — REVIEW_REPORT moved to inbox (self-loop) or outbox (delegated) depending on paradigm.
+- **Naming convention unified** — all template filenames now use `_author@recipient.md` double suffix. Historical files unaffected.
+- **Review task template retained** — marked as "delegated review only".
+- **Template validator** (`extras/template-validator/`) → merged into `scripts/lib/`. `scripts/` is the recommended single entry point.
+- **CHARTER.md** — added §7 Redlines section. Scripts auto-read `—` to `！` text for every command output.
+
+### Fixed
+
+- **External relative links removed** from `collaboration/README.md` — `../practices/` no longer hardcoded. `collaboration/` is now fully standalone.
 - **Evaluation doc** (`docs/evaluation-20260609.md`) — strengths, weaknesses, applicability, fundamental trade-offs
 - **Management plan doc** (`docs/management-plan-20260609.md`) — three-phase execution roadmap if managed by Kimi
 - **Governance sharding analysis** (`docs/governance-sharding-20260609.md`) — compression vs sharding strategies for rule governance as the framework scales
