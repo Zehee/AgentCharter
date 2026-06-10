@@ -17,7 +17,7 @@ sys.path.insert(0, str(_SCRIPTS_DIR / "lib"))
 from template import parse_template  # noqa: E402
 from actions import validate_agent, get_role, is_tpm  # noqa: E402
 from naming import generate_filename  # noqa: E402
-from registry import get_next_nnn, format_nnn  # noqa: E402
+from registry import get_next_nnn, format_nnn, AUTO_NNN_TYPES  # noqa: E402
 from redlines import get_redlines_string  # noqa: E402
 
 SCRIPTS_DIR = _SCRIPTS_DIR
@@ -79,12 +79,23 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
         if not target_dir:
             return {"error": f"模板 {template_path.name} 中未找到「存放位置」字段"}
 
-        # 4. Generate NNN if not provided
+        # 4. Generate or require NNN
         nnn = data.get("NNN")
         if not nnn:
-            try:
-                next_n = get_next_nnn(file_type)
-                nnn = format_nnn(next_n) if next_n else "001"
+            # 派生类型：ref_nnn → NNN（REPORT/REVISION 等关联的 TASK 编号就是文件名 NNN）
+            ref = data.get("ref_nnn")
+            if ref and file_type not in AUTO_NNN_TYPES:
+                nnn = ref
+                data["NNN"] = nnn
+            elif file_type in AUTO_NNN_TYPES:
+                try:
+                    next_n = get_next_nnn(file_type)
+                    nnn = format_nnn(next_n) if next_n else "001"
+                    data["NNN"] = nnn
+                except Exception as e:
+                    return {"error": f"无法获取下一个编号: {e}"}
+            else:
+                return {"error": f"缺少 NNN 字段。{file_type} 不自增编号，请提供关联的任务编号，例如：new-report.py KIMI '{{\"ref_nnn\":\"042\"}}'"}
             except Exception as e:
                 return {"error": f"无法获取下一个编号: {e}"}
         data["NNN"] = nnn

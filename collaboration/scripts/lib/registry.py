@@ -14,6 +14,10 @@ from pathlib import Path
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent
 COLLAB_DIR = SCRIPTS_DIR.parent
 
+# 只有以下类型支持自动编号（未传 NNN 时自动生成）
+# REVIEW_TASK/REPORT/REVISION 等派生类型不自增，NNN 必须来自关联任务
+AUTO_NNN_TYPES = {"TASK", "TASK_TEST", "DECISION"}
+
 
 def get_next_nnn(file_type: str, inbox_dir: str | None = None) -> int:
     """Scan directories for existing files and return max NNN + 1.
@@ -34,11 +38,12 @@ def get_next_nnn(file_type: str, inbox_dir: str | None = None) -> int:
     type_dir_map = {
         "TASK": ("inbox", True),         # 编号唯一，必须扫描归档去重
         "TASK_TEST": ("inbox", True),
-        "REPORT": ("outbox", False),     # 编号来自关联 TASK，不独立编号
-        "REVISION": ("inbox", False),    # 编号来自关联 REVIEW_REPORT
+        "DECISION": ("decisions", True), # 编号独立自增，扫描归档去重
+        # 以下类型不自增编号，NNN 来自关联的任务（REVIEW_TASK=关联TASK、REPORT=关联TASK 等）
+        "REPORT": ("outbox", False),
+        "REVISION": ("inbox", False),
         "REVIEW_REPORT": ("outbox", False),
         "REVIEW_TASK": ("inbox", False),
-        "DECISION": ("decisions", True), # 编号独立自增，扫描归档去重
         "PROACTIVE_REPORT": ("outbox", False),
         "NOTICE": ("inbox", False),
         "REPLY": ("inbox", False),
@@ -47,6 +52,9 @@ def get_next_nnn(file_type: str, inbox_dir: str | None = None) -> int:
         "TEST_REPORT": ("outbox", False),
         "TODO": ("todos", False),
     }
+
+    # 只有以下类型支持自动编号（未传 NNN 时自动生成）
+    # REVIEW_TASK/REPORT/REVISION 等派生类型不自增，NNN 必须来自关联任务
 
     default_dir, scan_archive = type_dir_map.get(file_type, ("inbox", False))
     dirs_to_scan = []
