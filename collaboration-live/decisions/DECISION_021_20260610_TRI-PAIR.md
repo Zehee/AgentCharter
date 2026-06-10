@@ -10,16 +10,20 @@
 
 1. **删除 `reviews/` 目录** — 冗余。审查报告移至 `inbox/`
 2. **删除 `archive/reviews/` 目录** — 随 `reviews/` 一并删除
-3. **REVIEW_REPORT 模板路径改为 `inbox/`** — reviewer 独占写，作为前置审查输出
-4. **REVIEW_TASK 模板保留但标注为"调度审查可选"** — 三种范式共用，不强制
+3. **REVIEW_REPORT 模板路径范式相关** — 委派审查下放 `outbox/`（给 TPM），自循环审查下放 `inbox/`（给 coder）。路径跟随范式，不固定
+4. **REVIEW_TASK 模板保留但标注为"委派审查可选"** — 三种范式共用，不强制
 5. **REVISION 保持 TPM 独占** — TPM 深度介入时写的返工任务，与 reviewer 的 REVIEW_REPORT 区分
 6. **inbox 写权限精确扩展** — TPM 独占 TASK/NOTICE/REPLY/REVISION/REVIEW_TASK，reviewer 独占 REVIEW_REPORT。coder 不能写任何 inbox 文件
 7. **引入三种审查范式** — 以团队结构命名，不暗示优劣：
    - **TPM 直接审查**：1-2 人，无专职 reviewer，TPM 读全部代码
-   - **调度审查**：有专职 reviewer，需 TPM 中转（REVIEW_TASK + REVIEW_REPORT）
-   - **自循环审查**：信任型团队，reviewer-coder 自循环（推荐）
-8. **命名规范保持现状** — 单侧后缀（`_AUTHOR` / `_ASSIGNEE`）在单协作空间内足够。跨空间通信时建议增加接收者标识
-9. **collaboration 嵌套预留** — 子协作空间物理嵌套在父协作空间内部，每级部门负责人成为自己部门的 TPM。作为架构能力写入 README，不立即实现
+   - **委派审查**：有专职 reviewer，TPM 创建 REVIEW_TASK 显式委派。reviewer 写完 REVIEW_REPORT 放 `outbox/`，接收方是 TPM
+   - **自循环审查**：信任型团队，reviewer-coder 自循环。reviewer 出入翻转（读 outbox/REPORT，写 REVIEW_REPORT 到 `inbox/`），接收方是 coder。推荐
+8. **命名规范统一为双后缀 `_author@assignee.md`** — 自循环下 reviewer 的收发角色翻转导致单侧后缀不足以表达"谁写给谁"。双后缀在两种范式下都精确：
+   - 委派审查：`REVIEW_REPORT_042_20260610_reviewer@tpm.md`
+   - 自循环审查：`REVIEW_REPORT_042_20260610_reviewer@coder.md`
+   - TPM 写 REVISION：`REVISION_042_20260610_tpm@coder.md`
+   - 当前所有模板逐步迁移，历史 archive 文件保留原名
+9. **collaboration 嵌套预留** — 子协作空间物理嵌套在父协作空间内部，每级部门负责人成为自己部门的 TPM。作为远期规划写入 TODO，不纳入本轮 TASK_034 改动范围
 10. **多级汇报线的两种逻辑独立处理** — 
     - 长状态机问题 → 用自循环模式解决（reviewer 直接写 REVISION/REVIEW_REPORT）
     - 管理结构多级问题 → 用 collaboration 嵌套解决（每组一个 TPM）
@@ -339,24 +343,25 @@
 
 | 类型 | 编号 | 说明 |
 |------|------|------|
-| TASK | 033 | `collaboration/` 解耦 + 审查流程重构 |
+| TASK | 034 | 审查流程重构——删除 reviews/、整理目录、更新文档（含命名规范迁移为双后缀）|
 
-### TASK_033 具体改动清单
+### TASK_034 具体改动清单
 
 | # | 改动 | 文件 |
 |---|------|------|
 | 1 | 删除 `reviews/` 目录 | `collaboration/reviews/` + `collaboration-live/reviews/` |
 | 2 | 删除 `archive/reviews/` 目录 | `collaboration/archive/reviews/` |
-| 3 | REVIEW_REPORT 模板存放位置改为 `inbox/` | `templates/REVIEW_REPORT_NNN_DATE_AUTHOR.md` |
-| 4 | REVIEW_TASK 模板保留，标注"调度审查可选" | `templates/REVIEW_TASK_NNN.md` |
-| 5 | README.md 更新目录树（去掉 reviews/） | `README.md` + EN |
-| 6 | README.md 更新权限表 | `README.md` + EN |
-| 7 | README.md 更新文件生命周期（去掉 reviews/ 归档路径） | `README.md` + EN |
-| 8 | TPM.md 更新审查流程（三种范式 + 自循环） | `TPM.md` + EN |
-| 9 | TPM.md 更新归档规则 | `TPM.md` + EN |
-| 10 | README.md 增加 inbox 写域标注（默认 TPM 独占，REVIEW_REPORT 可开放给 reviewer） | `README.md` + EN |
-| 11 | README.md 增加"协作空间可嵌套"架构预留说明 | `README.md` + EN |
-| 12 | 验证器更新（去掉 reviews/ 相关规则） | `extras/template-validator/validate.py` |
+| 3 | REVIEW_REPORT 模板存放位置改为范式相关 | `templates/REVIEW_REPORT_NNN_DATE_AUTHOR.md` — 委派→outbox，自循环→inbox |
+| 4 | REVIEW_TASK 模板保留，标注"委派审查可选" | `templates/REVIEW_TASK_NNN.md` |
+| 5 | README.md 更新目录树（去掉 reviews/）| `README.md` + EN |
+| 6 | README.md 更新权限表（inbox 写域标注）| `README.md` + EN |
+| 7 | README.md 更新文件生命周期+文件类型速查 | `README.md` + EN |
+| 8 | TPM.md 更新审查流程（三种范式） | `TPM.md` + EN |
+| 9 | TPM.md 更新归档规则（去掉 reviews/） | `TPM.md` + EN |
+| 10 | 命名规范迁移为双后缀 `_author@assignee.md` | 全部 15 个模板 + README/TPM.md 引用 |
+| 11 | 验证器更新 | `extras/template-validator/validate.py` |
+
+**本轮不做**：collaboration 嵌套说明（已移入 TODO）
 
 ---
 

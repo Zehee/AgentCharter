@@ -60,3 +60,5 @@
 | 11:30 | Review | PROACTIVE_REPORT_007 | ✅ 全部确认 — 8 个讨论点均在 DECISION_021 中收敛。执行 TASK_034 |
 | 11:31 | Decision | DECISION_021 | 正式化 — 审查流程重构：删除 reviews/，REVIEW_REPORT 改路径 inbox/，三种范式，嵌套预留 |
 | 11:32 | Dispatch | TASK_034 | 放入 inbox/，标记 Kimi 为经办 |
+| 11:35 | Amend | DECISION_021 | 三项校正：REVIEW_REPORT 路径范式相关（委派→outbox，自循环→inbox）；命名规范改双后缀 `_author@assignee`；嵌套移入 TODO_006 |
+| 11:35 | Plan | TODO_006 | collaboration 嵌套架构设计——远期规划 |

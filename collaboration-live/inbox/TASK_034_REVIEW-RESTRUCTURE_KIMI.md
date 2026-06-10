@@ -1,20 +1,22 @@
-# TASK_034: 审查流程重构——删除 reviews/、整理目录、更新文档
+# TASK_034: 审查流程重构——删除 reviews/、更新文档、迁移命名规范
 
 > **Assignee**: Kimi
 > **Priority**: P1
-> **Decision**: DECISION_021_20260610_TRI-PAIR.md
+> **Decision**: DECISION_021_20260610_TRI-PAIR.md（含最终校正）
 > **Source**: PROACTIVE_REPORT_007
 
 ---
 
 ## 目标
 
-根据 DECISION_021 的决策，重构目录结构和审查流程：
+根据 DECISION_021 的决策（含 Zehee 最终校正），重构目录结构和审查流程：
 1. 删除冗余的 `reviews/` 目录
-2. REVIEW_REPORT 模板路径从 `reviews/` 改为 `inbox/`
-3. REVIEW_TASK 模板保留（标注"调度审查可选"）
+2. REVIEW_REPORT 模板路径改为范式相关（委派→outbox，自循环→inbox）
+3. REVIEW_TASK 模板保留（标注"委派审查可选"）
 4. README.md / TPM.md 更新审查生命周期，引入三种范式
-5. 增加 inbox 写域标注和 collaboration 嵌套说明
+5. **命名规范统一为双后缀 `_author@assignee.md`** — 全部 15 个模板 + 文档引用
+
+**本轮不做**：collaboration 嵌套说明（已移入 TODO）
 
 ---
 
@@ -30,7 +32,7 @@ collaboration-live/reviews/       → 删除
 
 ### 2. `templates/REVIEW_REPORT_NNN_DATE_AUTHOR.md`
 
-模板中存放位置从 `reviews/` 改为 `inbox/`：
+模板中存放位置改为范式相关：
 
 **当前**：
 ```markdown
@@ -38,74 +40,103 @@ collaboration-live/reviews/       → 删除
 ```
 **改为**：
 ```markdown
-> **存放位置**: `inbox/`
+> **存放位置**: 范式相关——委派审查放 `outbox/`（给 TPM），自循环审查放 `inbox/`（给 coder）
 ```
 
 ### 3. `templates/REVIEW_TASK_NNN.md`
 
 在文件顶部增加可选标注：
 
-**增加**：
 ```markdown
-<!-- 调度审查范式下可选使用。自循环审查范式下不需要此模板。 -->
+<!-- 委派审查范式下使用。自循环审查范式下不需要此模板。 -->
 ```
 
-### 4. `collaboration/README.md`（多处）
+### 4. 命名规范迁移：全部模板改为 `_author@assignee.md`
 
-**4.1 目录树**（约行 75-86）：
+**当前后缀体系**：
+| 当前 | 含义 | 问题 |
+|------|------|------|
+| `_AUTHOR` | 谁写的 | 不知道给谁 |
+| `_ASSIGNEE` | 谁执行的 | 不知道谁发起的 |
+| `_TARGET` | 发给谁的通知 | 一致 |
+| `_SOURCE` | 从哪来的 TODO | 一致 |
+
+**改为双后缀 `_author@assignee.md`**：
+
+| 模板 | 当前 | 改为 |
+|------|------|------|
+| TASK | `TASK_NNN_DESC_ASSIGNEE.md` | `TASK_NNN_DESC_tpm@assignee.md` |
+| REPORT | `REPORT_NNN_DATE_AUTHOR.md` | `REPORT_NNN_DATE_author@tpm.md` |
+| REVISION | `REVISION_NNN_DATE_ASSIGNEE.md` | `REVISION_NNN_DATE_tpm@assignee.md` |
+| REVIEW_REPORT | `REVIEW_REPORT_NNN_DATE_AUTHOR.md` | `REVIEW_REPORT_NNN_DATE_author@recipient.md` |
+| REVIEW_TASK | `REVIEW_TASK_NNN.md` | `REVIEW_TASK_NNN_tpm@reviewer.md` |
+| PROACTIVE_REPORT | `PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md` | `PROACTIVE_REPORT_NNN_DESC_DATE_author@tpm.md` |
+| NOTICE | `NOTICE_NNN_DESC_DATE_TARGET.md` | `NOTICE_NNN_DESC_DATE_author@target.md` |
+| REPLY | `REPLY_NNN_DESC_DATE_AUTHOR.md` | `REPLY_NNN_DESC_DATE_author@target.md` |
+| BLOCKING | `BLOCKING_NNN_DATE_TARGET.md` | `BLOCKING_NNN_DATE_author@target.md` |
+| BLOCKING_REPLY | `BLOCKING_REPLY_NNN_DATE_AUTHOR.md` | `BLOCKING_REPLY_NNN_DATE_author@target.md` |
+| TODO | `TODO_NNN_DESC_SOURCE.md` | 保持（`_SOURCE` 已双义）|
+| DECISION | `DECISION_NNN_DATE_AUTHOR.md` | `DECISION_NNN_DATE_pair@archive.md` |
+| TEST_REPORT | `TEST_REPORT_NNN_DATE_AUTHOR.md` | `TEST_REPORT_NNN_DATE_author@tpm.md` |
+| TASK_TEST | `TASK_TEST_NNN_DESC_ASSIGNEE.md` | `TASK_TEST_NNN_DESC_tpm@assignee.md` |
+| LOG_ENTRY | 不涉及 | 不涉及 |
+
+**约束**：
+- 更新文件名规范说明，**模板内容中引用的文件名示例同步更新**
+- 历史 archive/ 文件保留原名，不追溯
+- collaboration_en/ 同步
+
+### 5. `collaboration/README.md`（多处）
+
+**5.1 目录树**：
 - 去掉 `reviews/` 行
 - 目录结构说明更新
 
-**4.2 权限表**（约行 94-104）：
+**5.2 权限表**：
 - 去掉 `reviews/` 行
-- 增加 REVIEW_REPORT 的 inbox 权限行
-- 标注 inbox 写域规则
+- 增加 inbox 写域精确标注（TPM/reviewer/coder 各能写什么）
 
-**4.3 文件类型速查**（约行 109-142）：
-- 去掉 `reviews/` 相关的 REVIEW_REPORT 条目
-- REVIEW_REPORT 从 reviews/ 移至 inbox/ 类别下
-- 增加 "inbox 默认 TPM 独占" 说明
+**5.3 文件类型速查**：
+- REVIEW_REPORT 从 reviews/ 移至 inbox/ 或 outbox/ 类别（范式相关）
+- 命名规范更新为双后缀
 
-**4.4 任务生命周期**（§五）：
-- 更新审查流程描述，引入三种范式
-- 更新状态机图
+**5.4 任务生命周期（§五）**：
+- 更新审查流程描述，引入三种范式（直接/委派/自循环）
+- 每种范式附流程图
 
-**4.5 归档规则**（§九）：
+**5.5 命名规范（§三）**：
+- 从 `_AUTHOR/_ASSIGNEE/_TARGET` 更新为 `_author@assignee` 双后缀
+- 说明双后缀的语义："谁写的@给谁的"
+
+**5.6 归档规则（§九）**：
 - 去掉 `reviews/` 归档路径
 
-**4.6 新增"协作空间嵌套"一节**：
-在快速参考前，加一段架构预留说明，描述 collaboration 嵌套结构
+### 6. `collaboration/TPM.md`（多处）
 
-### 5. `collaboration/TPM.md`（多处）
+**6.1 审查流程（§五）**：
+- 重写为三种范式
+- 每种范式说明：适用场景、文件流向、TPM 介入度
 
-**5.1 PART B 审查流程**（§五）：
-- 重写审查流程为三种范式（TPM 直接审查 / 调度审查 / 自循环审查）
-- 每种范式说明适用场景和流程
-
-**5.2 归档规则**（§六）：
+**6.2 归档规则（§六）**：
 - 去掉 `reviews/` 归档规则
 
-### 6. `templates/` 验证器
+### 7. 验证器更新
 
 `extras/template-validator/validate.py`：
-- 去掉 `reviews/` 相关的目录验证规则
+- 去掉 `reviews/` 相关验证规则
+- 添加双后缀命名规范的验证
 
-### 7. 英文同步
+### 8. 英文同步
 
-全部同步到 `collaboration_en/`：
-- `collaboration_en/README.md`
-- `collaboration_en/TPM.md`
-- `collaboration_en/templates/REVIEW_REPORT_NNN_DATE_AUTHOR.md`
-- `collaboration_en/templates/REVIEW_TASK_NNN.md`
+全部同步到 `collaboration_en/`。
 
 ---
 
 ## 约束条件
 
-- ❌ 不改动 TASK、REVISION、NOTICE、REPLY 等非审查相关模板
-- ❌ 不改动其他文件类型的路径或权限
-- ✅ REVIEW_REPORT 只改存放位置标注，不改模板字段结构
-- ✅ 三种范式只做文档描述，不做代码级约束
+- ✅ 历史 archive 文件保留原名
+- ❌ 不改动模板的字段结构（只改文件名和路径标注）
+- ❌ 本轮不做 collaboration 嵌套说明（已移入 TODO）
 
 ---
 
@@ -114,15 +145,15 @@ collaboration-live/reviews/       → 删除
 - [ ] `collaboration/reviews/` 已删除
 - [ ] `collaboration/archive/reviews/` 已删除
 - [ ] `collaboration-live/reviews/` 已删除
-- [ ] REVIEW_REPORT 模板标注存放位置为 `inbox/`
-- [ ] REVIEW_TASK 模板标注"调度审查可选"
-- [ ] README.md 目录树不再包含 reviews/
-- [ ] README.md 权限表更新（inbox 写域标注）
-- [ ] README.md 文件类型速查更新
+- [ ] REVIEW_REPORT 模板标注路径范式相关
+- [ ] REVIEW_TASK 模板标注"委派审查可选"
+- [ ] 全部 15 个模板文件名规范更新为 `_author@assignee.md`
+- [ ] 模板内容中引用的文件名示例同步更新
+- [ ] README.md 目录树/权限表/文件类型速查已更新
+- [ ] README.md 命名规范章节更新为双后缀
 - [ ] README.md 审查生命周期更新为三种范式
-- [ ] README.md 增加协作空间嵌套说明
 - [ ] TPM.md 审查流程重写为三种范式
 - [ ] TPM.md 归档规则去掉 reviews/
+- [ ] 验证器已更新
 - [ ] 英文版同步
-- [ ] 验证器更新
 - [ ] 提交 REPORT_034_KIMI.md 到 outbox/
