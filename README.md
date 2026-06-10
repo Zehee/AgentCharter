@@ -8,11 +8,14 @@
 
 ---
 
+> 📎 **Non-invasive by design**: The `collaboration/` directory lives wherever you put it — inside your project, on a shared NAS, or on its own server. Agents work from wherever `collaboration/` is. No config files, no environment variables, no project root assumptions.
+
 ## 🚀 Quick Start
 
 ### 1. Copy
 
 ```bash
+# Copy to your project (or any location your Agents can access)
 cp -r collaboration_en/ /my-project/
 ```
 
