@@ -91,14 +91,18 @@ $ python agent.py KIMI
 - 流向校验（与 ACTIONS.md 匹配）
 - 关联 TASK 存在性校验
 
-### `new-*.py` — 各命令
+### `new-task.py` — 创建 TASK
 
-每个命令：
-```
-无参 → 输出 JSON Schema（只解析模板）
-NAME → 输出 Schema + 可选值（如 TASK 编号列表）
-NAME JSON → 校验 → 创建文件
-```
+- 自动扫描 `inbox/` 中现有 `TASK_*` 文件，取最大 NNN+1（无需用户在 JSON 中传入编号）
+- 其余流程同上
+
+### `new-decision.py` — 创建 DECISION / PROACTIVE_REPORT
+
+- 通过 `lib/actions` 检测调用者角色
+- **TPM 角色** → 创建 `DECISION` 文件到 `decisions/`
+- **非 TPM 角色** → 自动创建 `PROACTIVE_REPORT` 文件到 `outbox/`
+- 模板解析、字段校验流程相同，仅输出路径和文件类型不同
+- 其余流程同上
 
 ---
 

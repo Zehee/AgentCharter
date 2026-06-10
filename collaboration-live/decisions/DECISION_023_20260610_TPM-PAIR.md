@@ -20,7 +20,9 @@
    - `NAME '{"key":"val"}'` 名字 + JSON：执行创建文件
 8. **Agent 名称为必传校验参数** — 从 `ACTIONS.md` 实时读取，不在脚本中硬编码。无效名称直接拒绝
 9. **上下文感知** — `new-report.py NAME` 仅传名字时，自动扫描 inbox 列出该 Agent 的未完成任务编号作为可选值
-10. **已有 `extras/` 保持不动** — `scripts/` 是新入口
+10. **`new-task.py` 自动编号** — 扫描现有 `inbox/TASK_*` 文件，自动生成下一个 NNN，不要求用户在 JSON 中传入
+11. **`new-decision.py` 角色分流** — TPM 调用时创建 `DECISION` 文件；非 TPM 调用时自动创建 `PROACTIVE_REPORT`（遵循"只有 TPM 人机结对可写 DECISION"的规则）
+12. **已有 `extras/` 保持不动** — `scripts/` 是新入口
 11. **`scripts/` 与 `collaboration/` 并列** — 放项目根目录，不属于 `collaboration/` 框架核心
 
 ---
@@ -36,6 +38,18 @@
 **DSpro**: 建议用 Python 标准库替代纯 bash，因为需要解析 Markdown 表、校验规则、模块间调用。
 
 **Zehee**: "那我们就用 Python，做都做了，就干脆做的强壮一点。"
+
+**DSpro**: 进一步细化架构——总入口 `agent.py`、Agent 名字从 ACTIONS.md 获取、无参返回 JSON Schema、上下文感知扫描 inbox 任务编号。
+
+**Zehee**: "这样再也不用担心他们忘东西了，因为只需要记住这个脚本入口，这个东西时时提醒他们。"
+
+### Round 2: 最终校正
+
+- **Zehee**: "decision 创建如果 agent 不是 tpm 会关联创建主动报告"
+  - 结论：`new-decision.py` 检测调用者角色——TPM 创建 `DECISION`，非 TPM 自动转为 `PROACTIVE_REPORT`，遵循"只有 TPM 人机结对可写 DECISION"的框架规则
+
+- **Zehee**: "task 创建应该检测编号自动生成"
+  - 结论：`new-task.py` 扫描 `inbox/` 中现有 `TASK_*` 文件，自动取最大 NNN+1，不要求用户在 JSON 中传入编号
 
 ---
 
