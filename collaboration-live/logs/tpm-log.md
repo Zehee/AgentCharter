@@ -65,3 +65,4 @@
 | 11:40 | Decision | DECISION_022 | 审查范式独立文档化——新建 `review-guide.md`，README/TPM.md 精简，默认自循环 |
 | 11:50 | Decision | DECISION_023 | 快捷脚本体系：Python 标准库 + lib/ 公共层 + `agent.py` 总入口 + 链路感知 + 模板解析 + 巡检集成 |
 | 11:51 | Dispatch | TASK_036 | 放入 inbox/，共 3 个 TASK（TASK_034 审查重构 / TASK_035 review-guide / TASK_036 脚本体系）|
+| 11:55 | Review | REPORT_034 + REPORT_035 | ✅ ACCEPT — reviews/ 已删、模板全部 `_author@recipient`、review-guide.md 已创建。TASK_034/035 归档 |
