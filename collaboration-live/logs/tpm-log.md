@@ -66,3 +66,4 @@
 | 11:50 | Decision | DECISION_023 | 快捷脚本体系：Python 标准库 + lib/ 公共层 + `agent.py` 总入口 + 链路感知 + 模板解析 + 巡检集成 |
 | 11:51 | Dispatch | TASK_036 | 放入 inbox/，共 3 个 TASK（TASK_034 审查重构 / TASK_035 review-guide / TASK_036 脚本体系）|
 | 11:55 | Review | REPORT_034 + REPORT_035 | ✅ ACCEPT — reviews/ 已删、模板全部 `_author@recipient`、review-guide.md 已创建。TASK_034/035 归档 |
+| 12:05 | Execute | TASK_036 | 自我执行。完整搭建 scripts/ 体系：agent.py + 7 lib 模块 + 7 命令 + daily-check + redlines。extras/template-validator 并入 lib/。文档全部更新 |
