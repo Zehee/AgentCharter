@@ -82,7 +82,7 @@ collaboration/
 ├── decisions/             DECISION records (written by human-AI pair Agents)
 ├── inbox/                 TASK / REVISION / NOTICE / REPLY
 ├── outbox/                REPORT / PROACTIVE_REPORT / BLOCKING
-├── reviews/               REVIEW_REPORT (Reviewer writes, all read)
+├──                 REVIEW_REPORT (Reviewer writes, all read)
 ├── logs/                  One exclusive operation log per person
 ├── todos/                 TODO backlog (TPM maintains)
 ├── templates/             15 file templates (read-only reference)
@@ -93,14 +93,14 @@ collaboration/
 |------|------|------|
 | `inbox/` | TPM | Executor, read-only |
 | `outbox/` | Executor | TPM, read-only |
-| `reviews/` | Reviewer + TPM | Everyone |
+| ` ` | Reviewer + TPM | Everyone |
 | `logs/` | Exclusive per person | Others, read-only |
 | `ACTIONS.md` | TPM | Everyone |
 | `dashboard.md` | TPM | Humans |
 | `todos/` | TPM | Everyone |
 | `context/` | TPM | Sub-Agent |
 
-> Add `inbox/ outbox/ logs/ reviews/ context/ todos/` to .gitignore. Keep `archive/` in Git as a permanent audit trail.
+> Add `inbox/ outbox/ logs/   context/ todos/` to .gitignore. Keep `archive/` in Git as a permanent audit trail.
 
 ---
 
@@ -124,18 +124,18 @@ REVISION_049C_20260530_FLASH.md
 
 | File Type | Template | Location | Who Writes |
 |----------|------|------|------|
-| Task | `TASK_NNN_DESC_ASSIGNEE.md` | inbox/ | TPM |
-| Test Task | `TASK_TEST_NNN_DESC_ASSIGNEE.md` | inbox/ | TPM |
-| Revision Task | `REVISION_NNN_DATE_ASSIGNEE.md` | inbox/ | TPM |
-| Notice | `NOTICE_NNN_DESC_DATE_TARGET.md` | inbox/ | TPM |
-| Reply | `REPLY_NNN_DESC_DATE_AUTHOR.md` | inbox/ | TPM |
-| Task Report | `REPORT_NNN_DATE_AUTHOR.md` | outbox/ | Executor |
-| Test Report | `TEST_REPORT_NNN_DATE_AUTHOR.md` | outbox/ | Tester |
-| Proactive Report | `PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md` | outbox/ | Anyone |
+| Task | `TASK_NNN_DESC_author@recipient.md` | inbox/ | TPM |
+| Test Task | `TASK_TEST_NNN_DESC_author@recipient.md` | inbox/ | TPM |
+| Revision Task | `REVISION_NNN_DATE_author@recipient.md` | inbox/ | TPM |
+| Notice | `NOTICE_NNN_DESC_DATE_author@recipient.md` | inbox/ | TPM |
+| Reply | `REPLY_NNN_DESC_DATE_author@recipient.md` | inbox/ | TPM |
+| Task Report | `REPORT_NNN_DATE_author@recipient.md` | outbox/ | Executor |
+| Test Report | `TEST_REPORT_NNN_DATE_author@recipient.md` | outbox/ | Tester |
+| Proactive Report | `PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md` | outbox/ | Anyone |
 | Decision Record | `DECISION_NNN_DATE_AUTHOR.md` | decisions/ | Human-AI Pair Agent |
-| Review Report | `REVIEW_REPORT_NNN_DATE_AUTHOR.md` | reviews/ | Reviewer |
-| Blocking Notice | `BLOCKING_NNN_DATE_TARGET.md` | outbox/ | Blocker |
-| Blocking Reply | `BLOCKING_REPLY_NNN_DATE_AUTHOR.md` | outbox/ | Resolver |
+| Review Report | `REVIEW_REPORT_NNN_DATE_author@recipient.md` |   | Reviewer |
+| Blocking Notice | `BLOCKING_NNN_DATE_author@recipient.md` | outbox/ | Blocker |
+| Blocking Reply | `BLOCKING_REPLY_NNN_DATE_author@recipient.md` | outbox/ | Resolver |
 | Todo | `TODO_NNN_DESC_SOURCE.md` | todos/ | TPM |
 | Log | `{identifier}-log.md` | logs/ | Per person |
 
@@ -160,7 +160,7 @@ REVISION_049C_20260530_FLASH.md
 ```
 TPM writes TASK → inbox/
   → Executor picks up → codes → writes REPORT → outbox/
-  → Review → writes REVIEW_REPORT → reviews/
+  → Review → writes REVIEW_REPORT →  
   → ACCEPTED → archive
   → Revision needed → write REPORT_R1 → re-review → loop until ACCEPTED
 ```
@@ -295,7 +295,7 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 | DECISION | After all linked TASK/TODOs are complete |
 | TODO | When converted to TASK / expired and discarded |
 
-**Target paths**: `archive/inbox/` / `archive/outbox/` / `archive/reviews/` / `archive/decisions/` / `archive/events/`
+**Target paths**: `archive/inbox/` / `archive/outbox/` / `archive/ ` / `archive/decisions/` / `archive/events/`
 
 ---
 
@@ -359,16 +359,16 @@ Only the TPM performs archiving. Archiving is a move operation; never modify con
 |---------|------|
 | Claim identity | Read 👑 → You are TPM: sign → read `TPM.md` / You are not TPM → read `REGISTER.md` |
 | Get a task | Check `ACTIONS.md` for your dispatch row → scan inbox/ or wait for internal dispatch |
-| Submit a report | Write `outbox/REPORT_NNN_DATE_AUTHOR.md` |
-| Submit a proactive report | Write `outbox/PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md` |
+| Submit a report | Write `outbox/REPORT_NNN_DATE_author@recipient.md` |
+| Submit a proactive report | Write `outbox/PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md` |
 | Record a decision | Write `decisions/DECISION_NNN_DATE_AUTHOR.md` (human-AI pair) |
-| Write a review conclusion | Write `reviews/REVIEW_REPORT_NNN_DATE_AUTHOR.md` with file:line + severity |
-| Report a block | Write `outbox/BLOCKING_NNN_DATE_TARGET.md` (state the unblock condition) |
-| Resolve a block | Write `outbox/BLOCKING_REPLY_NNN_DATE_AUTHOR.md` |
+| Write a review conclusion | Write ` REVIEW_REPORT_NNN_DATE_author@recipient.md` with file:line + severity |
+| Report a block | Write `outbox/BLOCKING_NNN_DATE_author@recipient.md` (state the unblock condition) |
+| Resolve a block | Write `outbox/BLOCKING_REPLY_NNN_DATE_author@recipient.md` |
 | Write a log | Append to `logs/{identifier}-log.md` |
 | Check a template | Read the corresponding file in `templates/` |
 | Pick up a revision | Check inbox/REVISION_NNN → read corresponding REVIEW_REPORT → fix → write REPORT_NNN_R1 (copy [Review Summary] from previous round + append fix response) |
-| Pick up a test task | Check inbox/TASK_TEST_NNN → run tests → write `outbox/TEST_REPORT_NNN_DATE_AUTHOR.md` |
+| Pick up a test task | Check inbox/TASK_TEST_NNN → run tests → write `outbox/TEST_REPORT_NNN_DATE_author@recipient.md` |
 | Check backlog | Read TODO files in `todos/` |
 | See progress (human) | Read `dashboard.md` |
 

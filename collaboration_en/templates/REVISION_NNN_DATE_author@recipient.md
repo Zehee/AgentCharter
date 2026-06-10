@@ -1,6 +1,6 @@
 # REVISION_NNN: Fix Issues Found in REVIEW_NNN
 
-> **Filename**: `REVISION_NNN_DATE_ASSIGNEE.md`
+> **Filename**: `REVISION_NNN_DATE_author@recipient.md`
 > **Location**: `inbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN`=corresponding review number, `DATE`=creation date `YYYYMMDD`, `ASSIGNEE`=executor identifier (UPPERCASE)
 
@@ -28,4 +28,4 @@ One sentence describing what needs to be fixed.
 - [ ] Fix item 1
 - [ ] Fix item 2
 - [ ] `[type check command]` 0 errors
-- [ ] Submit `outbox/REPORT_NNN_R1_DATE_AUTHOR.md`
+- [ ] Submit `outbox/REPORT_NNN_R1_DATE_author@recipient.md`

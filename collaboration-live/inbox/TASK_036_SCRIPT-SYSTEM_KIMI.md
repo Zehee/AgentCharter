@@ -1,0 +1,123 @@
+# TASK_036: 搭建快捷脚本体系——scripts/ 公共层 + agent.py 总入口 + 首批命令
+
+> **Assignee**: Kimi
+> **Priority**: P1
+> **Decision**: DECISION_023_20260610_TPM-PAIR.md
+
+---
+
+## 目标
+
+在项目根目录下新建 `scripts/` 目录，搭建完整的快捷脚本体系。Agent 只需记住 `agent.py NAME` 一个入口。
+
+---
+
+## 目录结构
+
+```
+scripts/
+├── agent.py             # ★ 总入口
+├── lib/
+│   ├── __init__.py
+│   ├── template.py      # 解析模板 {{变量名}} → field 列表
+│   ├── actions.py       # 读 ACTIONS.md → 角色/链路/权限校验
+│   ├── naming.py        # 文件名生成（NNN + _author@assignee）
+│   ├── validate.py      # 文件合规校验
+│   ├── registry.py      # NNN 序列管理
+│   └── patrol.py        # 巡检 inbox/outbox
+├── new-task.py          # 创建 TASK
+├── new-report.py        # 创建 REPORT
+├── new-revision.py      # 创建 REVISION
+├── new-decision.py      # 创建 DECISION
+├── new-review-report.py # 创建 REVIEW_REPORT
+├── validate-file.py     # 校验单个文件
+├── validate-all.py      # 校验全部文件
+└── README.md            # 使用说明
+```
+
+---
+
+## 各模块说明
+
+### `agent.py` — 总入口
+
+```
+$ python agent.py
+→ 返回项目的协作框架信息
+
+$ python agent.py KIMI
+→ 返回：
+  - role: External Agent
+  - links: inbox/outbox 流向
+  - available_commands: [new-task, new-report, ...]
+  - patrol: inbox 中 KIMI 的未完成任务 + outbox 中待处理项
+  - suggested: 下一步操作建议
+```
+
+### `lib/actions.py` — 角色与链路
+
+- 读 `collaboration/ACTIONS.md`，解析协作链路表
+- 校验 agent 名称是否存在：`get_role("KIMI")` → role / None
+- 返回角色允许的写权限列表
+
+### `lib/template.py` — 模板解析
+
+- 读 `collaboration/templates/` 中的 .md 文件
+- 正则提取 `{{变量名}}`
+- 输出 field 列表（key / label / type / options / default）
+- 支持对每字段的提取（类型、可选项等）
+- 对模板头部 `> **存放位置**: ` 的提取
+
+### `lib/naming.py` — 文件名生成
+
+- 根据文件类型 + 当前 NNN 序列 + agent 信息 → 生成合规文件名
+- 格式：`{TYPE}_{NNN}_{DATE}_{author}@{assignee}.md`
+- 下一序号：读 registry 或扫描目录中最大编号+1
+
+### `lib/registry.py` — NNN 序列管理
+
+- 跟踪当前各类文件的最新编号
+- 防止并发创建时编号冲突
+
+### `lib/patrol.py` — 巡检
+
+- 扫描 `collaboration/inbox/` 匹配 `TASK_*_{agent}.md` 提取未完成任务
+- 扫描 `collaboration/outbox/` 提取当前 agent 相关待处理项
+
+### `lib/validate.py` — 校验
+
+- 文件名格式校验
+- 必填字段校验
+- 流向校验（与 ACTIONS.md 匹配）
+- 关联 TASK 存在性校验
+
+### `new-*.py` — 各命令
+
+每个命令：
+```
+无参 → 输出 JSON Schema（只解析模板）
+NAME → 输出 Schema + 可选值（如 TASK 编号列表）
+NAME JSON → 校验 → 创建文件
+```
+
+---
+
+## 约束条件
+
+- ❌ 不依赖任何三方 Python 库
+- ❌ 不改动 `collaboration/` 中的模板和规则文件
+- ✅ `README.md` 全英文（社区惯例）
+
+---
+
+## 验收标准
+
+- [ ] `scripts/` 目录结构完整（lib/ + agent.py + 各命令）
+- [ ] `agent.py` 无参输出框架信息
+- [ ] `agent.py KIMI` 输出角色、链路、命令列表、巡检结果
+- [ ] `new-report.py` 无参输出模板 JSON Schema
+- [ ] `new-report.py KIMI` 输出 Schema + 可用 TASK 编号
+- [ ] `new-report.py KIMI '{"TASK_NNN":"042"}'` 创建文件
+- [ ] 无效 agent 名称被拒绝
+- [ ] 错误流向被拒绝
+- [ ] 提交 REPORT_036_KIMI.md 到 outbox/

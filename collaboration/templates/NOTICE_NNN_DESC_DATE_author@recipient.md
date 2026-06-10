@@ -1,6 +1,6 @@
 # NOTICE_NNN: 通知标题
 
-> **文件名**: `NOTICE_NNN_DESC_DATE_TARGET.md`
+> **文件名**: `NOTICE_NNN_DESC_DATE_author@recipient.md`
 > **存放位置**: `inbox/`
 > **命名约束**: 段间 `_`，段内 `-`。`NNN`=通知序号，`DESC`=通知内容简述，`DATE`=发布日期 `YYYYMMDD`，`TARGET`=目标受众标识（ALL / 执行者标识）
 

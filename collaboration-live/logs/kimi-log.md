@@ -85,3 +85,13 @@
 | 2026-06-10 | Create | `collaboration-live/decisions/DECISION_021_20260610_TRI-PAIR.md` | Zehee 指令：审查流程重构讨论 → DECISION 草案（368 行，18 Rounds）|
 | 2026-06-10 | Confirm | `DECISION_021_20260610_TRI-PAIR.md` | Zehee 批准，状态更新为 ✅ 确认 |
 | 2026-06-10 | Create | `collaboration-live/outbox/PROACTIVE_REPORT_007_20260610_KIMI-PAIR.md` | 建议 TPM 将 DECISION_021 转化为 TASK_033 |
+| 2026-06-10 | Read | `inbox/TASK_034_REVIEW-RESTRUCTURE_KIMI.md` | 审查流程重构任务 |
+| 2026-06-10 | Read | `inbox/TASK_035_REVIEW-GUIDE-DOC_KIMI.md` | 审查范式参考文档任务 |
+| 2026-06-10 | Delete | `collaboration/reviews/`, `archive/reviews/`, `collaboration-live/reviews/` | TASK_034：删除冗余 reviews/ 目录 |
+| 2026-06-10 | Move | 14 个模板文件 | TASK_034：重命名为双后缀 `_author@recipient` |
+| 2026-06-10 | Edit | `collaboration/README.md` | TASK_034/035：目录树/权限表/速查/命名规范/审查生命周期/归档规则 |
+| 2026-06-10 | Edit | `collaboration/TPM.md` | TASK_034/035：审查流程精简/归档规则/引用清理 |
+| 2026-06-10 | Create | `collaboration/review-guide.md` | TASK_035：三种审查范式参考文档 |
+| 2026-06-10 | Edit | `extras/template-validator/validate.py` | TASK_034：更新命名规范正则支持双后缀 |
+| 2026-06-10 | Create | `collaboration-live/outbox/REPORT_034_KIMI.md` | TASK_034 完成报告 |
+| 2026-06-10 | Create | `collaboration-live/outbox/REPORT_035_KIMI.md` | TASK_035 完成报告 |

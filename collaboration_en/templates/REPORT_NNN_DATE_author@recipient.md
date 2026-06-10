@@ -1,6 +1,6 @@
 # REPORT_NNN: Task Title
 
-> **Filename**: `REPORT_NNN_DATE_AUTHOR.md`
+> **Filename**: `REPORT_NNN_DATE_author@recipient.md`
 > **Location**: `outbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `DATE` = submission date `YYYYMMDD`, `AUTHOR` = author identifier (UPPERCASE)
 

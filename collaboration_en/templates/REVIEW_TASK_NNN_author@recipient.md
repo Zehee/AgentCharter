@@ -17,4 +17,4 @@
 - Read the corresponding REPORT in `outbox/`
 - Verify the actual code changes (do not rely solely on REPORT descriptions)
 - Run build verification commands
-- Output `reviews/REVIEW_REPORT_NNN_DATE_AUTHOR.md` with scores, issues (file:line), and merge recommendation
+- Output `inbox/REVIEW_REPORT_NNN_DATE_author@recipient.md` with scores, issues (file:line), and merge recommendation

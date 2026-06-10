@@ -1,6 +1,6 @@
 # TASK_TEST_NNN: 测试标题
 
-> **文件名**: `TASK_TEST_NNN_DESC_ASSIGNEE.md`
+> **文件名**: `TASK_TEST_NNN_DESC_author@recipient.md`
 > **存放位置**: `inbox/`
 > **命名约束**: 段间 `_`，段内 `-`。`NNN`=测试轮次序号，`DESC`=英文简短描述，`ASSIGNEE`=测试员标识（大写）
 

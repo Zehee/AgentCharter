@@ -1,6 +1,6 @@
 # TASK_NNN: Task Title
 
-> **Filename**: `TASK_NNN_DESC_ASSIGNEE.md`
+> **Filename**: `TASK_NNN_DESC_author@recipient.md`
 > **Location**: `inbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `DESC` = short English description, `ASSIGNEE` = executor identifier (UPPERCASE)
 
@@ -22,7 +22,7 @@ One sentence describing what this task aims to achieve.
 
 - [ ] Criterion 1
 - [ ] Criterion 2
-- [ ] Submit `outbox/REPORT_NNN_DATE_AUTHOR.md`
+- [ ] Submit `outbox/REPORT_NNN_DATE_author@recipient.md`
 
 ## Notes
 

@@ -61,8 +61,8 @@
 | **Git 权限隔离** | 只有 TPM 可执行任何 git 命令。其他 Agent 严禁。一刀切，无白名单 |
 | **双重审查** | 任何代码经另一位 AI 审查后才能合并 |
 | **日志只追加** | logs/、ACTIONS.md、dashboard.md 只追加，不修改历史 |
-| **inbox 写域** | TPM 写，执行者只读不删 |
-| **outbox 写域** | 执行者写，TPM 只读不删不修改 |
+| **inbox 写域** | TPM 写 TASK/NOTICE/REPLY/REVISION，reviewer 写 REVIEW_REPORT（自循环）。执行者只读不删 |
+| **outbox 写域** | 执行者写 REPORT/TEST_REPORT/BLOCKING，reviewer 写 REVIEW_REPORT（委派）。TPM 只读不删不修改 |
 | **logs/** | 每人独占一份 `{标识}-log.md`，他人只读 |
 | **ACTIONS.md / dashboard.md / todos/** | 只有 TPM 能写 |
 | **阻塞** | 写 `BLOCKING` 到对方读目录；解除写 `BLOCKING_REPLY` |
@@ -84,7 +84,6 @@ collaboration/
 ├── decisions/             DECISION 决策记录（人机结对 Agent 写入）
 ├── inbox/                 TASK / REVISION / NOTICE / REPLY
 ├── outbox/                REPORT / PROACTIVE_REPORT / BLOCKING
-├── reviews/               REVIEW_REPORT（Reviewer 写，所有人读）
 ├── logs/                  每人独占一份操作日志
 ├── todos/                 TODO 排期事项（TPM 维护）
 ├── templates/             15 个文件模板（只读基准）
@@ -95,29 +94,28 @@ collaboration/
 |------|------|------|
 | `inbox/` | TPM | 执行者只读 |
 | `outbox/` | 执行者 | TPM 只读 |
-| `reviews/` | Reviewer + TPM | 所有人 |
 | `logs/` | 每人独占 | 他人只读 |
 | `ACTIONS.md` | TPM | 所有人 |
 | `dashboard.md` | TPM | 人类 |
 | `todos/` | TPM | 所有人 |
 | `context/` | TPM | Sub-Agent |
 
-> `inbox/ outbox/ logs/ reviews/ context/ todos/` 加入 .gitignore。`archive/` 纳入 Git 作为永久审计线索。
+> `inbox/ outbox/ logs/ context/ todos/` 加入 .gitignore。`archive/` 纳入 Git 作为永久审计线索。
 
 ---
 
 ## 三、命名规范
 
-- **段间 `_`**，**段内 `-`**
+- **段间 `_`**，**段内 `-`**，**双后缀 `author@recipient`**
 - `NNN` = 3 位编号（001、042、049C_R1）
 - `DESC` = 英文简短描述，段内用 `-`
-- `ASSIGNEE` / `AUTHOR` / `TARGET` = 标识一律**大写**
+- `author` / `recipient` = 标识一律**大写**
 - `DATE` = `YYYYMMDD`
 
 ```
-TASK_053_HUNTER-SHOOT-BACKEND_PETER.md
-REPORT_053_20260530_PETER.md
-REVISION_049C_20260530_FLASH.md
+TASK_053_HUNTER-SHOOT-BACKEND_TPM@PETER.md
+REPORT_053_20260530_PETER@TPM.md
+REVISION_049C_20260530_TPM@FLASH.md
 ```
 
 ---
@@ -126,18 +124,19 @@ REVISION_049C_20260530_FLASH.md
 
 | 文件类型 | 模板 | 位置 | 谁写 |
 |----------|------|------|------|
-| 任务 | `TASK_NNN_DESC_ASSIGNEE.md` | inbox/ | TPM |
-| 测试任务 | `TASK_TEST_NNN_DESC_ASSIGNEE.md` | inbox/ | TPM |
-| 修订任务 | `REVISION_NNN_DATE_ASSIGNEE.md` | inbox/ | TPM |
-| 通知 | `NOTICE_NNN_DESC_DATE_TARGET.md` | inbox/ | TPM |
-| 回执 | `REPLY_NNN_DESC_DATE_AUTHOR.md` | inbox/ | TPM |
-| 任务报告 | `REPORT_NNN_DATE_AUTHOR.md` | outbox/ | 执行者 |
-| 测试报告 | `TEST_REPORT_NNN_DATE_AUTHOR.md` | outbox/ | 测试员 |
-| 主动报告 | `PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md` | outbox/ | 任何人 |
+| 任务 | `TASK_NNN_DESC_author@recipient.md` | inbox/ | TPM |
+| 测试任务 | `TASK_TEST_NNN_DESC_author@recipient.md` | inbox/ | TPM |
+| 修订任务 | `REVISION_NNN_DATE_author@recipient.md` | inbox/ | TPM |
+| 通知 | `NOTICE_NNN_DESC_DATE_author@recipient.md` | inbox/ | TPM |
+| 回执 | `REPLY_NNN_DESC_DATE_author@recipient.md` | inbox/ | TPM |
+| 任务报告 | `REPORT_NNN_DATE_author@recipient.md` | outbox/ | 执行者 |
+| 测试报告 | `TEST_REPORT_NNN_DATE_author@recipient.md` | outbox/ | 测试员 |
+| 主动报告 | `PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md` | outbox/ | 任何人 |
 | 决策记录 | `DECISION_NNN_DATE_AUTHOR.md` | decisions/ | 人机结对 Agent |
-| 审查报告 | `REVIEW_REPORT_NNN_DATE_AUTHOR.md` | reviews/ | Reviewer |
-| 阻塞通知 | `BLOCKING_NNN_DATE_TARGET.md` | outbox/ | 阻塞方 |
-| 阻塞回复 | `BLOCKING_REPLY_NNN_DATE_AUTHOR.md` | outbox/ | 解除方 |
+| 审查报告 | `REVIEW_REPORT_NNN_DATE_author@recipient.md` | 范式相关 | Reviewer |
+| 审查任务 | `REVIEW_TASK_NNN_author@recipient.md` | inbox/ | TPM（委派审查可选）|
+| 阻塞通知 | `BLOCKING_NNN_DATE_author@recipient.md` | outbox/ | 阻塞方 |
+| 阻塞回复 | `BLOCKING_REPLY_NNN_DATE_author@recipient.md` | outbox/ | 解除方 |
 | 待办 | `TODO_NNN_DESC_SOURCE.md` | todos/ | TPM |
 | 日志 | `{标识}-log.md` | logs/ | 每人 |
 
@@ -162,10 +161,14 @@ REVISION_049C_20260530_FLASH.md
 ```
 TPM 写 TASK → inbox/
   → 执行者领取 → 编码 → 写 REPORT → outbox/
-  → 审查 → 写 REVIEW_REPORT → reviews/
+  → 审查 → 写 REVIEW_REPORT → inbox/（自循环）或 outbox/（委派）
   → ACCEPTED → 归档
   → 需修订 → 写 REPORT_R1 → 再审 → 循环直到 ACCEPTED
 ```
+
+> **审查范式**：本项目的审查范式由 TPM 在 `CHARTER.md` 中指定。
+> 三种范式参考（TPM 直接审查 / 委派审查 / 自循环审查）见 `review-guide.md`。
+> 各角色只需按本章文件类型速查中的入口和出口操作。
 
 | 状态 | 含义 |
 |------|------|
@@ -297,7 +300,7 @@ TPM 写 TASK → inbox/
 | DECISION | 关联的 TASK/TODO 全部完成后归档 |
 | TODO | 转为 TASK 后归档 / 过期废弃后归档 |
 
-**目标路径**：`archive/inbox/` / `archive/outbox/` / `archive/reviews/` / `archive/decisions/` / `archive/events/`
+**目标路径**：`archive/inbox/` / `archive/outbox/` / `archive/decisions/` / `archive/events/`
 
 ---
 
@@ -361,16 +364,16 @@ TPM 写 TASK → inbox/
 |---------|------|
 | 认领身份 | 读 👑 区域 → 你是 TPM：签名字 → 读 `TPM.md` / 你不是 TPM → 读 `REGISTER.md` |
 | 领任务 | 查 `ACTIONS.md` 自己的分派行 → 巡检 inbox/ 或等内部投递 |
-| 交报告 | 写 `outbox/REPORT_NNN_DATE_AUTHOR.md` |
-| 交主动报告 | 写 `outbox/PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md` |
+| 交报告 | 写 `outbox/REPORT_NNN_DATE_author@recipient.md` |
+| 交主动报告 | 写 `outbox/PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md` |
 | 记录决策 | 写 `decisions/DECISION_NNN_DATE_AUTHOR.md`（人机结对适用） |
-| 写审查结论 | 写 `reviews/REVIEW_REPORT_NNN_DATE_AUTHOR.md`，附文件:行号 + 严重度 |
+| 写审查结论 | 写 `REVIEW_REPORT_NNN_DATE_author@recipient.md`，附文件:行号 + 严重度 |
 | 报告阻塞 | 写 `outbox/BLOCKING_NNN_DATE_TARGET.md`（写明解除条件） |
-| 解除阻塞 | 写 `outbox/BLOCKING_REPLY_NNN_DATE_AUTHOR.md` |
+| 解除阻塞 | 写 `outbox/BLOCKING_REPLY_NNN_DATE_author@recipient.md` |
 | 写日志 | 追加到 `logs/{标识}-log.md` |
 | 查模板 | 读 `templates/` 对应文件 |
 | 领取修订 | 查 inbox/REVISION_NNN → 读对应 REVIEW_REPORT → 修复 → 写 REPORT_NNN_R1（【审查摘要】节复制上轮原文 + 追加修复回应） |
-| 领取测试任务 | 查 inbox/TASK_TEST_NNN → 按测试计划执行 → 写 `outbox/TEST_REPORT_NNN_DATE_AUTHOR.md` |
+| 领取测试任务 | 查 inbox/TASK_TEST_NNN → 按测试计划执行 → 写 `outbox/TEST_REPORT_NNN_DATE_author@recipient.md` |
 | 查看排期 | 读 `todos/` 中的 TODO 文件 |
 | 看进度（人类） | 读 `dashboard.md` |
 

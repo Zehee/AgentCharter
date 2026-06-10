@@ -22,7 +22,7 @@
 2. 在 `README.md` 👑 区域替换占位符为你的名字
 3. 填写 `CHARTER.md`（协作宪章）——从 `README.md` 和 `TPM.md` 汇总关键规则
 4. 填写 `PROJECT.md`——向开发者询问项目信息和团队成员
-5. 检查 `.gitignore`：确保运行时目录（inbox/ outbox/ logs/ reviews/ context/ todos/）已忽略，**`archive/` 被 Git 跟踪**
+5. 检查 `.gitignore`：确保运行时目录（inbox/ outbox/ logs/ context/ todos/）已忽略，**`archive/` 被 Git 跟踪**
 
 初始化完成。所有你能做的事见 §二。
 
@@ -110,7 +110,7 @@
 |------|------|------|------|
 | `inbox/` | **TPM 写** | 执行者只读 | 任务分派、NOTICE、REPLY。所有人可读 |
 | `outbox/` | 执行者写 | **TPM 只读** | 报告提交。TPM 不修改、不删除 |
-| `reviews/` | Reviewer + **TPM 写** | 所有人可读 | 审查报告。REVIEW_REPORT 统一存放 |
+
 | `logs/` | 每人独占写 | 他人只读 | tpm-log.md / external-log.md / sub-agent-log.md / reviewer-log.md / reporter-log.md |
 | `dashboard.md` | **TPM 写** | 人类读 | 每日更新，非实时 |
 | `ACTIONS.md` | **TPM 写** | 所有人读 | 协作关系定义 |
@@ -133,10 +133,10 @@
 
 | 规则 | Sub-Agent | Reviewer |
 |------|-------|-----|
-| **文件权限** | 读写全部协作文件（inbox/outbox/reviews/logs） | 读写全部协作文件 |
+| **文件权限** | 读写全部协作文件（inbox/outbox/logs） | 读写全部协作文件 |
 | **通信方式** | 文件通道 + 内部通道 | 文件通道 + 内部通道 |
 | **代码交付** | 内部通道 diff → TPM | 内部通道审查结论 → TPM |
-| **报告位置** | outbox/REPORT（记录用） | reviews/REVIEW_REPORT（记录用） |
+| **报告位置** | outbox/REPORT（记录用） | outbox/REVIEW_REPORT（委派审查，给 TPM）或 inbox/REVIEW_REPORT（自循环审查，给 coder） |
 | **Git 禁令** | 严禁任何 git 命令 | 严禁任何 git 命令 |
 | **越界红线** | 严禁修改前端文件 | 只审查不写代码 |
 
@@ -187,7 +187,7 @@
 |-------|------|------|
 | **Sub-Agent** | **尽量少** | sub-agent 不稳定，易超时。保持 1-2 个活跃任务 |
 | **External Agent** | **可以多一点** | 稳定，可并行处理多个任务 |
-| **Reviewer** | 主动审查 outbox/ REPORT（TPM 轻量通知唤醒）+ 按级别输出 | TPM 发 REPORT 编号唤醒；Reviewer 读 REPORT → 审 → 写 REVIEW_REPORT(reviews/)；完成后内部通道通知 TPM；P0 不参与 |
+| **Reviewer** | 主动审查 outbox/ REPORT（TPM 轻量通知唤醒）+ 按级别输出 | TPM 发 REPORT 编号唤醒；Reviewer 读 REPORT → 审 → 写 REVIEW_REPORT(inbox/ 或 outbox/)；完成后内部通道通知 TPM；P0 不参与 |
 | **Reporter** | **用户主动指派** | 用户发设计任务，完成后提交报告给TPM决策 |
 
 **分发原则**：
@@ -205,31 +205,31 @@
 
 ## 五、审查流程
 
-**不亲自审代码细节**。审查流程按 TASK 分级执行：
+**不亲自审代码细节**。审查范式选择与完整对比见 `review-guide.md`。以下仅列出当前范式（自循环）下 TPM 的操作要点：
 
-### 5.1 总体流程
+1. 创建 TASK 时指定 `reviewer` 和 `级别（P0/P1/P2/P3）`
+2. 等 reviewer-coder 自循环结束（REVIEW_REPORT 标记 ACCEPT）
+3. 按分级决定介入深度：P0 直接 commit，P1 审摘要，P2/P3 审源码
+
+### 5.1 总体流程（自循环范式）
 
 ```
-执行者完成 → REPORT(outbox/) → TPM 判断级别
-    ├── P0 → TPM 直接 commit（不唤醒 Reviewer）
-    └── P1/P2/P3 → TPM 内部通道唤醒 Reviewer（轻量通知，只发报告编号）
-            ↓
-        Reviewer 读 REPORT → 审代码 → 写 REVIEW_REPORT(reviews/)
-            ↓
-        执行者读 REVIEW_REPORT → 修复 → REPORT_R1（附带【审查摘要】）
-            ↓
-        Reviewer 读 REPORT_R1（历史摘要在内，无需读上轮文件）
-            ↓
-        循环直到 Reviewer 在 REVIEW_REPORT 中写 "✅ ACCEPT"
-            ↓
-        Reviewer 内部通道通知 TPM（标准化格式）
-            ↓
-        TPM 按级别决策 → commit → 归档
+执行者完成 → REPORT(outbox/) → reviewer 主动巡检
+    ↓
+reviewer 读 REPORT → 写 REVIEW_REPORT(inbox/)
+    ↓
+执行者读 REVIEW_REPORT → 修复 → REPORT_R1（附带【审查摘要】）
+    ↓
+reviewer 读 REPORT_R1 → 写 REVIEW_REPORT_R1
+    ↓
+循环直到 reviewer 在 REVIEW_REPORT 中写 "✅ ACCEPT"
+    ↓
+TPM 按 P0-P3 分级决策 → commit → 归档
 ```
 
 **TPM 唤醒 Reviewer 的格式**（轻量，不注入任务详情）：
 ```
-outbox/ 有新的 REPORT 需要审查：REPORT_NNN_YYYYMMDD_SUB-AGENT.md
+outbox/ 有新的 REPORT 需要审查：REPORT_NNN_YYYYMMDD_author@recipient.md
 ```
 
 **Reviewer 通知 TPM 的标准化格式**：
@@ -238,7 +238,7 @@ REPORT_110 审查完成
 - 评分：8/10
 - 🔴：0 | 🟡：2 | 💡：1
 - 状态：🔄 需修复 / ✅ ACCEPT
-- REVIEW_REPORT 路径：reviews/REVIEW_REPORT_NNN_YYYYMMDD_REVIEWER.md
+- REVIEW_REPORT 路径：inbox/REVIEW_REPORT_NNN_YYYYMMDD_author@recipient.md
 ```
 
 ### 5.2 TASK 分级标准
@@ -304,12 +304,12 @@ Reviewer 写 REVIEW_REPORT_R1（复制 R0 + 追加 R1）
 
 ### 5.5 审查报告要求（Reviewer 执行）
 
-- 按 `templates/REVIEW_REPORT_NNN_DATE_AUTHOR.md` 格式输出
+- 按 `templates/REVIEW_REPORT_NNN_DATE_author@recipient.md` 格式输出
 - 【审查摘要】节为必填
 - 每条意见格式：`[严重级别] | 文件:行号 | 问题描述 | 修复建议`
 - 严重级别：🔴严重 / 🟡一般 / 💡建议
 - 总体评分 1-10 + 评分理由 + 状态
-- REVIEW_REPORT 写入 `reviews/`
+- REVIEW_REPORT 写入 `inbox/`（自循环范式）或 `outbox/`（委派审查范式）
 
 > 详细审查规范见 `README.md` §五、任务生命周期。
 
@@ -354,11 +354,11 @@ Reviewer 写 REVIEW_REPORT_R1（复制 R0 + 追加 R1）
 | **仅到 TPM 的文件** | **TPM 处理完即归档** | 无需等外部 agent 读取 |
 
 **规则说明**：
-- **流程中间文件**：一旦处理完成，价值立即归零，应立即归档。当前项目中 REVIEW_TASK 和 REVISION 已废除，但规则保留以兼容泛化
+- **流程中间文件**：一旦处理完成，价值立即归零，应立即归档
 - **流程末端文件**：外部 agent 必须在读取后在文件顶部添加已读标识，格式为 `> ✅ 已读 BY {AGENT} @ {DATE}`。TPM 确认所有相关外部 agent 已读后立即归档。
   - **例外**：若文件仅到达 TPM（如外部 agent 提交的 REPORT，TPM 阅读处理后），TPM 处理完即可归档，无需等待已读标识。因为外部 agent 不需要读自己的 REPORT
   - 人类可直接查阅任何文档，不受此限制
-- **归档路径**: `archive/inbox/` / `archive/outbox/` / `archive/reviews/`
+- **归档路径**: `archive/inbox/` / `archive/outbox/`
 - **连带归档规则**: REVIEW_REPORT 状态为 ACCEPT 并归档时，TPM 必须检查 `inbox/` 中是否仍有对应 TASK，有则一并移入 `archive/inbox/`
 - **已读标识位置**: 文件最顶部（标题上方），确保 TPM 一目了然
 
@@ -440,4 +440,4 @@ Reviewer 写 REVIEW_REPORT_R1（复制 R0 + 追加 R1）
 - **技术栈**: [你的技术栈]
 - **构建基线**: `[你的检查命令]`
 - **不同步例外**: `ACTIONS.md`、`dashboard.md`、`PROJECT.md` 各自独立
-- **.gitignore 排除**: 运行时目录（inbox/ outbox/ logs/ reviews/ context/ todos/）加入 .gitignore。`archive/` 和框架文件（TPM.md、README.md、PROJECT.md 等）纳入 Git
+- **.gitignore 排除**: 运行时目录（inbox/ outbox/ logs/ context/ todos/）加入 .gitignore。`archive/` 和框架文件（TPM.md、README.md、PROJECT.md 等）纳入 Git

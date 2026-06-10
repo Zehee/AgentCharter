@@ -12,7 +12,7 @@
 
 # 🔍 PROACTIVE_REPORT_NNN: 报告标题
 
-> **文件名**: `PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md`
+> **文件名**: `PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md`
 > **存放位置**: `outbox/`
 > **命名约束**: 段间 `_`，段内 `-`。`NNN`=自主顺序编号，`DESC`=英文简短描述，`DATE`=提交日期 `YYYYMMDD`，`AUTHOR`=作者标识（大写）
 

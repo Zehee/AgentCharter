@@ -11,7 +11,7 @@
 
 # REPLY_NNN: 主动报告处理回执
 
-> **文件名**: `REPLY_NNN_DESC_DATE_AUTHOR.md`
+> **文件名**: `REPLY_NNN_DESC_DATE_author@recipient.md`
 > **存放位置**: `inbox/`
 > **命名约束**: 段间 `_`，段内 `-`。`NNN`=对应主动报告编号，`DATE`=处理日期 `YYYYMMDD`，`AUTHOR`=报告提交者标识（大写）
 

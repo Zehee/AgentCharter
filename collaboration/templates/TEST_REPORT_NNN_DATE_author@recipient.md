@@ -1,6 +1,6 @@
 # TEST_REPORT_NNN: 测试标题 — 总体结论
 
-> **文件名**: `TEST_REPORT_NNN_DATE_AUTHOR.md`
+> **文件名**: `TEST_REPORT_NNN_DATE_author@recipient.md`
 > **存放位置**: `outbox/`
 > **命名约束**: 段间 `_`，段内 `-`。`NNN`=对应测试任务序号，`DATE`=提交日期 `YYYYMMDD`，`AUTHOR`=测试员标识（大写）
 

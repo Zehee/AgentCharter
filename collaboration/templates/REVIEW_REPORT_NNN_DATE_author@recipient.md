@@ -1,12 +1,13 @@
 # REVIEW_REPORT_NNN: 审查对象 — 审查结论
 
-> **文件名**: `REVIEW_REPORT_NNN_DATE_AUTHOR.md`
-> **存放位置**: `reviews/`
-> **命名约束**: 段间 `_`，段内 `-`。`NNN`=审查序号，`DATE`=提交日期 `YYYYMMDD`，`AUTHOR`=审查人标识（大写）
+> **文件名**: `REVIEW_REPORT_NNN_DATE_author@recipient.md`
+> **存放位置**: 范式相关——委派审查放 `outbox/`（给 TPM），自循环审查放 `inbox/`（给 coder）
+> **命名约束**: 段间 `_`，段内 `-`，后缀 `author@recipient`。`NNN`=审查序号，`DATE`=提交日期 `YYYYMMDD`，`author`=审查人标识（大写），`recipient`=接收者标识（大写）
 
 **审查人**: [审查人标识]
 **日期**: YYYY-MM-DD
 **对应**: TASK_NNN / REPORT_NNN
+**接收者**: [coder 标识 / TPM 标识]（自循环→coder，委派→TPM）
 
 > **摘要流转规则**：【摘要】节必填。首轮只写 `### R0`，后续轮次从执行者的 REPORT_RN【审查摘要】复制全部历史原文，底部追加本轮，不得修改历史原文。
 

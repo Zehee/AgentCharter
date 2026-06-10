@@ -3,7 +3,7 @@
   Author: Reporter (any role can double as one)
   Nature: No corresponding TASK, bypasses inbox task system
   Handling: TPM read-and-burn — read → decide → annotate → archive
-  Naming: PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md
+  Naming: PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md
     - NNN: sequential number (independent of task numbers)
     - DESC: short English description, within segment use `-`
     - DATE: submission date `YYYYMMDD`
@@ -12,7 +12,7 @@
 
 # 🔍 PROACTIVE_REPORT_NNN: Report Title
 
-> **Filename**: `PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md`
+> **Filename**: `PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md`
 > **Location**: `outbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN`=sequential number, `DESC`=short English description, `DATE`=submission date `YYYYMMDD`, `AUTHOR`=author identifier (UPPERCASE)
 

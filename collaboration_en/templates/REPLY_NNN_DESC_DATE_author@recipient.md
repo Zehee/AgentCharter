@@ -3,7 +3,7 @@
   Maintainer: TPM
   Purpose: Notify proactive report submitter of processing results
   Created: After TPM processes a proactive report
-  Naming: REPLY_NNN_DESC_DATE_AUTHOR.md
+  Naming: REPLY_NNN_DESC_DATE_author@recipient.md
     - NNN: corresponding proactive report number
     - DATE: processing date `YYYYMMDD`
     - AUTHOR: report submitter identifier (UPPERCASE)
@@ -11,11 +11,11 @@
 
 # REPLY_NNN: Proactive Report Processing Reply
 
-> **Filename**: `REPLY_NNN_DESC_DATE_AUTHOR.md`
+> **Filename**: `REPLY_NNN_DESC_DATE_author@recipient.md`
 > **Location**: `inbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN`=corresponding report number, `DATE`=processing date `YYYYMMDD`, `AUTHOR`=submitter identifier (UPPERCASE)
 
-**Source Report**: `PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md`
+**Source Report**: `PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md`
 **Processing Date**: YYYY-MM-DD
 **Submitter**: [AUTHOR]
 

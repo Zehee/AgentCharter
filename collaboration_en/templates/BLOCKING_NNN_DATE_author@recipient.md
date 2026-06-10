@@ -1,6 +1,6 @@
 # BLOCKING_NNN: Blocking Notice
 
-> **Filename**: `BLOCKING_NNN_DATE_TARGET.md`
+> **Filename**: `BLOCKING_NNN_DATE_author@recipient.md`
 > **Location**: `outbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = blocking number, `DATE` = date, `TARGET` = blocked party (UPPERCASE)
 

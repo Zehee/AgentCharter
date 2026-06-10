@@ -1,6 +1,6 @@
 # TASK_TEST_NNN: Test Task Title
 
-> **Filename**: `TASK_TEST_NNN_DESC_ASSIGNEE.md`
+> **Filename**: `TASK_TEST_NNN_DESC_author@recipient.md`
 > **Location**: `inbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = test round number, `DESC` = short English description, `ASSIGNEE` = tester identifier (UPPERCASE)
 
@@ -54,7 +54,7 @@ One sentence describing what this test verifies and why now.
 
 ## 7. Feedback Requirements
 
-Submit `outbox/TEST_REPORT_NNN_DATE_AUTHOR.md`, must include:
+Submit `outbox/TEST_REPORT_NNN_DATE_author@recipient.md`, must include:
 1. Verification checklist results (PASS / FAIL / BLOCK / N/A)
 2. Defect list (🔴 / 🟡 / 💡, with repro steps)
 3. Environment confirmation
