@@ -136,6 +136,43 @@ $ python agent.py KIMI
 
 - ❌ 不依赖任何三方 Python 库
 - ❌ 不改动 `collaboration/` 中的模板和规则文件
+
+---
+
+## 工具完成后需更新的文档
+
+### 1. 新建 `scripts/README.md`
+
+面向 Agent 的使用指南。包含：
+- `agent.py NAME` — 总入口，第一步该跑什么
+- `daily-check.py` — 全量巡检，TPM 定期执行
+- 各 `new-*.py` 命令清单及三态调用示例
+- `validate-file.py` / `validate-all.py` — 手动校验
+- 红线输出说明
+
+### 2. 新建外层 `README.md` 引用
+
+在项目根目录 `README.md`（GitHub 首页）中增加一行：
+
+```markdown
+> 🛠️ **快捷工具**：`scripts/` 提供可选命令行工具，减少 Agent 记忆和操作错误。详见 `scripts/README.md`。
+```
+
+### 3. 更新 `collaboration/README.md` 快速参考
+
+在 §十二（快速参考）增加一行：
+
+```markdown
+| 使用工具 | 运行 `python scripts/agent.py 你的名字` | scripts/ |
+```
+
+### 4. 删除 `extras/` 目录后更新 `CHANGELOG.md`
+
+在 [Unreleased] 中记录：
+
+```markdown
+- **extras/ 拆除**：template-validator 功能分解入 `scripts/lib/`。`scripts/` 成为新的单一工具入口。
+```
 - ✅ `README.md` 全英文（社区惯例）
 
 ---
@@ -150,4 +187,10 @@ $ python agent.py KIMI
 - [ ] `new-report.py KIMI '{"TASK_NNN":"042"}'` 创建文件
 - [ ] 无效 agent 名称被拒绝
 - [ ] 错误流向被拒绝
+- [ ] `scripts/README.md` 已创建，覆盖总入口 + 命令清单 + 调用示例
+- [ ] 外层根目录 `README.md` 已增加 scripts/ 引用
+- [ ] `collaboration/README.md` §十二 已增加 scripts/ 快捷参考
+- [ ] `CHANGELOG.md` [Unreleased] 已记录 extras/ 拆除和 scripts/ 新入口
+- [ ] 英文版同步（`collaboration_en/README.md`）
+- [ ] `extras/template-validator/` 已删除
 - [ ] 提交 REPORT_036_KIMI.md 到 outbox/
