@@ -32,15 +32,19 @@ python agent.py <你的名字>
 每个 `new-*.py` 命令支持三种模式：
 
 ```
-# 无参 — 输出模板结构
+# 无参 — 输出模板结构（所有 {{变量}} 字段列表）
 python new-report.py
 
-# 仅名字 — 输出模板 + 你的待办列表
+# 仅名字 — 输出模板 + 你的任务列表
 python new-report.py KIMI
 
-# 名字 + JSON — 校验并创建文件
-python new-report.py KIMI '{"TASK_NNN":"042","summary":"登录功能"}'
+# 名字 + JSON — 脚本自动校验并创建文件
+python new-report.py KIMI '{"ref_nnn":"042","title":"登录功能","change_description":"...","type_check_cmd":"cargo check"}'
 ```
+
+> 💡 **不用记模板字段**：无参运行一次，脚本自动输出该文件类型所有需要填写的字段及 JSON 格式。
+
+## 红线提醒
 
 ## 红线提醒
 
