@@ -143,27 +143,50 @@ $ python agent.py KIMI
 
 ### 1. 新建 `scripts/README.md`
 
-面向 Agent 的使用指南。包含：
-- `agent.py NAME` — 总入口，第一步该跑什么
-- `daily-check.py` — 全量巡检，TPM 定期执行
-- 各 `new-*.py` 命令清单及三态调用示例
-- `validate-file.py` / `validate-all.py` — 手动校验
-- 红线输出说明
+简洁，一句话总起，然后命令清单。
+
+```markdown
+# AgentCharter Scripts
+
+**Python 3 可选工具 — 协议层是基石，脚本层是增强。**
+没有 Python？目录结构、命名规范、ACTIONS.md 链路表照常运转。
+有 Python？agent.py 是你的入口，其余脚本随用随查。
+
+## 快速开始
+
+python agent.py <你的名字>
+
+## 命令
+
+| 命令 | 用途 |
+|------|------|
+| agent.py NAME | 总入口：身份、链路、命令列表、巡检结果 |
+| daily-check.py | 全量巡检：扫描 inbox/outbox/decisions 全部文件 |
+| new-task.py NAME | 创建 TASK（自动编号）|
+| new-report.py NAME | 创建 REPORT |
+| new-revision.py NAME | 创建 REVISION |
+| new-decision.py NAME | 创建 DECISION（TPM）/ DECISION+PROACTIVE_REPORT（外部）|
+| new-review-report.py NAME | 创建 REVIEW_REPORT |
+| validate-file.py PATH | 校验单个文件 |
+| validate-all.py | 校验全部文件 |
+
+每次命令末尾自动输出项目红线提醒。
+```
 
 ### 2. 新建外层 `README.md` 引用
 
-在项目根目录 `README.md`（GitHub 首页）中增加一行：
+在根目录 `README.md`（Quick Start 上方）增加一行：
 
 ```markdown
-> 🛠️ **快捷工具**：`scripts/` 提供可选命令行工具，减少 Agent 记忆和操作错误。详见 `scripts/README.md`。
+> 🛠️ **可选增强**：`scripts/` 提供 Python 命令行工具，省记忆、防犯错。详见 `scripts/README.md`。没有 Python？协议层本身运转完好。
 ```
 
 ### 3. 更新 `collaboration/README.md` 快速参考
 
-在 §十二（快速参考）增加一行：
+在 §十二 增加一行：
 
 ```markdown
-| 使用工具 | 运行 `python scripts/agent.py 你的名字` | scripts/ |
+| 用工具省力 | 运行 `python scripts/agent.py 你的名字`（可选，推荐） | scripts/README.md |
 ```
 
 ### 4. 删除 `extras/` 目录后更新 `CHANGELOG.md`
@@ -171,7 +194,7 @@ $ python agent.py KIMI
 在 [Unreleased] 中记录：
 
 ```markdown
-- **extras/ 拆除**：template-validator 功能分解入 `scripts/lib/`。`scripts/` 成为新的单一工具入口。
+- **extras/ → scripts/**：template-validator 功能并入 `scripts/lib/`。`scripts/` 成为推荐的单一工具入口。无 Python 环境不影响框架正常工作。
 ```
 - ✅ `README.md` 全英文（社区惯例）
 
