@@ -17,19 +17,20 @@
 ```
 scripts/
 ├── agent.py             # ★ 总入口
+├── daily-check.py       # ★ 全量巡检：扫描 inbox/outbox/decisions 全部文件，检查命名+内容+交叉引用
 ├── lib/
 │   ├── __init__.py
 │   ├── template.py      # 解析模板 {{变量名}} → field 列表
 │   ├── actions.py       # 读 ACTIONS.md → 角色/链路/权限校验
-│   ├── naming.py        # 文件名生成（NNN + _author@assignee）
-│   ├── validate.py      # 文件合规校验
+│   ├── naming.py        # 文件名生成 + 命名正则库（吸收 extras 的命名部分）
+│   ├── validate.py      # 文件合规校验：内容头部字段 + 交叉引用（吸收 extras 的内容校验部分）
 │   ├── registry.py      # NNN 序列管理
 │   ├── patrol.py        # 巡检 inbox/outbox
 │   └── redlines.py      # 红线规则读取（每次输出末尾追加）
-├── new-task.py          # 创建 TASK
+├── new-task.py          # 创建 TASK（自动编号）
 ├── new-report.py        # 创建 REPORT
 ├── new-revision.py      # 创建 REVISION
-├── new-decision.py      # 创建 DECISION
+├── new-decision.py      # 创建 DECISION（TPM）/ DECISION + PROACTIVE_REPORT（外部 Agent）
 ├── new-review-report.py # 创建 REVIEW_REPORT
 ├── validate-file.py     # 校验单个文件
 ├── validate-all.py      # 校验全部文件
@@ -98,6 +99,22 @@ $ python agent.py KIMI
 - 在代码块中定位 `—` 到 `！` 之间的文本，提取为红线内容
 - 所有红线内容用 `！` 拼接为一个字符串
 - 输出格式：`"redlines": "所有任务、报告、决策必须通过文件传递！任何 Agent 严禁执行 git 命令！只追加不覆盖..."`
+
+### `scripts/daily-check.py` — 全量巡检
+
+- 吸收 `extras/template-validator/validate.py` 的全部功能
+- 默认扫描 `inbox/` + `outbox/` + `decisions/` 全部文件
+- 三项检查：
+  1. **命名校验** — 调用 `lib/naming.py` 的正则库，验证文件名是否合规
+  2. **内容校验** — 调用 `lib/validate.py`，检查前 40 行是否包含期望头部字段
+  3. **交叉引用** — 验证 TASK↔REPORT 等关联文件是否存在
+- 输出格式：`通过: N / 错误: N / 警告: N` + 逐项详情列表
+- 调用方式：
+  ```
+  python daily-check.py                   # 扫描全部
+  python daily-check.py inbox/            # 只扫 inbox
+  python daily-check.py inbox/ outbox/    # 扫指定目录
+  ```
 
 ### `new-task.py` — 创建 TASK
 
