@@ -21,7 +21,7 @@
 8. **Agent 名称为必传校验参数** — 从 `ACTIONS.md` 实时读取，不在脚本中硬编码。无效名称直接拒绝
 9. **上下文感知** — `new-report.py NAME` 仅传名字时，自动扫描 inbox 列出该 Agent 的未完成任务编号作为可选值
 10. **`new-task.py` 自动编号** — 扫描现有 `inbox/TASK_*` 文件，自动生成下一个 NNN，不要求用户在 JSON 中传入
-11. **`new-decision.py` 角色分流** — TPM 调用时创建 `DECISION` 文件；非 TPM 调用时自动创建 `PROACTIVE_REPORT`（遵循"只有 TPM 人机结对可写 DECISION"的规则）
+11. **`new-decision.py` 角色分流** — 外部 Agent（非 TPM）调用时，自动依次创建 `DECISION`（推理链记录）+ `PROACTIVE_REPORT`（行动请求递交 TPM），遵循"外部人机结对多轮对话必须生成 DECISION 然后提交 PROACTIVE_REPORT"的框架规则。TPM 人机结对调用时，仅创建 `DECISION`，不创建 `PROACTIVE_REPORT
 12. **已有 `extras/` 保持不动** — `scripts/` 是新入口
 11. **`scripts/` 与 `collaboration/` 并列** — 放项目根目录，不属于 `collaboration/` 框架核心
 

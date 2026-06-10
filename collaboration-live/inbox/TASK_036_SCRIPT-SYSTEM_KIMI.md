@@ -96,13 +96,14 @@ $ python agent.py KIMI
 - 自动扫描 `inbox/` 中现有 `TASK_*` 文件，取最大 NNN+1（无需用户在 JSON 中传入编号）
 - 其余流程同上
 
-### `new-decision.py` — 创建 DECISION / PROACTIVE_REPORT
+### `new-decision.py` — 创建决策与行动请求
 
 - 通过 `lib/actions` 检测调用者角色
-- **TPM 角色** → 创建 `DECISION` 文件到 `decisions/`
-- **非 TPM 角色** → 自动创建 `PROACTIVE_REPORT` 文件到 `outbox/`
+- **TPM 角色** → 仅创建 `DECISION` 文件到 `decisions/`
+- **非 TPM 角色**（外部 Agent）→ 自动依次创建：
+  1. `DECISION` 文件到 `decisions/`（记录推理链）
+  2. `PROACTIVE_REPORT` 文件到 `outbox/`（递交 TPM 审批）
 - 模板解析、字段校验流程相同，仅输出路径和文件类型不同
-- 其余流程同上
 
 ---
 
