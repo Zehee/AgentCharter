@@ -179,7 +179,7 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
             filled = filled.replace("{{" + key + "}}", str(value))
             filled = filled.replace("{{" + key.lower() + "}}", str(value))
 
-        # 8. 校验必填变量是否已替换
+        # 8. 校验必填变量 + 警告可选字段遗漏
         import re
         name_pattern = template_info.get("name_pattern", "")
         name_vars = set(re.findall(r'\{\{(\w+)\}\}', name_pattern))
@@ -187,6 +187,12 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
         missing_required = [v for v in name_vars if v in unreplaced]
         if missing_required:
             return {"error": f"必填字段未提供（影响文件名生成）: {', '.join(missing_required)}"}
+
+        # 正文可选字段遗漏 → 不阻断，记录 warning
+        body_unfilled = [v for v in unreplaced if v not in name_vars]
+        body_warning = None
+        if body_unfilled:
+            body_warning = f"以下正文字段未填写，建议补充后更新文件: {', '.join(body_unfilled)}"
 
         try:
             target_path.parent.mkdir(parents=True, exist_ok=True)
@@ -197,7 +203,7 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
             return {"error": f"写入文件失败: {e}"}
 
         # 9. Return result with redlines
-        return {
+        result = {
             "result": "✅ 文件已创建",
             "file_type": file_type,
             "path": str(target_path.relative_to(COLLAB_DIR)) if target_path.exists() else str(target_path),
@@ -205,6 +211,9 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
             "target": f"{target_dir}{filename}",
             "redlines": get_redlines_string(),
         }
+        if body_warning:
+            result["warning"] = body_warning
+        return result
 
     except json.JSONDecodeError as e:
         return {"error": f"JSON 解析失败: {e}"}
