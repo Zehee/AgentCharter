@@ -16,32 +16,63 @@ COLLAB_DIR = SCRIPTS_DIR.parent
 
 
 def get_next_nnn(file_type: str, inbox_dir: str | None = None) -> int:
-    """Scan directory for existing files of the given type and return max NNN + 1.
+    """Scan directories for existing files and return max NNN + 1.
+
+    For most file types: scans both the active dir and its archive counterpart.
+    E.g. TASK → inbox/ + archive/inbox/; REPORT → outbox/ + archive/outbox/
 
     Args:
         file_type: e.g. "TASK", "REPORT", "REVISION"
-        inbox_dir: optional override, defaults to collaboration/inbox/
+        inbox_dir: optional override, defaults based on file type
 
     Returns:
-        int: next available sequence number (1-based, zero-padded to 3 digits)
+        int: next available sequence number
     """
-    if inbox_dir is None:
-        inbox_dir = str(COLLAB_DIR / "inbox")
+    # 文件类型 → (默认活跃目录, 是否同时扫描归档目录)
+    type_dir_map = {
+        "TASK": ("inbox", True),
+        "TASK_TEST": ("inbox", True),
+        "REPORT": ("outbox", True),
+        "REVISION": ("inbox", True),
+        "REVIEW_REPORT": ("outbox", True),
+        "REVIEW_TASK": ("inbox", False),
+        "DECISION": ("decisions", True),
+        "PROACTIVE_REPORT": ("outbox", True),
+        "NOTICE": ("inbox", False),
+        "REPLY": ("inbox", False),
+        "BLOCKING": ("outbox", False),
+        "BLOCKING_REPLY": ("outbox", False),
+        "TEST_REPORT": ("outbox", True),
+        "TODO": ("todos", False),
+    }
 
-    target = Path(inbox_dir)
-    if not target.exists():
-        return 1
+    default_dir, scan_archive = type_dir_map.get(file_type, ("inbox", False))
+    dirs_to_scan = []
+
+    if inbox_dir:
+        dirs_to_scan.append(inbox_dir)
+    else:
+        dirs_to_scan.append(str(COLLAB_DIR / default_dir))
+
+    if scan_archive:
+        archive_dir = COLLAB_DIR / "archive" / default_dir
+        if archive_dir.exists():
+            dirs_to_scan.append(str(archive_dir))
 
     max_nnn = 0
     pattern = re.compile(rf"{re.escape(file_type)}_(\d{{3}})", re.IGNORECASE)
 
-    for f in target.iterdir():
-        if f.is_file() and f.suffix == ".md":
-            m = pattern.search(f.name)
-            if m:
-                n = int(m.group(1))
-                if n > max_nnn:
-                    max_nnn = n
+    for d in dirs_to_scan:
+        target = Path(d)
+        if not target.exists():
+            continue
+        for f in target.iterdir():
+            if f.is_file() and f.suffix == ".md":
+                m = pattern.search(f.name)
+                if m:
+                    n = int(m.group(1))
+                    if n > max_nnn:
+                        max_nnn = n
 
     return max_nnn + 1
 

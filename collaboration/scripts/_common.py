@@ -83,10 +83,7 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
         nnn = data.get("NNN")
         if not nnn:
             try:
-                if file_type in ("TASK", "TASK_TEST"):
-                    next_n = get_next_nnn(file_type, str(COLLAB_DIR / "inbox"))
-                else:
-                    next_n = get_next_nnn(file_type)
+                next_n = get_next_nnn(file_type)
                 nnn = format_nnn(next_n) if next_n else "001"
             except Exception as e:
                 return {"error": f"无法获取下一个编号: {e}"}
