@@ -1,6 +1,6 @@
 # TASK_033: collaboration/ 解耦——修正所有外部路径引用
 
-> **Assignee**: Kimi
+> **Assignee**: TPM (自我分派)
 > **Priority**: P1
 > **Decision**: DECISION_020_20260610_TPM-PAIR.md
 
