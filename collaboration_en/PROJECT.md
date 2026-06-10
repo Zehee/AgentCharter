@@ -2,7 +2,7 @@
 
 > Maintained by the TPM. Records basic project info, team members, tech stack, and build commands.
 > General collaboration framework: see `README.md`.
-> Configuration examples: see `../practices/` directory.
+> Configuration examples: see the `practices/` directory in the AgentCharter repo.
 
 ---
 

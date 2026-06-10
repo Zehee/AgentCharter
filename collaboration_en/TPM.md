@@ -22,8 +22,7 @@ After confirming you are the TPM, execute in order:
 2. Replace the placeholder in `README.md` 👑 section with your name
 3. Fill in `CHARTER.md` (cooperation charter) — summarize key rules from `README.md` and `TPM.md`
 4. Fill in `PROJECT.md` — ask the developer for project info and team members
-5. **Move `CHARTER.md` to the project root** (`../CHARTER.md`)
-6. Check `.gitignore`: ensure runtime dirs (inbox/ outbox/ logs/ reviews/ context/ todos/) are ignored, **`archive/` is tracked by Git**
+5. Check `.gitignore`: ensure runtime dirs (inbox/ outbox/ logs/ reviews/ context/ todos/) are ignored, **`archive/` is tracked by Git**
 
 Initialization complete. Everything you can do is documented in §2.
 
@@ -202,7 +201,7 @@ Proactive report submitted → TPM reads → decides (Accept / Reject / Task / B
 
 ---
 
-> 📎 The following review grading is a reference pattern. Specific grading criteria are defined by the project in `../CHARTER.md`.
+> 📎 The following review grading is a reference pattern. Specific grading criteria are defined by the project in `CHARTER.md`.
 
 ## 5. Review Process
 
@@ -416,7 +415,7 @@ When you need a Sub-Agent or Reviewer:
 
 | Information | Path |
 |------|------|
-| Charter (highest authority) | `CHARTER.md` (moved to project root after initialization) |
+| Charter (highest authority) | `CHARTER.md` |
 | Members & Responsibilities | `PROJECT.md` |
 | Collaboration Relationships (who→whom, via what) | `ACTIONS.md` |
 | General Spec (lifecycle, naming, review requirements) | `README.md` |

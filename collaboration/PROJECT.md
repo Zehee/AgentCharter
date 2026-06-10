@@ -2,7 +2,7 @@
 
 > 本文件由 TPM 维护。记录项目基本信息、团队成员、技术栈和构建命令。
 > 通用协作框架见 `README.md`。
-> 配置示例见 `../practices/` 目录（如果通过 AgentCharter 仓库获取框架）。
+> 配置示例可在 AgentCharter 仓库的 `practices/` 目录中查看。
 
 ---
 

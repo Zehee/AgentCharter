@@ -22,8 +22,7 @@
 2. 在 `README.md` 👑 区域替换占位符为你的名字
 3. 填写 `CHARTER.md`（协作宪章）——从 `README.md` 和 `TPM.md` 汇总关键规则
 4. 填写 `PROJECT.md`——向开发者询问项目信息和团队成员
-5. **将 `CHARTER.md` 移至项目根目录**（`../CHARTER.md`）
-6. 检查 `.gitignore`：确保运行时目录（inbox/ outbox/ logs/ reviews/ context/ todos/）已忽略，**`archive/` 被 Git 跟踪**
+5. 检查 `.gitignore`：确保运行时目录（inbox/ outbox/ logs/ reviews/ context/ todos/）已忽略，**`archive/` 被 Git 跟踪**
 
 初始化完成。所有你能做的事见 §二。
 
@@ -202,7 +201,7 @@
 
 ---
 
-> 📎 以下审查分级为参考模式，具体分级标准由项目在 `../CHARTER.md` 中定义。
+> 📎 以下审查分级为参考模式，具体分级标准由项目在 `CHARTER.md` 中定义。
 
 ## 五、审查流程
 
@@ -416,7 +415,7 @@ Reviewer 写 REVIEW_REPORT_R1（复制 R0 + 追加 R1）
 
 | 信息 | 路径 |
 |------|------|
-| 协作宪章（最高规则） | `CHARTER.md`（初始化后移至项目根目录）|
+| 协作宪章（最高规则） | `CHARTER.md` |
 | 成员定义与职责 | `PROJECT.md` |
 | 协作关系（谁→谁，通过什么通道） | `ACTIONS.md` |
 | 通用规范（生命周期、命名、审查要求） | `README.md` |

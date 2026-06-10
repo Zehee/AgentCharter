@@ -24,7 +24,7 @@ cp -r collaboration_en/ /my-project/
 You are TPM. Read the collaboration directory and start working.
 ```
 
-The TPM reads the framework, signs 👑, fills `PROJECT.md` + `CHARTER.md`, and moves the charter to your project root. **That's it.**
+The TPM reads the framework, signs 👑, fills `PROJECT.md` + `CHARTER.md`. **That's it.**
 
 <details>
 <summary>👇 What exactly happens when you say that?</summary>
@@ -33,8 +33,7 @@ The Agent reads `collaboration/` and discovers:
 1. **👑 signs itself in** — replaces the placeholder in `README.md` with its name
 2. **Fills `PROJECT.md`** — asks you for the project name, tech stack, build commands, team members
 3. **Fills `CHARTER.md`** — summarizes key rules from `README.md` and `TPM.md` into the cooperation charter
-4. **Moves `CHARTER.md` to project root** — now every Agent (including humans) can read the supreme rules
-5. **Reads `TPM.md`** — learns its full authority: dispatch tasks, drive reviews, own Git, update dashboard
+4. **Reads `TPM.md`** — learns its full authority: dispatch tasks, drive reviews, own Git, update dashboard
 
 From this point forward, no Agent touches `src/` without a `TASK` file. No Agent runs `git` except the TPM. Everything is a file in `inbox/` → `outbox/` → `reviews/` → `archive/`.
 
@@ -186,7 +185,7 @@ This isn't a static demo. It's our actual governance, updated daily.
 AgentCharter/
 ├── collaboration/           # Framework core (CN) — copy to your project root
 │   ├── README.md                # Agent-side spec (12 chapters)
-│   ├── CHARTER.md               # Charter template → moved to root by TPM
+│   ├── CHARTER.md               # Charter template (stays inside collaboration/)
 │   ├── TPM.md                    # TPM code of conduct
 │   ├── PROJECT.md               # Project config (fill-in)
 │   ├── REGISTER.md              # Agent registration
@@ -210,7 +209,6 @@ AgentCharter/
 > **After initialization**, your project looks like:
 > ```
 > my-project/
-> ├── CHARTER.md              # ← Global charter (moved by TPM)
 > ├── collaboration/          # ← Framework (Agent workspace)
 > ├── src/                    # ← Your code
 > └── .gitignore

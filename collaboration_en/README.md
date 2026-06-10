@@ -1,6 +1,6 @@
 # AgentCharter
 
-> ⚠️ This is the **Agent Operating Manual**, NOT the project charter. The project charter is authored by the TPM and lives at `/CHARTER.md` (project root). This file defines rules and processes. The charter defines your specific project's decisions.
+> ⚠️ This is the **Agent Operating Manual**, NOT the project charter. The project charter is authored by the TPM and lives at `CHARTER.md`. This file defines rules and processes. The charter defines your specific project's decisions.
 
 A file-driven, multi-agent collaboration framework. Files are the sole communication channel and audit trail.
 
@@ -72,7 +72,7 @@ Collaboration flows are defined by `ACTIONS.md`, not hardcoded by the framework.
 ```
 collaboration/
 ├── README.md              This file
-├── CHARTER.md             Charter template (TPM fills then moves to project root)
+├── CHARTER.md             Charter template (stays inside collaboration/)
 ├── TPM.md                 TPM code of conduct
 ├── PROJECT.md             Project config (tech stack, members, rules)
 ├── REGISTER.md            Registration form
@@ -151,7 +151,7 @@ REVISION_049C_20260530_FLASH.md
 ---
 
 > 📎 The following is a reference grading pattern provided by the framework, based on wolf-judge real-world experience.
-> The number of levels and specific criteria are defined by your project in `../CHARTER.md`.
+> The number of levels and specific criteria are defined by your project in `CHARTER.md`.
 
 ## 5. Task Lifecycle
 
