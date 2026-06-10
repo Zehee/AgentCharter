@@ -16,9 +16,9 @@
 > **Location**: `outbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN`=sequential number, `DESC`=short English description, `DATE`=submission date `YYYYMMDD`, `AUTHOR`=author identifier (UPPERCASE)
 
-**Author**: [AUTHOR]
-**Date**: YYYY-MM-DD
-**Linked Decisions**: DECISION_NNN (optional)
+**Author**: {{author}}
+**Date**: {{DATE}}
+**Linked Decisions**: {{ref_nnn}}
 
 ---
 
@@ -77,5 +77,5 @@ Describe the analysis approach, reference standards, comparison targets, etc.
 
 ---
 
-**Author**: [AUTHOR]
-**Date**: YYYY-MM-DD
+**Author**: {{author}}
+**Date**: {{DATE}}

@@ -4,10 +4,10 @@
 > **Location**: `inbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = notice number, `DESC` = brief description, `DATE` = publish date `YYYYMMDD`, `TARGET` = target audience identifier (ALL / agent identifier)
 
-**Publisher**: TPM
-**Date**: YYYY-MM-DD
-**Target**: ALL / [agent identifier]
-**Priority**: 🔴 P0 / 🟡 P1 / 🟢 P2
+**Publisher**: {{author}}
+**Date**: {{DATE}}
+**Target**: {{recipient}}
+**Priority**: {{priority}}
 
 ---
 

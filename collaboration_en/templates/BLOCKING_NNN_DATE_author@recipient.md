@@ -4,9 +4,9 @@
 > **Location**: `outbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = blocking number, `DATE` = date, `TARGET` = blocked party (UPPERCASE)
 
-**Blocker**: [AUTHOR]
-**Blocked Party**: [TARGET]
-**Date**: YYYY-MM-DD
+**Blocker**: {{author}}
+**Blocked Party**: {{recipient}}
+**Date**: {{DATE}}
 **Severity**: 🔴 Critical / 🟡 General
 
 ---

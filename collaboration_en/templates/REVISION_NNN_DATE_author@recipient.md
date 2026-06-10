@@ -4,11 +4,11 @@
 > **Location**: `inbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN`=corresponding review number, `DATE`=creation date `YYYYMMDD`, `ASSIGNEE`=executor identifier (UPPERCASE)
 
-**Dispatcher**: [TPM identifier]
-**Executor**: [External/Native identifier]
-**Date**: YYYY-MM-DD
-**Priority**: 🔴 P0 | 🟡 P1
-**Corresponding**: REVIEW_REPORT_NNN
+**Dispatcher**: {{author}}
+**Executor**: {{assignee}}
+**Date**: {{DATE}}
+**Priority**: {{priority}}
+**Corresponding**: {{ref_nnn}}
 
 ---
 

@@ -15,9 +15,9 @@
 > **Location**: `decisions/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN`=sequential number, `DATE`=decision date `YYYYMMDD`, `AUTHOR`=pair identifier (UPPERCASE)
 
-**Pair**: [pair identifier, e.g. @backend-pair]
-**Time**: YYYY-MM-DD HH:MM
-**Linked Proactive Report**: PROACTIVE_REPORT_NNN (if this decision will feed into a proactive report; optional for TPM's own decisions)
+**Pair**: {{pair}}
+**Time**: {{DATE}}
+**Linked Proactive Report**: {{ref_nnn}}
 
 ---
 

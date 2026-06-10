@@ -4,10 +4,10 @@
 > **Location**: `inbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `DESC` = short English description, `ASSIGNEE` = executor identifier (UPPERCASE)
 
-**Dispatcher**: TPM
-**Executor**: [ASSIGNEE]
-**Date**: YYYY-MM-DD
-**Priority**: 🔴 P0 | 🟡 P1 | 🟢 P2
+**Dispatcher**: {{author}}
+**Executor**: {{assignee}}
+**Date**: {{DATE}}
+**Priority**: {{priority}}
 **Review Level**: P0 / P1 / P2 / P3
 **Related**: (related TASK / REVISION)
 **Decision Source**: DECISION_NNN / PROACTIVE_REPORT_NNN (optional)

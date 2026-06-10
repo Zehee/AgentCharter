@@ -4,9 +4,9 @@
 > **Location**: `outbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = test task number, `DATE` = test date `YYYYMMDD`, `AUTHOR` = tester identifier (UPPERCASE)
 
-**Tester**: [AUTHOR]
-**Date**: YYYY-MM-DD
-**Related**: TASK_TEST_NNN
+**Tester**: {{author}}
+**Date**: {{DATE}}
+**Related**: {{ref_nnn}}
 **Test Round**: Round X
 
 ---

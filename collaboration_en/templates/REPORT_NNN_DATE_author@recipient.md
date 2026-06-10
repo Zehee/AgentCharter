@@ -4,9 +4,9 @@
 > **Location**: `outbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `DATE` = submission date `YYYYMMDD`, `AUTHOR` = author identifier (UPPERCASE)
 
-**Author**: [AUTHOR]
-**Date**: YYYY-MM-DD
-**Task**: TASK_NNN
+**Author**: {{author}}
+**Date**: {{DATE}}
+**Task**: {{ref_nnn}}
 
 ---
 

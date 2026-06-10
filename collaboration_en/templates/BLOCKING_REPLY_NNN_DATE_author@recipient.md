@@ -4,9 +4,9 @@
 > **Location**: `outbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = corresponding blocking number, `DATE` = resolution date, `AUTHOR` = resolver identifier (UPPERCASE)
 
-**Resolver**: [AUTHOR]
-**Original Blocker**: [BLOCKER]
-**Date**: YYYY-MM-DD
+**Resolver**: {{author}}
+**Original Blocker**: {{recipient}}
+**Date**: {{DATE}}
 **Related**: BLOCKING_NNN
 
 ---

@@ -5,8 +5,8 @@
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = test round number, `DESC` = short English description, `ASSIGNEE` = tester identifier (UPPERCASE)
 
 **Dispatcher**: TPM
-**Tester**: [ASSIGNEE]
-**Date**: YYYY-MM-DD
+**Tester**: {{assignee}}
+**Date**: {{DATE}}
 **Priority**: 🔴 P0 | 🟡 P1 | 🟢 P2
 **Related**: TASK_NNN (functional dev task) / REVISION_NNN (fix verification)
 **Test Round**: Round X (Regression / Acceptance / Exploratory)

@@ -4,9 +4,9 @@
 > **Location**: `inbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `R{N}` = revision round (R1, R2), `DATE` = review date `YYYYMMDD`, `AUTHOR` = reviewer identifier (UPPERCASE)
 
-**Reviewer**: [AUTHOR]
-**Date**: YYYY-MM-DD
-**Corresponding**: TASK_NNN / REPORT_NNN
+**Reviewer**: {{author}}
+**Date**: {{DATE}}
+**Corresponding**: {{ref_nnn}}
 
 > **Summary flow**: [Review Summary] is mandatory. First round: write only `### R0`. Subsequent rounds: copy all historical text from the executor's REPORT_RN [Review Summary], append this round at the bottom. Must not modify historical text.
 

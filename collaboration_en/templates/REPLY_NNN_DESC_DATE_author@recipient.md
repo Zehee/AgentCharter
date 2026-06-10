@@ -15,9 +15,9 @@
 > **Location**: `inbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN`=corresponding report number, `DATE`=processing date `YYYYMMDD`, `AUTHOR`=submitter identifier (UPPERCASE)
 
-**Source Report**: `PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md`
-**Processing Date**: YYYY-MM-DD
-**Submitter**: [AUTHOR]
+**Source Report**: {{ref_nnn}}
+**Processing Date**: {{DATE}}
+**Submitter**: {{author}}
 
 ---
 
