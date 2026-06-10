@@ -1,20 +1,22 @@
-# BLOCKING_REPLY_NNN: Blocking Resolution Reply
+# BLOCKING_REPLY_NNN: {{title}}
 
 > **Filename**: `BLOCKING_REPLY_NNN_DATE_author@recipient.md`
 > **Location**: `outbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = corresponding blocking number, `DATE` = resolution date, `AUTHOR` = resolver identifier (UPPERCASE)
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = corresponding blocking number, `DATE` = reply date `YYYYMMDD`, `AUTHOR` = replier identifier (UPPERCASE)
 
-**Resolver**: {{author}}
-**Original Blocker**: {{recipient}}
+**Replier**: {{author}}
 **Date**: {{DATE}}
-**Related**: BLOCKING_NNN
 
 ---
 
 ## Resolution
 
-(How the block was resolved)
+| # | Blocking Item | Status | Resolution Details |
+|---|--------|------|----------|
+| {{item_1}} | {{problem_1}} | {{status_1}} | {{resolution_1}} |
+| {{item_2}} | {{problem_2}} | {{status_2}} | {{resolution_2}} |
 
-## Verification
+## Next Steps
 
-(How to confirm the block is lifted)
+> Follow-up actions after the block is lifted.
+{{next_steps}}

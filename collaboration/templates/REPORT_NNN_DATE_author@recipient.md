@@ -1,4 +1,4 @@
-# REPORT_NNN: 任务标题
+# REPORT_NNN: {{title}}
 
 > **文件名**: `REPORT_NNN_DATE_author@recipient.md`
 > **存放位置**: `outbox/`
@@ -8,7 +8,7 @@
 **日期**: {{DATE}}
 **状态**: REVIEW_PENDING
 **对应**: {{ref_nnn}}
-**报告性质**: 通信信号（External）/ [Audit Only] 审计记录（Native）
+**报告性质**: {{report_type}}
 
 ---
 
@@ -27,22 +27,22 @@
 
 | 任务 | 状态 | 说明 |
 |------|------|------|
-| 功能点 1 | ✅ | 做了什么，关键文件 |
-| 功能点 2 | ✅ | 同上 |
+| {{task_1}} | ✅ | {{description_1}} |
+| {{task_2}} | ✅ | {{description_2}} |
 
 ## 改动的文件
 
 | 文件 | 修改内容 |
 |------|----------|
-| `[项目文件路径]` | 新增/修改了什么 |
+| `{{file_path}}` | {{change_description}} |
 
 ## 待确认（可选）
 
-- [ ] 联调时需要注意的点
+- [ ] {{debug_note}}
 
 ## 补充说明（可选）
 
-自定义内容
+{{custom_content}}
 
 ---
 
@@ -50,13 +50,13 @@
 
 | 命令 | 结果 |
 |------|------|
-| `[类型检查命令]` | ✅ 0 错误 |
-| `[构建命令]` | ✅ 成功 |
-| `[后端检查命令]` | ✅ 0 错误 0 警告 |
+| `{{type_check_cmd}}` | ✅ {{type_check_result}} |
+| `{{build_cmd}}` | ✅ {{build_result}} |
+| `{{backend_check_cmd}}` | ✅ {{backend_check_result}} |
 
 ---
 
-**当前状态**: REVIEW_PENDING — 等待 [your-TPM-name] 审查
+**当前状态**: {{status}} — 等待 {{tpm_name}} 审查
 
 ---
 
@@ -65,31 +65,29 @@
 > 以下格式供 Native Sub-Agent 参考。Native 的报告是审计记录，受众是人类开发者。
 
 ```markdown
-# REPORT_NNN: 任务标题
+# REPORT_NNN: {{title}}
 
-> **报告性质**: [Audit Only] 本报告为执行记录，TPM 已通过内部通道获知结果。
-> 受众：人类开发者（复盘、QA 验收）。
+> **报告性质**: {{audit_note}}
+> 受众：{{audience}}
 
 ## 执行摘要
-- 任务 ID: NNN
-- 状态: ✅ 成功 / ⚠️ 需人工确认
-- 核心目标: 一句话说明做了什么
+- 任务 ID: {{task_id}}
+- 状态: {{status}}
+- 核心目标: {{core_goal}}
 
 ## 核心改动
-*(自然语言描述，不贴全量代码，只列文件和改动性质)*
-- `[项目文件路径]` — 新增 Y 函数，替换旧的 Z 实现
-- `[项目文件路径]` — 修改错误处理逻辑
+> 自然语言描述，不贴全量代码，只列文件和改动性质
+{{core_changes}}
 
 ## 决策理由
-*(解释 WHY，这是最有价值的部分)*
-- **为什么选方案 A 而不是 B？** ...
-- **遇到的阻塞/权衡** ...
+> 解释 WHY，这是最有价值的部分
+{{decision_rationale}}
 
 ## 风险点 & 需人工确认
-- [ ] `[源码文件]:行号` 临时兼容性处理，建议后续重构
-- [ ] 并发逻辑未充分验证，需人工 review
+- [ ] {{risk_item_1}}
+- [ ] {{risk_item_2}}
 
 ## 自检清单
-- [x] `[后端检查命令]` 0 错误 0 警告
-- [x] 核心逻辑符合约束规范
+- [x] {{check_item_1}}
+- [x] {{check_item_2}}
 ```

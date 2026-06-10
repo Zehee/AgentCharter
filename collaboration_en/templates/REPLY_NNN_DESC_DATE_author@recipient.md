@@ -9,11 +9,11 @@
     - AUTHOR: report submitter identifier (UPPERCASE)
 -->
 
-# REPLY_NNN: Proactive Report Processing Reply
+# REPLY_NNN: {{title}}
 
 > **Filename**: `REPLY_NNN_DESC_DATE_author@recipient.md`
 > **Location**: `inbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN`=corresponding report number, `DATE`=processing date `YYYYMMDD`, `AUTHOR`=submitter identifier (UPPERCASE)
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = corresponding report number, `DATE` = processing date `YYYYMMDD`, `AUTHOR` = submitter identifier (UPPERCASE)
 
 **Source Report**: {{ref_nnn}}
 **Processing Date**: {{DATE}}
@@ -25,22 +25,23 @@
 
 | Status | Count | Notes |
 |------|------|------|
-| 📋 Task | N | Incorporated into existing tasks or new TASK/REVISION |
-| 📅 Backlog | N | TODO file created; scheduled for later |
-| ✅ Accept | N | Accepted directly; no extra task |
-| ❌ Reject | N | Not adopted (reason in detailed annotation) |
-| ✓ Done | N | Already implemented/fixed |
+| 📋 Task | {{task_count}} | {{task_note}} |
+| 📅 Backlog | {{scheduled_count}} | {{scheduled_note}} |
+| ✅ Accept | {{accepted_count}} | {{accepted_note}} |
+| ❌ Reject | {{ignored_count}} | {{ignored_note}} |
+| ✓ Done | {{processed_count}} | {{processed_note}} |
 
-**Detailed annotation**: see `archive/outbox/{source report filename}`
+**Detailed annotation**: {{detailed_notes}}
 
 ---
 
 ## Key Decisions (optional)
 
-- Decision 1: ...
-- Decision 2: ...
+> - Decision 1: ...
+> - Decision 2: ...
+{{key_decisions}}
 
 ---
 
-**Processor**: TPM  
-**Date**: YYYY-MM-DD
+**Processor**: {{handler}}
+**Date**: {{DATE}}

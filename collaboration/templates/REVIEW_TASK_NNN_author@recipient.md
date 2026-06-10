@@ -1,6 +1,6 @@
 <!-- 委派审查范式下使用。自循环审查范式下不需要此模板。 -->
 
-# REVIEW_TASK_NNN: 审查对象简述
+# REVIEW_TASK_NNN: {{review_target}}
 
 > **文件名**: `REVIEW_TASK_NNN_author@recipient.md`
 > **存放位置**: `inbox/`
@@ -16,12 +16,12 @@
 
 | 文件 | 路径 | 说明 |
 |------|------|------|
-| 文件名 | `src/xxx` | 为什么审查 |
+| {{file_name}} | `{{file_path}}` | {{review_reason}} |
 
 ## 审查重点
 
-- [ ] 检查项 1
-- [ ] 检查项 2
+- [ ] {{check_item_1}}
+- [ ] {{check_item_2}}
 
 ## 输出要求
 

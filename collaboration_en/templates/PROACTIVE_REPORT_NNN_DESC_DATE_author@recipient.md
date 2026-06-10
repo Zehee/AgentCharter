@@ -10,11 +10,11 @@
     - AUTHOR: author identifier (UPPERCASE)
 -->
 
-# 🔍 PROACTIVE_REPORT_NNN: Report Title
+# 🔍 PROACTIVE_REPORT_NNN: {{title}}
 
 > **Filename**: `PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md`
 > **Location**: `outbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN`=sequential number, `DESC`=short English description, `DATE`=submission date `YYYYMMDD`, `AUTHOR`=author identifier (UPPERCASE)
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = sequential number, `DESC` = short English description, `DATE` = submission date `YYYYMMDD`, `AUTHOR` = author identifier (UPPERCASE)
 
 **Author**: {{author}}
 **Date**: {{DATE}}
@@ -24,56 +24,56 @@
 
 ## Scope & Objective
 
-Describe the scope and target audience of this audit/analysis/proposal.
+> Describe the scope and target audience of this audit/analysis/proposal.
+{{scope_and_goal}}
 
 ---
 
 ## Analysis Method (optional)
 
-Describe the analysis approach, reference standards, comparison targets, etc.
+> Describe the analysis approach, reference standards, comparison targets, etc.
+{{analysis_method}}
 
 ---
 
 ## Findings & Analysis
 
-### [Module/Page/Topic] — Score: X/10
+### {{module_name}} — Score: {{module_score}}/10
 
 | # | Issue | Severity | Location | Notes |
 |---|------|----------|------|------|
-| 1 | Issue description | 🔴/🟡/💡 | File:line | Details |
+| {{issue_num}} | {{issue_desc}} | {{severity}} | {{location}} | {{details}} |
 
 **Improvement suggestions**:
-- Suggestion 1
-- Suggestion 2
+{{improvement_suggestions}}
 
 ---
 
 ## Priority Improvement List
 
 ### 🔴 P0 — Fix Immediately
-1. **Issue**: ... | **Suggestion**: ...
+{{p0_items}}
 
 ### 🟡 P1 — Fix Soon
-1. **Issue**: ... | **Suggestion**: ...
+{{p1_items}}
 
 ### 💡 P2 — Suggested Improvement
-1. **Issue**: ... | **Suggestion**: ...
+{{p2_items}}
 
 ---
 
 ## Summary
 
-**Overall Score**: X/10
+**Overall Score**: {{overall_score}}/10
 
 **Strengths**:
-- ...
+{{strengths}}
 
 **Areas for Improvement**:
-- ...
+{{improvements}}
 
 **Recommended Actions**:
-1. ...
-2. ...
+{{suggested_actions}}
 
 ---
 

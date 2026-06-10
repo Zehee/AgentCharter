@@ -1,29 +1,41 @@
-# TASK_NNN: Task Title
+# TASK_{{NNN}}: {{title}}
 
-> **Filename**: `TASK_NNN_DESC_author@recipient.md`
+> **Filename**: `TASK_{{NNN}}_DESC_author@recipient.md`
 > **Location**: `inbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `DESC` = short English description, `ASSIGNEE` = executor identifier (UPPERCASE)
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `DESC` = short English description, `AUTHOR` = dispatcher identifier (UPPERCASE, typically TPM), `ASSIGNEE` = executor identifier (UPPERCASE)
 
 **Dispatcher**: {{author}}
 **Executor**: {{assignee}}
-**Date**: {{DATE}}
 **Priority**: {{priority}}
-**Review Level**: P0 / P1 / P2 / P3
-**Related**: (related TASK / REVISION)
-**Decision Source**: DECISION_NNN / PROACTIVE_REPORT_NNN (optional)
+**Dependency**: {{dependency}}
+> Optional: related TASK number
+
+**Decision Source**: {{decision_source}}
+> Optional: DECISION_NNN / PROACTIVE_REPORT_NNN
 
 ---
 
 ## Goal
 
-One sentence describing what this task aims to achieve.
+> One sentence describing what this task aims to achieve.
+{{goal}}
+
+## Current Status
+
+> What exists already, what is missing, why this task is needed.
+{{current_status}}
+
+## Detailed Requirements
+
+> Break down sub-modules by functionality, specify involved files and key logic.
+{{requirements}}
 
 ## Acceptance Criteria
 
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Submit `outbox/REPORT_NNN_DATE_author@recipient.md`
+> Acceptance items + [type check command] 0 errors.
+{{acceptance_criteria}}
 
-## Notes
+## Reference Files
 
-(Scope constraints, known risks, dependencies)
+> Frontend/backend source paths.
+{{reference_files}}

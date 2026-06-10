@@ -9,7 +9,7 @@
     - AUTHOR: 报告提交者标识（大写）
 -->
 
-# REPLY_NNN: 主动报告处理回执
+# REPLY_NNN: {{title}}
 
 > **文件名**: `REPLY_NNN_DESC_DATE_author@recipient.md`
 > **存放位置**: `inbox/`
@@ -25,22 +25,23 @@
 
 | 状态 | 数量 | 说明 |
 |------|------|------|
-| 📋 任务 | N | 已纳入现有任务或新建 TASK/REVISION |
-| 📅 排期 | N | 创建 TODO 文件，待后续安排 |
-| ✅ 采纳 | N | 直接接受，无需额外任务 |
-| ❌ 忽略 | N | 不采纳（理由见详细批注） |
-| ✓ 已处理 | N | 已实现/修复 |
+| 📋 任务 | {{task_count}} | {{task_note}} |
+| 📅 排期 | {{scheduled_count}} | {{scheduled_note}} |
+| ✅ 采纳 | {{accepted_count}} | {{accepted_note}} |
+| ❌ 忽略 | {{ignored_count}} | {{ignored_note}} |
+| ✓ 已处理 | {{processed_count}} | {{processed_note}} |
 
-**详细批注**: 见 `archive/outbox/{来源报告文件名}`
+**详细批注**: {{detailed_notes}}
 
 ---
 
 ## 关键决策（可选）
 
-- 决策 1：...
-- 决策 2：...
+> - 决策 1：...
+> - 决策 2：...
+{{key_decisions}}
 
 ---
 
-**处理人**: [TPM]  
-**日期**: YYYY-MM-DD
+**处理人**: {{handler}}
+**日期**: {{DATE}}

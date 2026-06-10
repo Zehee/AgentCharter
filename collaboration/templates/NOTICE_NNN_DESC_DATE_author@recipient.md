@@ -1,4 +1,4 @@
-# NOTICE_NNN: 通知标题
+# NOTICE_NNN: {{title}}
 
 > **文件名**: `NOTICE_NNN_DESC_DATE_author@recipient.md`
 > **存放位置**: `inbox/`
@@ -13,13 +13,16 @@
 
 ## 内容
 
-通知正文。
+> 通知正文。
+{{content}}
 
 ## 影响范围
 
-- 影响文件/模块：...
-- 需要 action 的角色：...
+> - 影响文件/模块：...
+> - 需要 action 的角色：...
+{{impact_scope}}
 
 ## 生效时间
 
-立即生效 / 从 TASK_NNN 开始生效
+> 立即生效 / 从 TASK_NNN 开始生效
+{{effective_time}}

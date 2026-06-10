@@ -10,7 +10,7 @@
     - AUTHOR: 作者标识（大写）
 -->
 
-# 🔍 PROACTIVE_REPORT_NNN: 报告标题
+# 🔍 PROACTIVE_REPORT_NNN: {{title}}
 
 > **文件名**: `PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md`
 > **存放位置**: `outbox/`
@@ -24,58 +24,58 @@
 
 ## 范围与目标
 
-说明本次审计/分析/提案的范围和目标受众。
+> 说明本次审计/分析/提案的范围和目标受众。
+{{scope_and_goal}}
 
 ---
 
 ## 分析方法（可选）
 
-描述使用的分析方法、参考标准、对比对象等。
+> 描述使用的分析方法、参考标准、对比对象等。
+{{analysis_method}}
 
 ---
 
 ## 发现与分析
 
-### [模块/页面/主题] — 评分: X/10
+### {{module_name}} — 评分: {{module_score}}/10
 
 | # | 问题 | 严重级别 | 位置 | 说明 |
 |---|------|----------|------|------|
-| 1 | 问题描述 | 🔴/🟡/💡 | 文件:行号 | 具体说明 |
+| {{issue_num}} | {{issue_desc}} | {{severity}} | {{location}} | {{details}} |
 
 **改进建议**:
-- 建议 1
-- 建议 2
+{{improvement_suggestions}}
 
 ---
 
 ## 优先级改进清单
 
 ### 🔴 P0 - 立即修复
-1. **问题**: ... | **建议**: ...
+{{p0_items}}
 
 ### 🟡 P1 - 近期修复
-1. **问题**: ... | **建议**: ...
+{{p1_items}}
 
 ### 💡 P2 - 建议改进
-1. **问题**: ... | **建议**: ...
+{{p2_items}}
 
 ---
 
 ## 总结
 
-**整体评分**: X/10
+**整体评分**: {{overall_score}}/10
 
 **优势**:
-- ...
+{{strengths}}
 
 **待改进**:
-- ...
+{{improvements}}
 
 **建议行动**:
-1. ...
-2. ...
+{{suggested_actions}}
 
 ---
 
-**提交人**: [AUTHOR]
-**日期**: YYYY-MM-DD
+**提交人**: {{author}}
+**日期**: {{DATE}}

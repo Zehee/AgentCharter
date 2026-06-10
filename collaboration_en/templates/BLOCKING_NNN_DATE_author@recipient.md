@@ -1,28 +1,27 @@
-# BLOCKING_NNN: Blocking Notice
+# BLOCKING_NNN: {{title}}
 
 > **Filename**: `BLOCKING_NNN_DATE_author@recipient.md`
 > **Location**: `outbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = blocking number, `DATE` = date, `TARGET` = blocked party (UPPERCASE)
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = blocked task number, `DATE` = creation date `YYYYMMDD`, `TARGET` = person who needs to act (UPPERCASE)
 
 **Blocker**: {{author}}
-**Blocked Party**: {{recipient}}
 **Date**: {{DATE}}
-**Severity**: 🔴 Critical / 🟡 General
+**Priority**: {{priority}}
 
 ---
 
-## What is Blocked
+## Blocking Reason
 
-(Describe the task / action being blocked)
+> Describe what is blocked and why.
+{{blocking_reason}}
 
-## Why
+## Required Actions
 
-(Specific reason for the block)
+> - [ ] What the other party needs to do
+> - [ ] Priority and time requirements
+{{required_actions}}
 
 ## Unblock Condition
 
-(What needs to happen for the block to be lifted)
-
-## Action Needed From
-
-(Who needs to do what)
+> What needs to happen for the block to be lifted.
+{{unblock_condition}}

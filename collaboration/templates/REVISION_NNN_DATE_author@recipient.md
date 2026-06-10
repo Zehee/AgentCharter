@@ -1,4 +1,4 @@
-# REVISION_NNN: 修复 XXX 发现的问题
+# REVISION_NNN: {{title}}
 
 > **文件名**: `REVISION_NNN_DATE_author@recipient.md`
 > **存放位置**: `inbox/`
@@ -14,18 +14,19 @@
 
 ## 目标
 
-一句话说明要修复什么。
+> 一句话说明要修复什么。
+{{goal}}
 
 ## 问题清单
 
 | # | 问题 | 文件/位置 | 修复要求 |
 |---|------|----------|---------|
-| 1 | 问题描述 | `xxx:行号` | 期望的行为 |
-| 2 | 问题描述 | `xxx:行号` | 期望的行为 |
+| {{issue_number_1}} | {{issue_description_1}} | `{{issue_file_1}}` | {{issue_expectation_1}} |
+| {{issue_number_2}} | {{issue_description_2}} | `{{issue_file_2}}` | {{issue_expectation_2}} |
 
 ## 验收标准
 
-- [ ] 修复条目 1
-- [ ] 修复条目 2
-- [ ] `[类型检查命令]` 0 错误
-- [ ] 提交 `outbox/REPORT_NNN_R1_DATE_AUTHOR.md`
+- [ ] {{acceptance_item_1}}
+- [ ] {{acceptance_item_2}}
+- [ ] {{type_check_cmd}}
+- [ ] {{report_submission}}

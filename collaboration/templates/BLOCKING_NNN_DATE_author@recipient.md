@@ -1,4 +1,4 @@
-# BLOCKING_NNN: 阻塞原因简述
+# BLOCKING_NNN: {{title}}
 
 > **文件名**: `BLOCKING_NNN_DATE_author@recipient.md`
 > **存放位置**: `outbox/`
@@ -12,13 +12,16 @@
 
 ## 阻塞原因
 
-描述什么被阻塞了，为什么。
+> 描述什么被阻塞了，为什么。
+{{blocking_reason}}
 
 ## 需要的动作
 
-- [ ] 对方需要做什么
-- [ ] 优先级和时间要求
+> - [ ] 对方需要做什么
+> - [ ] 优先级和时间要求
+{{required_actions}}
 
 ## 解除条件
 
-什么情况下可以解除阻塞。
+> 什么情况下可以解除阻塞。
+{{unblock_condition}}

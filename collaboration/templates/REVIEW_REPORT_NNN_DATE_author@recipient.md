@@ -1,4 +1,4 @@
-# REVIEW_REPORT_NNN: 审查对象 — 审查结论
+# REVIEW_REPORT_NNN: {{review_target}} — {{conclusion}}
 
 > **文件名**: `REVIEW_REPORT_NNN_DATE_author@recipient.md`
 > **存放位置**: 范式相关——委派审查放 `outbox/`（给 TPM），自循环审查放 `inbox/`（给 coder）
@@ -15,37 +15,37 @@
 
 ## 【审查摘要】（必填）
 
-### R0 (YYYY-MM-DD)
-- 评分：X/10
-- 本轮：🔴 N / 🟡 N / 💡 N
-- 状态：✅ ACCEPT / 🔄 需修复
-- 一句话：...
+### R0 ({{review_date}})
+- 评分：{{score}}/10
+- 本轮：🔴 {{red_count}} / 🟡 {{yellow_count}} / 💡 {{lightbulb_count}}
+- 状态：{{status}}
+- 一句话：{{summary_line}}
 
 | 维度 | 评分 | 说明 |
 |------|------|------|
-| 代码质量 | 9 | 评语 |
-| 逻辑正确性 | 8 | 评语 |
-| 类型安全 | 9 | 评语 |
-| 测试覆盖 | 8 | 评语 |
-| **总体** | **X** | **结论** |
+| 代码质量 | {{code_quality_score}} | {{code_quality_note}} |
+| 逻辑正确性 | {{logic_score}} | {{logic_note}} |
+| 类型安全 | {{type_safety_score}} | {{type_safety_note}} |
+| 测试覆盖 | {{test_coverage_score}} | {{test_coverage_note}} |
+| **总体** | **{{overall_score}}** | **{{overall_note}}** |
 
 ## 发现的问题
 
 | # | 严重度 | 文件 | 问题 | 建议 |
 |---|--------|------|------|------|
-| 1 | 🔴严重 | `xxx:行` | 问题描述 | 修复建议 |
-| 2 | 🟡一般 | `xxx:行` | 问题描述 | 修复建议 |
-| 3 | 💡建议 | `xxx:行` | 问题描述 | 修复建议 |
+| {{issue_num_1}} | {{severity_1}} | `{{file_1}}` | {{problem_1}} | {{suggestion_1}} |
+| {{issue_num_2}} | {{severity_2}} | `{{file_2}}` | {{problem_2}} | {{suggestion_2}} |
+| {{issue_num_3}} | {{severity_3}} | `{{file_3}}` | {{problem_3}} | {{suggestion_3}} |
 
 ## 专项核查（P2/P3 必填）
 
 | 检查项 | 结果 | 说明 |
 |------|------|------|
-| 跨端一致性 | ✅ / ❌ | |
-| 类型安全 | ✅ / ❌ | |
-| 错误处理 | ✅ / ❌ | |
-| 状态管理 | ✅ / ❌ | |
+| 跨端一致性 | {{cross_platform_result}} | {{cross_platform_note}} |
+| 类型安全 | {{type_safety_check_result}} | {{type_safety_check_note}} |
+| 错误处理 | {{error_handling_result}} | {{error_handling_note}} |
+| 状态管理 | {{state_management_result}} | {{state_management_note}} |
 
 ## 合并建议
 
-**✅ 建议通过** / **🔄 需修订**
+**{{merge_decision}}**

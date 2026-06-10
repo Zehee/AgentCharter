@@ -1,61 +1,101 @@
-# TASK_TEST_NNN: Test Task Title
+# TASK_TEST_NNN: {{title}}
 
 > **Filename**: `TASK_TEST_NNN_DESC_author@recipient.md`
 > **Location**: `inbox/`
 > **Naming**: segments separated by `_`, within segments use `-`. `NNN` = test round number, `DESC` = short English description, `ASSIGNEE` = tester identifier (UPPERCASE)
 
-**Dispatcher**: TPM
+**Dispatcher**: {{author}}
 **Tester**: {{assignee}}
 **Date**: {{DATE}}
-**Priority**: 🔴 P0 | 🟡 P1 | 🟢 P2
-**Related**: TASK_NNN (functional dev task) / REVISION_NNN (fix verification)
-**Test Round**: Round X (Regression / Acceptance / Exploratory)
+**Priority**: {{priority}}
+**Related**: {{ref_nnn}}
+**Test Round**: {{test_round}}
 
 ---
 
-## 1. Test Objective
+## Test Objective
 
-One sentence describing what this test verifies and why now.
+> One sentence describing what this test verifies and why now.
+{{test_goal}}
 
-## 2. Environment Requirements
+---
+
+## Environment Requirements
+
+> Environmental conditions that must be confirmed before testing begins.
 
 | Item | Requirement |
 |---|---|
-| **OS** | Windows 11 / macOS / Linux |
-| **App Version** | Commit `abc1234` / packaged binary |
-| **Run Mode** | `command` / release build |
-| **Resolution** | Recommended ≥ 1920×1080 |
-| **Preconditions** | Previous issues fixed / new feature merged |
+| **OS** | {{os_requirement}} |
+| **App Version** | {{app_version}} |
+| **Run Mode** | {{run_mode}} |
+| **Screen Resolution** | {{screen_resolution}} |
+| **Test Type** | {{test_type}} |
+| **Preconditions** | {{prerequisites}} |
 
-## 3. Verification Checklist
+---
 
-### 3.1 [Module Name]
+## Verification Checklist
+
+> Grouped by functional module. Each item must have a result. Populate results in `outbox/TEST_REPORT_NNN_DATE_author@recipient.md`.
+
+### {{module_name_1}}
 
 | # | Scenario | Steps | Expected Result |
 |---|------|----------|----------|
-| 1 | | | |
+| {{test_num_1_1}} | {{scenario_1_1}} | {{steps_1_1}} | {{expected_1_1}} |
+| {{test_num_1_2}} | {{scenario_1_2}} | {{steps_1_2}} | {{expected_1_2}} |
 
-## 4. Regression Items (if applicable)
+### {{module_name_2}}
+
+| # | Scenario | Steps | Expected Result |
+|---|------|----------|----------|
+| {{test_num_2_1}} | {{scenario_2_1}} | {{steps_2_1}} | {{expected_2_1}} |
+
+---
+
+## Regression Items (if applicable)
+
+> Historical issues to verify in this round — ensure fixed and not regressed.
 
 | Historical Bug | Fix Version | Verification Scenario | Method |
 |----------|----------|----------|----------|
+| {{bug_id}} | {{revision_ref}} | {{verification_scenario}} | {{verification_method}} |
 
-## 5. Known Risks & Exclusions
+---
+
+## Known Risks & Exclusions
+
+> Declare what won't be tested upfront to avoid wasting tester time.
 
 | # | Risk / Exclusion | Explanation | Plan |
 |---|-------------|------|------|
+| {{risk_num}} | {{risk_item}} | {{risk_note}} | {{risk_plan}} |
 
-## 6. Minimum Pass Criteria
+---
 
-- [ ] Category A (regression): all PASS, or 🔴 defects ≤ 0
-- [ ] Category B (core flow): PASS rate ≥ 80%, no 🔴 defects
-- [ ] Category C (new feature): PASS rate ≥ 60%, no 🔴 defects
-- [ ] Complete core user flow from start to finish
+## Minimum Pass Criteria
 
-## 7. Feedback Requirements
+- [ ] {{pass_criteria_a}}
+- [ ] {{pass_criteria_b}}
+- [ ] {{pass_criteria_c}}
+- [ ] {{pass_criteria_d}}
+
+> Failing minimum pass criteria = this round **FAILED**, needs fix and retest.
+
+---
+
+## Feedback Requirements
 
 Submit `outbox/TEST_REPORT_NNN_DATE_author@recipient.md`, must include:
 1. Verification checklist results (PASS / FAIL / BLOCK / N/A)
 2. Defect list (🔴 / 🟡 / 💡, with repro steps)
 3. Environment confirmation
 4. Overall conclusion (Pass / Conditional Pass / Blocked)
+
+---
+
+## Notes
+
+> (Anything the tester should pay special attention to)
+{{notes}}

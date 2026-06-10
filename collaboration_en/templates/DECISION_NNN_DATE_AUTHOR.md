@@ -9,11 +9,11 @@
     - AUTHOR: pair identifier (UPPERCASE)
 -->
 
-# DECISION_NNN: Decision Title
+# DECISION_NNN: {{title}}
 
 > **Filename**: `DECISION_NNN_DATE_AUTHOR.md`
 > **Location**: `decisions/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN`=sequential number, `DATE`=decision date `YYYYMMDD`, `AUTHOR`=pair identifier (UPPERCASE)
+> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = sequential number, `DATE` = decision date `YYYYMMDD`, `AUTHOR` = pair identifier (UPPERCASE)
 
 **Pair**: {{pair}}
 **Time**: {{DATE}}
@@ -23,22 +23,18 @@
 
 ## Decision
 
-(One sentence: what was decided.)
+> (One sentence: what was decided.)
+{{decision}}
 
 ## Reasoning Chain
 
-(Original dialogue statements, verbatim. Preserve the back-and-forth reasoning between human and AI.)
-
-- **[Human Name]**: "original statement…"
-- **[AI Name]**: "original statement…"
-- ...
+> (Original dialogue statements, verbatim. Preserve the back-and-forth reasoning between human and AI.)
+{{reasoning_chain}}
 
 ## Alternatives Considered
 
-(Options that were considered but ultimately rejected, with rejection reasons.)
-
-1. Option A → rejected because
-2. Option B → rejected because
+> (Options that were considered but ultimately rejected, with rejection reasons.)
+{{alternatives}}
 
 ---
 
@@ -46,4 +42,4 @@
 
 | Type | Number | Notes |
 |------|------|------|
-| TASK / TODO | NNN | (tasks or backlog items created from this decision) |
+| {{artifact_type}} | {{artifact_nnn}} | {{artifact_description}} |

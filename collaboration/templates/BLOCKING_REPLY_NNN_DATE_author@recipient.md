@@ -1,4 +1,4 @@
-# BLOCKING_REPLY_NNN: 阻塞已解除
+# BLOCKING_REPLY_NNN: {{title}}
 
 > **文件名**: `BLOCKING_REPLY_NNN_DATE_author@recipient.md`
 > **存放位置**: `outbox/`
@@ -13,9 +13,10 @@
 
 | # | 阻塞项 | 状态 | 解决详情 |
 |---|--------|------|----------|
-| 1 | 问题描述 | ✅ 已解决 | 怎么修的 |
-| 2 | 问题描述 | ✅ 已解决 | 怎么修的 |
+| {{item_1}} | {{problem_1}} | {{status_1}} | {{resolution_1}} |
+| {{item_2}} | {{problem_2}} | {{status_2}} | {{resolution_2}} |
 
 ## 下一步
 
-阻塞解除后的后续动作。
+> 阻塞解除后的后续动作。
+{{next_steps}}
