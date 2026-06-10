@@ -200,8 +200,8 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
 
         body_warning = None
         if body_vars and body_filled_count == 0:
-            # 正文全部未填 → 强烈警告
-            body_warning = f"⚠️  正文内容为空！请补充说明后重新提交当前文件。遗漏字段: {', '.join(sorted(body_vars)[:6])}"
+            # 正文全部未填 → Agent 发了个空壳，阻断
+            return {"error": f"正文内容为空！请补充至少一个正文字段。遗漏: {', '.join(sorted(body_vars)[:6])}..."}
         elif body_unfilled:
             body_warning = f"以下正文字段未填写，建议补充后更新文件: {', '.join(body_unfilled)}"
 
