@@ -81,3 +81,7 @@
 | 2026-06-10 | Write | `outbox/REPORT_029_KIMI.md` | TASK_029 完成报告 |
 | 2026-06-10 | Create | `collaboration-live/decisions/DECISION_019_20260610_KIMI-PAIR.md` | Zehee 指令：规则编号讨论 → DECISION 草案 |
 | 2026-06-10 | Create | `collaboration-live/outbox/REPORT_030_KIMI.md` | DECISION_019 起草报告，等待 TPM 审阅 |
+| 2026-06-10 | Read | `collaboration-live/decisions/DECISION_020_20260610_TPM-PAIR.md` | Zehee 指令：阅读 DECISION_020 内容 |
+| 2026-06-10 | Create | `collaboration-live/decisions/DECISION_021_20260610_TRI-PAIR.md` | Zehee 指令：审查流程重构讨论 → DECISION 草案（368 行，18 Rounds）|
+| 2026-06-10 | Confirm | `DECISION_021_20260610_TRI-PAIR.md` | Zehee 批准，状态更新为 ✅ 确认 |
+| 2026-06-10 | Create | `collaboration-live/outbox/PROACTIVE_REPORT_007_20260610_KIMI-PAIR.md` | 建议 TPM 将 DECISION_021 转化为 TASK_033 |

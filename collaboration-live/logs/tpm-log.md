@@ -57,3 +57,6 @@
 | 11:00 | Decision | DECISION_020 | collaboration/ 与项目代码完全解耦——CHARTER.md 不再搬家，所有 `../` 引用修正为内部引用 |
 | 11:00 | Dispatch | TASK_033 | 放入 inbox/，标记 Kimi 为经办。改动范围：6 个文件约 24 处文字修正 |
 | 11:15 | Execute | DECISION_020 | 自我执行（非 Kimi）：10 个文件，24 处文字修正全部完成。TASK_033 归档至 archive/inbox/ |
+| 11:30 | Review | PROACTIVE_REPORT_007 | ✅ 全部确认 — 8 个讨论点均在 DECISION_021 中收敛。执行 TASK_034 |
+| 11:31 | Decision | DECISION_021 | 正式化 — 审查流程重构：删除 reviews/，REVIEW_REPORT 改路径 inbox/，三种范式，嵌套预留 |
+| 11:32 | Dispatch | TASK_034 | 放入 inbox/，标记 Kimi 为经办 |
