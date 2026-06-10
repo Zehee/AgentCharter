@@ -24,6 +24,8 @@ COMMANDS = [
     "new-report.py",
     "new-review-report.py",
     "new-decision.py",
+    "new-blocking.py",
+    "new-blocking-reply.py",
     "validate-file.py",
 ]
 

@@ -10,7 +10,7 @@
 
 | 身份 | 入口 | 命令 |
 |------|------|------|
-| **外部 Agent** | `python agent.py <名字>` | new-report / new-review-report / new-decision / validate-file |
+| **外部 Agent** | `python agent.py <名字>` | new-report / new-review-report / new-decision / new-blocking / new-blocking-reply / validate-file |
 | **TPM** | `python tpm.py TPM` | 全部命令 + 全览巡检 + 归档 |
 
 > 外部 Agent 调 `new-decision` 时自动追加 PROACTIVE_REPORT 递交 TPM。
