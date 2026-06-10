@@ -22,7 +22,7 @@
 9. **上下文感知** — `new-report.py NAME` 仅传名字时，自动扫描 inbox 列出该 Agent 的未完成任务编号作为可选值
 10. **`new-task.py` 自动编号** — 扫描现有 `inbox/TASK_*` 文件，自动生成下一个 NNN，不要求用户在 JSON 中传入
 11. **`new-decision.py` 角色分流** — 外部 Agent（非 TPM）调用时，自动依次创建 `DECISION`（推理链记录）+ `PROACTIVE_REPORT`（行动请求递交 TPM），遵循"外部人机结对多轮对话必须生成 DECISION 然后提交 PROACTIVE_REPORT"的框架规则。TPM 人机结对调用时，仅创建 `DECISION`，不创建 `PROACTIVE_REPORT`
-12. **输出尾缀红线提醒** — 每次脚本执行完毕，输出的 JSON 最后一个 key 固定为 `"redlines": [...]`，内容从 `collaboration/CHARTER.md` 中提取铁律列表。所有命令（包括 `agent.py`、`new-*.py`、`validate-*.py`）无例外
+12. **输出尾缀红线提醒** — 每次脚本执行完毕，输出的 JSON 固定包含 `"redlines"` key。内容从 `CHARTER.md §七、红线` 中提取：解析 `—` 到 `！` 之间的文本，用 `！` 拼接。所有命令（包括 `agent.py`、`new-*.py`、`validate-*.py`）无例外
 13. **已有 `extras/` 保持不动** — `scripts/` 是新入口
 14. **`scripts/` 与 `collaboration/` 并列** — 放项目根目录，不属于 `collaboration/` 框架核心
 

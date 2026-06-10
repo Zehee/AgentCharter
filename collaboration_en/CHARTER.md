@@ -134,14 +134,14 @@ Reviewer writes REVIEW_REPORT (with R0 summary)
 > Rules that must never be broken. Scripts automatically append this list at the end of every invocation.
 
 ```
-! No file = it didn't happen — all tasks, reports, decisions must go through files
-! Git ban — no Agent may run git commands (only TPM may git add + commit)
-! Append only, never overwrite — state transitions via new files, never modify others' files
-! Write-domain isolation — inbox TPM-only, outbox executor-only
-! Follow naming convention — `{TYPE}_{NNN}_{DATE}_{author}@{recipient}.md`
+No file = it didn't happen — all tasks, reports, decisions must go through files ！
+Git ban — no Agent may run git commands (only TPM may git add + commit) ！
+Append only, never overwrite — state transitions via new files, never modify others' files ！
+Write-domain isolation — inbox TPM-only, outbox executor-only ！
+Follow naming convention — `{TYPE}_{NNN}_{DATE}_{author}@{recipient}.md` ！
 ```
 
-> You may add, remove, or modify lines. Keep each line starting with `!` for script auto-detection.
+> You may add, remove, or modify lines. Keep each line ending with `！` for script auto-detection.
 
 ---
 
