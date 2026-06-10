@@ -23,19 +23,15 @@ from redlines import get_redlines_string
 COMMANDS = [
     # TPM 独占
     "new-task.py",
-    "new-review-task.py",
     "new-revision.py",
-    "new-notice.py",
-    "new-reply.py",
-    "new-blocking.py",
-    "new-blocking-reply.py",
-    "archive.py",
     "daily-check.py",
     "validate-all.py",
     # 共享
     "new-decision.py",
     "new-report.py",
     "new-review-report.py",
+    "new-blocking.py",
+    "new-blocking-reply.py",
     "validate-file.py",
 ]
 
@@ -104,7 +100,7 @@ def forward_command(agent_name: str, cmd: str, json_data: str = None):
     if json_data:
         cmd_args.append(json_data)
 
-    result = subprocess.run(cmd_args, capture_output=True, text=True)
+    result = subprocess.run(cmd_args, capture_output=True, text=True, timeout=30)
     print(result.stdout)
     if result.stderr:
         print(result.stderr, file=sys.stderr)

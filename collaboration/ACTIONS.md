@@ -25,7 +25,7 @@
 | `outbox/PROACTIVE_REPORT` | 主动报告（无 TASK） | 任何人 → TPM |
 | `outbox/BLOCKING` | 阻塞通知 | 阻塞方 → 被阻塞方 |
 | `outbox/BLOCKING_REPLY` | 阻塞解除回复 | 解除方 → 阻塞方 |
-| `reviews/REVIEW_REPORT` | 审查结论 | Reviewer → 执行者 |
+| `inbox/outbox/REVIEW_REPORT` | 审查结论 | Reviewer → 执行者（自循环）/ TPM（委派） |
 | `内部通道` | 实时交付（代码 diff / 审查通知） | TPM ↔ Sub-Agent |
 
 ## 样例
@@ -37,7 +37,7 @@
 | 分配任务 | TPM → Alice | inbox/TASK |
 | 提交报告 | Alice → TPM | outbox/REPORT |
 | 审查代码 | Bob → Alice | REPORT → REVIEW_REPORT |
-| 审查结论 | Bob → Alice | reviews/REVIEW_REPORT |
+| 审查结论 | Bob → Alice | inbox/outbox/REVIEW_REPORT |
 | 质量确认 | Bob → TPM | 内部通道 |
 | 阻塞通知 | Alice → Charlie | outbox/BLOCKING |
 

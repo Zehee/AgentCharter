@@ -77,7 +77,7 @@ def forward_command(agent_name: str, cmd: str, json_data: str = None):
     if json_data:
         cmd_args.append(json_data)
 
-    result = subprocess.run(cmd_args, capture_output=True, text=True)
+    result = subprocess.run(cmd_args, capture_output=True, text=True, timeout=30)
     print(result.stdout)
     if result.stderr:
         print(result.stderr, file=sys.stderr)
@@ -101,7 +101,7 @@ def _auto_proactive_report(agent_name: str, decision_json: str = None):
         pro_args.append(pro_data)
 
     try:
-        pro_result = subprocess.run(pro_args, capture_output=True, text=True)
+        pro_result = subprocess.run(pro_args, capture_output=True, text=True, timeout=30)
         if pro_result.returncode == 0:
             pro_output = json.loads(pro_result.stdout) if pro_result.stdout else {}
             print(json.dumps({

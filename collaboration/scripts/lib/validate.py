@@ -52,6 +52,24 @@ EXPECTED_HEADERS: Dict[str, List[str]] = {
     "LOG_ENTRY": [],
 }
 
+EXPECTED_HEADERS_EN: Dict[str, List[str]] = {
+    "TASK": ["Dispatcher", "Executor", "Priority"],
+    "REPORT": ["Author", "Date", "Status", "Task"],
+    "REVIEW_REPORT": ["Reviewer", "Date", "Corresponding"],
+    "DECISION": ["Pair", "Time"],
+    "PROACTIVE_REPORT": ["Author", "Date"],
+    "BLOCKING": ["Blocker", "Date", "Priority"],
+    "BLOCKING_REPLY": ["Resolver", "Date"],
+    "NOTICE": ["Publisher", "Date", "Target", "Priority"],
+    "REPLY": ["Source Report", "Processing Date", "Submitter"],
+    "REVISION": ["Dispatcher", "Executor", "Date", "Priority", "Corresponding"],
+    "REVIEW_TASK": ["Dispatcher", "Reviewer", "Priority"],
+    "TASK_TEST": ["Dispatcher", "Tester", "Date", "Priority", "Related"],
+    "TEST_REPORT": ["Tester", "Date", "Related", "Test Round", "Overall"],
+    "TODO": [],
+    "LOG_ENTRY": [],
+}
+
 # ---------------------------------------------------------------------------
 # Cross-reference patterns
 # ---------------------------------------------------------------------------
@@ -87,6 +105,8 @@ _XREF_DIRS: Dict[str, List[str]] = {
 def validate_content(filepath: Path, file_type: str) -> List[str]:
     """Check that all required header fields appear in the first 40 lines.
 
+    Auto-detects Chinese vs English templates based on file path.
+
     Args:
         filepath: Path to the .md file.
         file_type: One of the ``EXPECTED_HEADERS`` keys.
@@ -94,7 +114,9 @@ def validate_content(filepath: Path, file_type: str) -> List[str]:
     Returns:
         A list of missing field names (empty when all are present).
     """
-    required = EXPECTED_HEADERS.get(file_type, [])
+    is_en = "collaboration_en" in str(filepath)
+    headers = EXPECTED_HEADERS_EN if is_en else EXPECTED_HEADERS
+    required = headers.get(file_type, [])
     if not required:
         return []
 

@@ -11,8 +11,8 @@ import sys
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-PROJECT_DIR = SCRIPT_DIR.parent
-COLLAB_DIR = PROJECT_DIR / "collaboration"
+PROJECT_DIR = SCRIPT_DIR.parent          # collaboration/
+COLLAB_DIR = PROJECT_DIR                 # scripts/ 在 collaboration/ 内
 
 sys.path.insert(0, str(SCRIPT_DIR / "lib"))
 

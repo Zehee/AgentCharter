@@ -172,8 +172,13 @@ def main():
         all_results.append({"directory": str(d.relative_to(COLLAB_DIR)), "files": files})
         stats["total"] += len(files)
         for f in files:
-            if not f.get("naming_valid", True):
+            if f.get("naming_valid", True):
+                stats["naming_ok"] += 1
+            else:
                 stats["naming_errors"] += 1
+            flow = f.get("flow", "")
+            if flow and flow.startswith("❌"):
+                stats["flow_issues"] += 1
 
     # 汇总红线
     from redlines import get_redlines_string

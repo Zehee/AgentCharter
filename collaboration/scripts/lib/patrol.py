@@ -79,6 +79,44 @@ def scan_outbox(agent_name: str) -> list[dict]:
     return results
 
 
+def scan_files(directory_name: str, pattern: re.Pattern) -> list[dict]:
+    """通用目录扫描：扫描指定目录下匹配正则的文件。"""
+    target = COLLAB_DIR / directory_name
+    results = []
+    if not target.exists():
+        return results
+    for f in sorted(target.iterdir()):
+        if not f.is_file() or f.suffix != ".md":
+            continue
+        m = pattern.search(f.name)
+        if m:
+            results.append({
+                "id": m.group(1),
+                "filename": f.name,
+            })
+    return results
+
+
+def scan_review_reports(agent_name: str) -> list[dict]:
+    """扫描 outbox/ 和 inbox/ 中发给 agent_name 的 REVIEW_REPORT。"""
+    pattern = re.compile(r"REVIEW_REPORT_(\d{3})_\d{8}_.*@" + re.escape(agent_name) + r"\.md", re.IGNORECASE)
+    outbox_items = scan_files("outbox", pattern)
+    inbox_items = scan_files("inbox", pattern)
+    seen = set()
+    merged = []
+    for item in outbox_items + inbox_items:
+        if item["id"] not in seen:
+            seen.add(item["id"])
+            merged.append(item)
+    return merged
+
+
+def scan_blockings(agent_name: str) -> list[dict]:
+    """扫描 outbox/ 中发给 agent_name 的 BLOCKING。"""
+    pattern = re.compile(r"BLOCKING_(\d{3})_\d{8}_.*@" + re.escape(agent_name) + r"\.md", re.IGNORECASE)
+    return scan_files("outbox", pattern)
+
+
 def patrol(agent_name: str) -> dict:
     """Run full patrol for an agent.
 

@@ -79,6 +79,14 @@ def _detect_reviewer_mode(agent_name: str) -> dict:
         if m:
             coder = m.group(1).upper()
 
+    if not found_reports:
+        return {
+            "mode": "self_loop",
+            "hint": "无 REVIEW_TASK，且 outbox 中无 REPORT。无法推断审查对象，请显式提供 recipient 和 ref_nnn",
+            "target_dir": "inbox",
+            "recipient": None,
+            "available": [],
+        }
     return {
         "mode": "self_loop",
         "hint": "无 REVIEW_TASK，推定自循环。从 outbox 中 REPORT 获取审查对象",
@@ -123,6 +131,11 @@ def main():
         sys.exit(1)
 
     data["author"] = data.get("author", agent)
+    # 自循环下无法推断 recipient 时阻断
+    if context["recipient"] is None and not data.get("recipient"):
+        result = {"error": "无法推断 recipient：outbox 中无 REPORT，请显式提供 recipient"}
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        sys.exit(1)
     data["recipient"] = data.get("recipient", context["recipient"])
 
     # 让 _common.run_create_flow 写文件，target_dir 由我们指定

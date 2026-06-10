@@ -20,11 +20,11 @@ import sys
 from pathlib import Path
 
 # ── Path resolution ──────────────────────────────────────────────────────────
-# scripts/lib/actions.py  →  scripts/  →  project root (parent of scripts/)
+# scripts/lib/actions.py → scripts/ → collaboration/ (scripts/ is inside collaboration/)
 _SCRIPT_DIR = Path(__file__).resolve().parent          # scripts/lib/
 _SCRIPTS_DIR = _SCRIPT_DIR.parent                      # scripts/
-_PROJECT_ROOT = _SCRIPTS_DIR.parent                    # project root
-_ACTIONS_PATH = _PROJECT_ROOT / "collaboration" / "ACTIONS.md"
+_PROJECT_ROOT = _SCRIPTS_DIR.parent                    # collaboration/
+_ACTIONS_PATH = _PROJECT_ROOT / "ACTIONS.md"
 
 # ── Regex helpers ────────────────────────────────────────────────────────────
 _RE_TABLE_ROW = re.compile(

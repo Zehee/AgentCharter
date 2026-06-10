@@ -32,6 +32,11 @@ REF_MAP = {
     "REVIEW_TASK": ["TASK"],               # REVIEW_TASK 对应 TASK
     "BLOCKING_REPLY": ["BLOCKING"],        # BLOCKING_REPLY 对应 BLOCKING
     "TEST_REPORT": ["TASK_TEST"],          # TEST_REPORT 对应 TASK_TEST
+    # 以下类型不需要关联校验（有自增编号或无编号）：
+    # TASK, TASK_TEST, DECISION — 自增编号（AUTO_NNN_TYPES）
+    # PROACTIVE_REPORT, NOTICE, REPLY — 无关联，无 ref_nnn
+    # BLOCKING — 发起方自由声明
+    # TODO, LOG_ENTRY — 非协作文件
 }
 
 
@@ -45,7 +50,7 @@ def _check_ref_exists(ref_nnn: str, file_type: str) -> str | None:
     search_dirs_map = {
         "TASK": ["inbox", "archive/inbox"],
         "REVISION": ["inbox", "archive/inbox"],
-        "REVIEW_REPORT": ["outbox", "archive/outbox"],
+        "REVIEW_REPORT": ["inbox", "outbox", "archive/inbox", "archive/outbox"],
         "REPORT": ["outbox", "archive/outbox"],
         "BLOCKING": ["outbox"],
         "TASK_TEST": ["inbox", "archive/inbox"],
@@ -174,11 +179,14 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
             filled = filled.replace("{{" + key + "}}", str(value))
             filled = filled.replace("{{" + key.lower() + "}}", str(value))
 
-        # 8. Preserve unreplaced placeholders as hints
+        # 8. 校验必填变量是否已替换
         import re
-        unreplaced = re.findall(r'\{\{(\w+)\}\}', filled)
-        if unreplaced:
-            pass  # Template intentionally keeps some unfilled for manual editing
+        name_pattern = template_info.get("name_pattern", "")
+        name_vars = set(re.findall(r'\{\{(\w+)\}\}', name_pattern))
+        unreplaced = set(re.findall(r'\{\{(\w+)\}\}', filled))
+        missing_required = [v for v in name_vars if v in unreplaced]
+        if missing_required:
+            return {"error": f"必填字段未提供（影响文件名生成）: {', '.join(missing_required)}"}
 
         try:
             target_path.parent.mkdir(parents=True, exist_ok=True)
@@ -232,12 +240,22 @@ def no_args_response(file_type: str, agent_name: str = None) -> dict:
             response["agent"] = agent_name
             response["agent_valid"] = bool(agent_valid)
             if agent_valid:
-                from patrol import scan_inbox
-                tasks = scan_inbox(agent_name)
-                if tasks:
-                    response["available_tasks"] = [
-                        {"nnn": t["id"], "desc": t["desc"], "priority": t["priority"]}
-                        for t in tasks
+                # 按 file_type 选择正确的关联源提示
+                from patrol import scan_inbox, scan_review_reports, scan_blockings
+
+                assoc_map = {
+                    "REPORT": ("available_tasks", scan_inbox),
+                    "REVISION": ("available_review_reports", scan_review_reports),
+                    "REVIEW_REPORT": ("available_tasks", scan_inbox),
+                    "BLOCKING_REPLY": ("available_blockings", scan_blockings),
+                    "TEST_REPORT": ("available_tasks", scan_inbox),
+                }
+                hint_key, scanner = assoc_map.get(file_type, ("available_tasks", scan_inbox))
+                items = scanner(agent_name)
+                if items:
+                    response[hint_key] = [
+                        {"nnn": t["id"], "desc": t.get("desc", ""), "priority": t.get("priority", "—")}
+                        for t in items
                     ]
 
         response["redlines"] = get_redlines_string()
