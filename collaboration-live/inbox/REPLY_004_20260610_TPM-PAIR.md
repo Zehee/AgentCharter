@@ -15,6 +15,6 @@ PROACTIVE_REPORT_006 已处理完毕：
 | TASK_030: 规范约束字段 | ⏸️ 暂缓 | TODO_003，设触发条件 |
 | TASK_032: 全模板注释 | ⏸️ 暂缓 | TODO_004，设触发条件 |
 
-关联 DECISION: `DECISION_018_20260610_TPM-PAIR.md`
+关联 DECISION: `DECISION_018_20260609_TPM-PAIR.md`
 
 inbox/ 和 outbox/ 已清空，无存活任务。

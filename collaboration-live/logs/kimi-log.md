@@ -79,3 +79,5 @@
 | 2026-06-10 | Edit | `collaboration_en/CHARTER.md` | TASK_029：英文同步 |
 | 2026-06-10 | Write | `outbox/REPORT_028_KIMI.md` | TASK_028 完成报告 |
 | 2026-06-10 | Write | `outbox/REPORT_029_KIMI.md` | TASK_029 完成报告 |
+| 2026-06-10 | Create | `collaboration-live/decisions/DECISION_019_20260610_KIMI-PAIR.md` | Zehee 指令：规则编号讨论 → DECISION 草案 |
+| 2026-06-10 | Create | `collaboration-live/outbox/REPORT_030_KIMI.md` | DECISION_019 起草报告，等待 TPM 审阅 |
