@@ -52,3 +52,5 @@
 | 10:14 | Plan | TODO_001 + TODO_002 | 暂缓的 TASK_030（规范约束字段）和 TASK_032（全模板注释）写入 todos/，设触发条件 |
 | 10:20 | Review | REPORT_028 | ✅ ACCEPT — 4 处注释 + EN 同步全部到位，无偏差 |
 | 10:22 | Review | REPORT_029 | ✅ ACCEPT — CHARTER.md 定位注释 + EN 同步到位 |
+| 10:30 | Review | REPORT_030 + DECISION_019 | ✅ ACCEPT — 规则编号体系草案，方向正确。补充：需先定义"一条规则"的粒度标准。DECISION_019 正式化 |
+| 10:32 | Plan | TODO_005 | 规则编号体系排期，设触发条件 + 粒度标准要求 |
