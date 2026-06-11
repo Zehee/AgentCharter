@@ -16,8 +16,6 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- **Case-insensitive throughout**: JSON keys (`DESC`/`desc`/`Desc`) normalized to uppercase in `run_create_flow`. Filename validation (`classify`/`validate_name`) now uses `re.IGNORECASE` on all patterns. Patrol scans already had `re.IGNORECASE`.
-
 ### Fixed
 
 ## [3.4.0] — 2026-06-11
