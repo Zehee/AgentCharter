@@ -23,7 +23,6 @@ Each row defines one collaboration channel: who passes what to whom, through whi
 | `outbox/REVIEW_REPORT` | Review conclusion (delegated paradigm) | Reviewer → TPM |
 | `outbox/BLOCKING` | Blocking notice | Anyone → Blocked party |
 | `outbox/BLOCKING_REPLY` | Blocking resolution reply | Blocked party → Blocker |
-| `decisions/DECISION` | Decision record | Human-AI pair → Archive |
 
 > Channel names are self-describing. The Action column is for human readability only — scripts validate against channels, not action names.
 

@@ -23,7 +23,6 @@
 | `outbox/REVIEW_REPORT` | 审查结论（委派范式） | Reviewer → TPM |
 | `outbox/BLOCKING` | 阻塞通知 | 任何人 → 被阻塞方 |
 | `outbox/BLOCKING_REPLY` | 阻塞解除回复 | 被阻塞方 → 阻塞方 |
-| `decisions/DECISION` | 决策记录 | 人机结对 → 存档 |
 
 > 通道名自带语义。动作列仅为人类阅读辅助，不参与脚本校验。
 
