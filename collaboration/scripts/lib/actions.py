@@ -403,26 +403,44 @@ def get_allowed_writers(file_type: str) -> list[str]:
 
 
 def is_tpm(name: str) -> bool:
-    """Quick check whether *name* is the TPM."""
+    """Quick check whether *name* is the TPM.
+    
+    Checks if *name* appears as a sender for TPM-exclusive channels
+    (TASK, REVISION, NOTICE) in the 协作链路 table.
+    """
     data = _load_data()
     name_upper = name.upper()
-    # Check if name appears as a role "TPM" in the direction column
+
+    # Method 1: 通道类型表中方向列显式标注 TPM → xxx
     for ch in data["channels"]:
         direction = ch.get("方向", "")
         parts = _parse_direction_parts(direction)
         if parts:
-            from_role, _arrow, _to_role = parts
-            if from_role.upper() == name_upper and from_role.upper() == "TPM":
-                return True
-    # Check if name appears as "TPM" in the 协作链路 table
+            from_role = parts[0]
+            if from_role.upper() == "TPM":
+                # 这个通道是 TPM 独占的
+                channel_name = ch.get("通道", "")
+                # 在链路表中查这个通道的发起方是不是 name
+                for link in data["links"]:
+                    link_channel = link.get("通道", "")
+                    link_direction = link.get("发起方 → 接收方", "")
+                    if link_channel == channel_name:
+                        lp = _parse_direction_parts(link_direction)
+                        if lp and lp[0].upper() == name_upper:
+                            return True
+
+    # Method 2: 链路表中 name 是 TASK、REVISION、NOTICE 通道的发送方
+    tpm_channels = {"inbox/TASK", "inbox/REVISION", "inbox/NOTICE", "inbox/REVIEW_TASK"}
     for link in data["links"]:
-        direction_col = link.get("发起方 → 接收方", "")
-        parts = _parse_direction_parts(direction_col)
-        if parts:
-            from_agent, _arrow, _to_agent = parts
-            if from_agent == name and name == "TPM":
+        channel = link.get("通道", "")
+        if channel in tpm_channels:
+            direction = link.get("发起方 → 接收方", "")
+            parts = _parse_direction_parts(direction)
+            if parts and parts[0].upper() == name_upper:
                 return True
-    return name == "TPM"
+
+    # Method 3: 名字本身就是 "TPM"（不区分大小写）
+    return name_upper == "TPM"
 
 
 # ── CLI ──────────────────────────────────────────────────────────────────────
