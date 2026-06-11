@@ -6,45 +6,31 @@ Each row defines one collaboration channel: who passes what to whom, through whi
 
 ---
 
-## Field Reference
-
-| Field | Meaning | Allowed Values |
-|------|------|--------|
-| **Action** | What to do | `Assign Task` `Submit Report` `Review Code` `Review Conclusion` `Blocking Notice` `Blocking Reply` `Submit Proactive Report` `Quality Confirmation` ... |
-| **From → To** | Who to whom | Agent identifier (e.g., `TPM` `Alice` `Bob`) or `ALL` |
-| **Channel** | Through what | See table below |
-
 ## Channel Types
 
 | Channel | Purpose | Direction |
-|------|------|------|
+|---------|---------|-----------|
 | `inbox/TASK` | Task dispatch | TPM → Executor |
 | `inbox/TASK_TEST` | Test dispatch | TPM → Tester |
+| `inbox/REVISION` | Review rework | TPM → Executor |
+| `inbox/REVIEW_TASK` | Review delegation (delegated paradigm) | TPM → Reviewer |
+| `inbox/REVIEW_REPORT` | Review conclusion (self-loop paradigm) | Reviewer → Executor |
+| `inbox/NOTICE` | System notice | TPM → All |
 | `outbox/REPORT` | Task completion report | Executor → TPM |
+| `outbox/REPORT_R1/R2` | Revision report | Executor → Reviewer |
 | `outbox/TEST_REPORT` | Test completion report | Tester → TPM |
 | `outbox/PROACTIVE_REPORT` | Proactive report (no TASK) | Anyone → TPM |
-| `outbox/BLOCKING` | Blocking notice | Blocker → Blocked party |
-| `outbox/BLOCKING_REPLY` | Blocking resolution reply | Resolver → Blocker |
-| `reviews/REVIEW_REPORT` | Review conclusion | Reviewer → Executor |
-| `Internal Channel` | Realtime delivery (code diff / review notification) | TPM ↔ Sub-Agent |
+| `outbox/REVIEW_REPORT` | Review conclusion (delegated paradigm) | Reviewer → TPM |
+| `outbox/BLOCKING` | Blocking notice | Anyone → Blocked party |
+| `outbox/BLOCKING_REPLY` | Blocking resolution reply | Blocked party → Blocker |
+| `decisions/DECISION` | Decision record | Human-AI pair → Archive |
 
-## Example
-
-Below is a workflow configuration for a small team:
-
-| Action | From → To | Channel |
-|------|----------------|------|
-| Assign Task | TPM → Alice | inbox/TASK |
-| Submit Report | Alice → TPM | outbox/REPORT |
-| Review Code | Bob → Alice | REPORT → REVIEW_REPORT |
-| Review Conclusion | Bob → Alice | reviews/REVIEW_REPORT |
-| Quality Confirmation | Bob → TPM | Internal Channel |
-| Blocking Notice | Alice → Charlie | outbox/BLOCKING |
+> Channel names are self-describing. The Action column is for human readability only — scripts validate against channels, not action names.
 
 ---
 
 ## Collaboration Links
 
 | Action | From → To | Channel |
-|------|----------------|------|
+|--------|-----------|---------|
 | | | |
