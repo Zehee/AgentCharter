@@ -205,12 +205,12 @@ def classify(filename: str, is_template: bool = False) -> str:
     """
     # Real filenames first
     for ttype, pattern in NAME_PATTERNS.items():
-        if re.match(pattern, filename):
+        if re.match(pattern, filename, re.IGNORECASE):
             return ttype
     # Template names (placeholders)
     if is_template:
         for ttype, pattern in TEMPLATE_BASE_PATTERNS.items():
-            if re.match(pattern, filename):
+            if re.match(pattern, filename, re.IGNORECASE):
                 return ttype
     return "UNKNOWN"
 
@@ -239,7 +239,7 @@ def validate_name(
         patterns_to_check.append(TEMPLATE_BASE_PATTERNS.get(detected))
 
     for pat in patterns_to_check:
-        if pat and re.match(pat, filename):
+        if pat and re.match(pat, filename, re.IGNORECASE):
             return True, detected, ""
 
     return False, detected, f"Filename {filename!r} partially matches type {detected!r} but fails the exact pattern"
