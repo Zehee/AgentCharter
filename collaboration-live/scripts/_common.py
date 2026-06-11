@@ -145,6 +145,9 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
         dict with result, path, and redlines (or error key)
     """
     try:
+        # 0. 输入 key 统一大写（大小写不敏感）
+        data = {k.upper(): v for k, v in data.items()}
+
         # 1. Validate agent
         agent = validate_agent(agent_name)
         if not agent:
