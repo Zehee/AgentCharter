@@ -154,14 +154,10 @@ def charterTool(name, type=None, *, body=None, ref=None):
 
 ## 验收标准
 
-- [ ] `charterTool("KIMI")` → 返回巡检结果（@KIMI 过滤）
-- [ ] `charterTool("TPM")` → 返回全览巡检（含总文件数）
-- [ ] `charterTool("TPM", "archive")` → 自动归档，非 TPM 调用拒绝
-- [ ] `charterTool("TPM", "validate-all")` → 全量校验
-- [ ] `charterTool("KIMI", "REPORT", body="## 完成情况", ref="042")` → 创建文件到 outbox/
-- [ ] `charterTool("TPM", "TASK", body="## 目标")` → 创建 TASK，NNN 自动编号
-- [ ] `charterTool("KIMI", "TASK", body="## 目标")` → 拒绝（TASK TPM 独占）
-- [ ] 26 个模板文件（CN+EN）已清除 `{{变量}}`，恢复纯说明文档
-- [ ] 已有 `new-*.py` / `agent.py` / `tpm.py` 命令行仍正常工作
-- [ ] 三份 `scripts/` 同步
-- [ ] 提交 REPORT_039_KIMI.md 到 outbox/
+- `charterTool` 三态（巡检/命令/创建）正常工作
+- 命令态 TPM 独占，外部 Agent 调用被拒绝
+- 创建态 body 模式生成的文件内容以 body 为准，不含 `{{}}` 残留
+- 模板清除 `{{}}` 后干净可读，仍保留指导性
+- 文档同步更新，不自相矛盾
+- 三份 `scripts/` 同步
+- 已有 CLI 命令不损坏
