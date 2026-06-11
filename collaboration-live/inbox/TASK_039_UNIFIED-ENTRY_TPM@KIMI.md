@@ -74,14 +74,16 @@ def charterTool(name, type=None, *, body=None, ref=None):
 ### 模板清理——去掉 {{变量}}，恢复为纯说明文档
 
 body 模式下 Agent 不再通过 `{{变量}}` 填充模板，而是直接写 markdown 正文。
-模板不再需要 `{{变量}}` 占位符，恢复为干净的指导手册形态。
+模板不再需要 `{{变量}}` 占位符，恢复为干净易读的指导手册形态。
 
-**改动范围**：`collaboration/templates/` 和 `collaboration_en/templates/` 共 26 个文件。
+Kimi 自行判断：
+- 哪些 `{{变量}}` 可以去掉、哪些需要保留（例如 JSON 模式仍需字段映射）
+- 去掉后模板的指导文字是否足够清晰
+- 是否需要补充 `>` 引用行替代原来的 `{{变量}}`
 
-**注意**：
-- 保留有指导意义的 `>` 引用行（告诉人/Agent 这个地方该写什么）
-- TASK / DECISION / TODO / LOG_ENTRY 的头部字段（优先级、结对等）保留为普通文本，不加 `{{}}`
-- 去掉 `{{}}` 后，`template.py` 解析器的字段映射保持不变（JSON 模式仍可用）
+### 文档更新
+
+Kimi 自行判断哪些文档需要同步更新（README、TPM.md、review-guide.md、CHANGELOG 等），不逐一指定。
 
 ### 现有能力保留
 
