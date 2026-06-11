@@ -294,8 +294,10 @@ def validate_agent(name: str):
     Returns the name (string) if found, or ``None``.
     """
     data = _load_data()
-    if name in data["agents"]:
-        return name
+    name_upper = name.upper()
+    for agent in data["agents"]:
+        if agent.upper() == name_upper:
+            return agent
     return None
 
 
@@ -403,13 +405,14 @@ def get_allowed_writers(file_type: str) -> list[str]:
 def is_tpm(name: str) -> bool:
     """Quick check whether *name* is the TPM."""
     data = _load_data()
+    name_upper = name.upper()
     # Check if name appears as a role "TPM" in the direction column
     for ch in data["channels"]:
         direction = ch.get("方向", "")
         parts = _parse_direction_parts(direction)
         if parts:
             from_role, _arrow, _to_role = parts
-            if from_role == name and from_role == "TPM":
+            if from_role.upper() == name_upper and from_role.upper() == "TPM":
                 return True
     # Check if name appears as "TPM" in the 协作链路 table
     for link in data["links"]:
