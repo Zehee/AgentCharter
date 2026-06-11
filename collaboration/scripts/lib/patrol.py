@@ -13,6 +13,19 @@ from pathlib import Path
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent
 COLLAB_DIR = SCRIPTS_DIR.parent
 
+# 延迟导入（避免循环依赖）
+_IS_TPM_CACHE = {}
+
+
+def _get_tpm_aliases(agent_name: str) -> list[str]:
+    """如果 agent_name 是 TPM，同时匹配 @name 和 @TPM."""
+    from actions import is_tpm
+    if agent_name not in _IS_TPM_CACHE:
+        _IS_TPM_CACHE[agent_name] = is_tpm(agent_name)
+    if _IS_TPM_CACHE[agent_name] and agent_name.upper() != "TPM":
+        return [agent_name, "TPM"]
+    return [agent_name]
+
 
 def scan_inbox(agent_name: str) -> list[dict]:
     """Scan collaboration/inbox/ for TASK and NOTICE files assigned to agent_name.
