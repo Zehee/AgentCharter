@@ -71,6 +71,18 @@ def charterTool(name, type=None, *, body=None, ref=None):
 | DECISION | TPM + 外部 Agent（外部自动补 PROACTIVE_REPORT） | 自增，ref 填了忽略 |
 | REPLY | TPM 独占 | 必填（对应 PROACTIVE_REPORT 编号）|
 
+### 模板清理——去掉 {{变量}}，恢复为纯说明文档
+
+body 模式下 Agent 不再通过 `{{变量}}` 填充模板，而是直接写 markdown 正文。
+模板不再需要 `{{变量}}` 占位符，恢复为干净的指导手册形态。
+
+**改动范围**：`collaboration/templates/` 和 `collaboration_en/templates/` 共 26 个文件。
+
+**注意**：
+- 保留有指导意义的 `>` 引用行（告诉人/Agent 这个地方该写什么）
+- TASK / DECISION / TODO / LOG_ENTRY 的头部字段（优先级、结对等）保留为普通文本，不加 `{{}}`
+- 去掉 `{{}}` 后，`template.py` 解析器的字段映射保持不变（JSON 模式仍可用）
+
 ### 现有能力保留
 
 | 能力 | 保留方式 |
@@ -147,6 +159,7 @@ def charterTool(name, type=None, *, body=None, ref=None):
 - [ ] `charterTool("KIMI", "REPORT", body="## 完成情况", ref="042")` → 创建文件到 outbox/
 - [ ] `charterTool("TPM", "TASK", body="## 目标")` → 创建 TASK，NNN 自动编号
 - [ ] `charterTool("KIMI", "TASK", body="## 目标")` → 拒绝（TASK TPM 独占）
+- [ ] 26 个模板文件（CN+EN）已清除 `{{变量}}`，恢复纯说明文档
 - [ ] 已有 `new-*.py` / `agent.py` / `tpm.py` 命令行仍正常工作
 - [ ] 三份 `scripts/` 同步
 - [ ] 提交 REPORT_039_KIMI.md 到 outbox/
