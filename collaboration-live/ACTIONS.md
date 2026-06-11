@@ -45,7 +45,6 @@ P2/P3 ── reviewer 审源码 │            │          │              │
 | 提交报告 | KIMI → TPM | outbox/REPORT |
 | 审查代码 | TPM → KIMI | inbox/REVISION |
 | 提交主动报告 | KIMI → TPM | outbox/PROACTIVE_REPORT |
-| 记录决策 | KIMI-PAIR → 存档 | decisions/DECISION |
 | 阻塞通知 | KIMI → TPM | outbox/BLOCKING |
 | 阻塞回复 | TPM → KIMI | outbox/BLOCKING_REPLY |
 | 审查工具 | TPM → KIMI | inbox/REVIEW_TASK |

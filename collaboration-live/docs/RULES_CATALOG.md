@@ -21,6 +21,7 @@
 - 只有 TPM 可执行归档；归档是移动操作，不修改内容。
 - TPM 维护并遵守命名规范：文件名格式为 `TYPE_NNN_DESC_DATE_author@recipient.md`；段间用 `_`，段内用 `-`；`author`/`recipient` 等标识大写；`DATE` 格式为 `YYYYMMDD`；`_R1`/`_R2` 是独立于 NNN 的轮次段。
 - `templates/` 为只读基准；发现缺陷时 TPM 通过 PROACTIVE_REPORT 反馈；任何角色禁止直接修改模板。
+- TPM.md 的修改须经用户同意。
 
 ## P1 核心
 
@@ -39,6 +40,10 @@
 - TPM 每次唤起 Sub-Agent 时，须将对应 `context/{name}-memory.md` 内容完整注入 prompt，不注入任务详情。
 - `context/{name}-memory.md` 大小不超过 8KB；超限时，TPM 须将 30 天以上旧决策归档到 `context/tpm-memory-archive.md`。
 - TPM 追加 `context/` 新决策时须放到文件顶部（倒序）。
+- TPM 创建 TASK 时须同时指定 reviewer 和审查级别 P0/P1/P2/P3。
+- TPM 打回机制：P1 触发式打回（摘要中露出越级信号）；P2 有限打回（已读关键意见时发现架构/业务/兼容性问题）；P3 完全打回权（Reviewer ACCEPT 只是参考意见）；打回动作：TPM 在 REVIEW_REPORT 底部批注打回理由，通过 NOTICE 通知执行者修复。
+- 若文件仅到达 TPM（如外部 Agent 提交的 REPORT），TPM 处理完即可归档，无需等待已读标识。
+- CHARTER.md 角色与职责表每新增一个 Agent 即更新。
 
 ## P2 操作规范
 
@@ -52,6 +57,10 @@
 - TPM 控制 Sub-Agent 活跃任务在 1-2 个，避免超时。
 - TPM 将已明确需求全部作为任务设置优先级分发，避免遗忘。
 - TPM 拆分复杂任务至 1-2 天交付，简单任务保持完整。
+- TPM 只读最后一轮 REVIEW_REPORT 的【审查摘要】节。
+- 3+ 轮审查自然暴露问题复杂度，触发 TPM 关注。
+- `context/{name}-memory.md` 保留现有分区结构（项目概览、工具链、协作规范、历史决策、活跃人员），新决策归入"历史决策"区。
+- `agent_id` 是运行时数据，不硬编码在文件中。
 
 ## P3 最佳实践
 
@@ -82,6 +91,7 @@
 - External Agent 卡住时写 `outbox/BLOCKING_NNN_DATE_TARGET.md`，并写明解除条件。
 - External Agent 改动不写文件内注释，须记录到 `logs/{标识}-log.md`。
 - External Agent 修改现有文件只输出 diff，新建文件输出全文。
+- External Agent 首轮 REPORT 无需【审查摘要】；R1/R2 须取消 REPORT 模板中的【审查摘要】注释，复制上轮 REVIEW_REPORT 的【摘要】原文，每轮下方追加修复回应。
 
 ## P2 操作规范
 
@@ -90,6 +100,7 @@
 - External Agent 在核心模块中禁用松散类型：TS 禁 `any`，Rust 禁 `unwrap()` 处理输入。
 - External Agent 日志操作分类为：Create、Edit、Delete、Move、Read、Verify、Review、Dispatch、Install、Start、Stop。
 - External Agent 读取流程末端文件后，须在文件最顶部添加 `> ✅ 已读 BY {AGENT} @ {DATE}`。
+- External Agent 须主动识别决策信号：对话中有选项被排除、有选择被做出时自动判断写 DECISION；不等人类多此一举。
 
 ## P3 最佳实践
 
@@ -111,6 +122,7 @@
 
 - Sub-Agent 严禁修改前端文件，只修改分配给它的后端/逻辑文件。
 - Sub-Agent 兼任 Reviewer 时只写 REVIEW_REPORT，不修改被审代码。
+- Sub-Agent 严禁跨职责修改文件。
 - Sub-Agent 改动记录到 `logs/{标识}-log.md`。
 - Sub-Agent 读取流程末端文件后，须在文件最顶部添加 `> ✅ 已读 BY {AGENT} @ {DATE}`。
 
@@ -137,6 +149,7 @@
 ## P1 核心
 
 - Reviewer 只审查不写代码。
+- Reviewer 须按三级审查标准标注意见：🔴严重 = 功能错误/安全漏洞/数据丢失（必须修复）；🟡一般 = 风格不一致/错误处理不完善/缺少测试（建议修复）；💡建议 = 可读性优化/注释补充（可选修复）。
 - Reviewer 的 REVIEW_REPORT 中【审查摘要】必填；首轮只写 `### R0`；R1/R2 须从执行者的 REPORT_RN【审查摘要】复制全部历史原文，底部追加 `### R1`/`### R2`。
 - Reviewer 每条审查意见格式：`[🔴严重/🟡一般/💡建议] | 文件:行号 | 问题描述 | 修复建议`。
 - Reviewer 的 REVIEW_REPORT 须含 1-10 评分、评分理由、状态（🔄 需修复 / ✅ ACCEPT）。
@@ -172,6 +185,7 @@
 - `templates/` 为只读基准，任何角色禁止直接修改。
 - 任何代码经另一位 AI 审查后才能合并；P0 微型改动除外。
 - 审查摘要中 R0/R1/R2 等历史原文不可修改，只能追加。
+- 文档优先级链为 `CHARTER.md > TPM.md > 其他文档`；当文档冲突时以此顺序裁决。
 
 ## P1 核心
 
@@ -182,6 +196,10 @@
 - PROACTIVE_REPORT 不进入标准任务生命周期；TPM 阅读并决策后即归档；若决策为 📋 任务或 📅 排期，TPM 会另建 TASK/TODO 跟踪。
 - `logs/`、`ACTIONS.md`、`dashboard.md` 只追加，不修改历史。
 - 无论协作链多复杂，最终产物只有 TASK 和 TODO；DECISION / PROACTIVE_REPORT / REVIEW_REPORT 均为中间证据。
+- 审查标准三级定义为：🔴严重 = 功能错误、安全漏洞、数据丢失（必须修复）；🟡一般 = 风格不一致、错误处理不完善、缺少测试（建议修复）；💡建议 = 可读性优化、注释补充（可选修复）。
+- 自循环范式下，reviewer 和 coder 的自循环不经过 TPM 中转；TPM 只在循环结束时按分级介入。
+- 写 BLOCKING 到对方读目录；解除阻塞时写 BLOCKING_REPLY。
+- 若文件仅到达 TPM（如外部 Agent 提交的 REPORT，TPM 阅读处理后），TPM 处理完即可归档，无需等待已读标识。
 
 ## P2 操作规范
 
@@ -193,6 +211,9 @@
 - 核心模块禁松散类型：TS 禁 `any`，Rust 禁 `unwrap()` 处理输入。
 - 日志操作分类为：Create、Edit、Delete、Move、Read、Verify、Review、Dispatch、Install、Start、Stop。
 - `DESC` 段使用英文简短描述，段内用 `-` 连接。
+- `context/` 目录只承担为 Native Sub-Agent 准备上下文注入文件的职责；TPM 和 External Agent 不使用 `context/`。
+- 已读标识须位于文件最顶部（标题上方），确保 TPM 一目了然。
+- `reviews/` 目录由 Reviewer 写入，所有人可读。
 
 ## P3 最佳实践
 
@@ -212,8 +233,8 @@
 - TPM 须在 `README.md` 👑 区域替换占位符为 TPM 名字。
 - TPM 须填写 `CHARTER.md`（协作宪章），从 `README.md` 和 `TPM.md` 汇总关键规则。
 - TPM 须填写 `PROJECT.md`（项目信息、成员、技术栈、构建命令）。
-- TPM 须检查 `.gitignore`：`inbox/`、`outbox/`、`logs/`、`context/`、`todos/` 已忽略；`archive/` 被 Git 跟踪。
 - TPM 须将行为准则固化到运行环境本地记忆系统。
+- TPM 须确认 `.gitignore` 包含 `inbox/`、`outbox/`、`logs/`、`context/`、`todos/`；须确认 `archive/` 和框架文件（TPM.md、README.md、PROJECT.md 等）纳入 Git。
 
 ## Agent 入职
 
