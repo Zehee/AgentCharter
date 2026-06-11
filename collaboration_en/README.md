@@ -6,7 +6,7 @@ A file-driven, multi-agent collaboration framework. Files are the sole communica
 
 > **No file = it didn't happen.**
 
-**Version**: v3.3 | **Updated**: 2026-06-10
+**Version**: v3.4 | **Updated**: 2026-06-11
 
 ---
 

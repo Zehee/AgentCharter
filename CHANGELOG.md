@@ -5,12 +5,20 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Versioning Policy
 
-- **`collaboration/README.md`** carries the runtime version (`v3.3`) — Agents see this. Updated on every release.
-- **`CHANGELOG.md`** carries the full history with patch versions (`3.2.1`). The `[Unreleased]` section accumulates changes between releases.
-- **Git tags** mark releases (e.g. `v3.2.1`).
+- **`collaboration/README.md`** carries the runtime version (`v3.4`) — Agents see this. Updated on every release.
+- **`CHANGELOG.md`** carries the full history with patch versions (`3.4.0`). The `[Unreleased]` section accumulates changes between releases.
+- **Git tags** mark releases (e.g. `v3.4.0`).
 - **`README.md` (outer)** is a marketing page — it does not carry a version number.
 
 ## [Unreleased]
+
+### Added
+
+### Changed
+
+### Fixed
+
+## [3.4.0] — 2026-06-11
 
 ### Added
 
@@ -33,6 +41,11 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Evaluation doc** (`docs/evaluation-20260609.md`) — strengths, weaknesses, applicability, fundamental trade-offs
 - **Management plan doc** (`docs/management-plan-20260609.md`) — three-phase execution roadmap if managed by Kimi
 - **Governance sharding analysis** (`docs/governance-sharding-20260609.md`) — compression vs sharding strategies for rule governance as the framework scales
+- **ARCHIVED docs** moved to `docs/archive/` to keep the root docs directory focused on active analysis
+- **Archive cleanup** — removed stale `docs/archive/` references and outdated upgrade reports
+
+[Unreleased]: https://github.com/Zehee/AgentCharter/compare/v3.4.0...HEAD
+[3.4.0]: https://github.com/Zehee/AgentCharter/compare/v3.3.0...v3.4.0
 
 ### Changed
 
