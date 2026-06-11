@@ -61,6 +61,16 @@ def archive_single(file_path: Path) -> dict:
     try:
         archive_dir.mkdir(parents=True, exist_ok=True)
 
+        # 归档前后路径（rename 前计算）
+        try:
+            from_path = str(file_path.relative_to(COLLAB_DIR))
+        except ValueError:
+            from_path = str(file_path)
+        try:
+            to_path = str(target.relative_to(COLLAB_DIR))
+        except ValueError:
+            to_path = str(target)
+
         # 追加归档标记
         text = file_path.read_text(encoding="utf-8")
         from datetime import date
@@ -74,8 +84,8 @@ def archive_single(file_path: Path) -> dict:
 
         return {
             "result": "✅ 已归档",
-            "from": str(file_path.relative_to(COLLAB_DIR)),
-            "to": str(target.relative_to(COLLAB_DIR)),
+            "from": from_path,
+            "to": to_path,
         }
     except Exception as e:
         return {"error": f"归档失败: {e}"}
@@ -151,8 +161,13 @@ def main():
         sys.exit(1)
 
     file_path = Path(file_args[0])
-    if not file_path.is_absolute():
-        file_path = COLLAB_DIR / file_path
+    if not file_path.exists():
+        alt = COLLAB_DIR / file_path
+        if alt.exists():
+            file_path = alt
+        else:
+            print(json.dumps({"error": f"文件不存在: {file_path}（尝试 {alt} 也未找到）"}, ensure_ascii=False))
+            sys.exit(1)
 
     if chain_mode:
         result = archive_chain(file_path)
