@@ -67,3 +67,8 @@
 | 11:51 | Dispatch | TASK_036 | 放入 inbox/，共 3 个 TASK（TASK_034 审查重构 / TASK_035 review-guide / TASK_036 脚本体系）|
 | 11:55 | Review | REPORT_034 + REPORT_035 | ✅ ACCEPT — reviews/ 已删、模板全部 `_author@recipient`、review-guide.md 已创建。TASK_034/035 归档 |
 | 12:05 | Execute | TASK_036 | 自我执行。完整搭建 scripts/ 体系：agent.py + 7 lib 模块 + 7 命令 + daily-check + redlines。extras/template-validator 并入 lib/。文档全部更新 |
+| 12:15 | Review | REVIEW_REPORT_036 | Kimi 审查脚本系统，评分 4/10，13 个问题。4🔴 P0 阻断 + 5🟡 高优 + 4 中低。全部修复 |
+| 12:20 | Decision | DECISION_024 | 多轮次 _R1 增量文件链支持 |
+| 12:25 | Dispatch | TASK_037 | Kimi 执行：回归确认 + _R1 实现 + 补全 4 个 TPM 脚本 |
+| 12:35 | Review | REPORT_037 | ✅ ACCEPT — Part A/B/C 全部通过。REVIEW_TASK_036 + TASK_037 归档 |
+| 12:36 | Archive | 全部归档 | collaboration-live/ 干净，无存活任务 |

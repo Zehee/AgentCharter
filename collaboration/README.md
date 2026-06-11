@@ -107,7 +107,7 @@ collaboration/
 ## 三、命名规范
 
 - **段间 `_`**，**段内 `-`**，**双后缀 `author@recipient`**
-- `NNN` = 3 位编号（001、042、049C_R1）
+- `NNN` = 3 位编号（001、042、049C）。`_R1`、`_R2` 是独立的轮次段，不属于 NNN
 - `DESC` = 英文简短描述，段内用 `-`
 - `author` / `recipient` = 标识一律**大写**
 - `DATE` = `YYYYMMDD`

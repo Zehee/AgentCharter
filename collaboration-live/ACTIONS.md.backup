@@ -47,11 +47,4 @@
 
 | 动作 | 发起方 → 接收方 | 通道 |
 |------|----------------|------|
-| 分配任务 | ZEHEE → KIMI | inbox/TASK |
-| 分配任务 | TPM → KIMI | inbox/TASK |
-| 提交报告 | KIMI → ZEHEE | outbox/REPORT |
-| 提交报告 | KIMI → TPM | outbox/REPORT |
-| 审查代码 | TPM → KIMI | REPORT → REVIEW_REPORT |
-| 提交主动报告 | KIMI → ZEHEE | outbox/PROACTIVE_REPORT |
-| 提交主动报告 | KIMI → TPM | outbox/PROACTIVE_REPORT |
-| 决策记录 | KIMI → decisions/ | DECISION_NNN_DATE_KIMI-PAIR |
+| | | |

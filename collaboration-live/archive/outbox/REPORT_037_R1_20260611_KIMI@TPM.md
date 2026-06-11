@@ -1,4 +1,4 @@
-# REPORT_NNN: {{title}}
+# REPORT_NNN: R1修复报告
 
 > **文件名**: `REPORT_NNN_DATE_author@recipient.md`
 > **存放位置**: `outbox/`
@@ -6,10 +6,10 @@
 
 **提交人**: {{author}}
 **日期**: {{DATE}}
-**轮次**: {{round}}
+**轮次**: 1
 **状态**: REVIEW_PENDING
-**对应**: {{ref_nnn}}
-**报告性质**: {{report_type}}
+**对应**: 037
+**报告性质**: revision
 
 ---
 
@@ -85,3 +85,6 @@
 ## 风险点 & 需人工确认
 - [ ] 并发逻辑未充分验证，需人工 review
 ```
+
+
+> ✅ 已归档 2026-06-11

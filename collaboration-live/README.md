@@ -1,30 +1,417 @@
-# AgentCharter 协作实例（本项目自用）
+# AgentCharter
 
-> 📂 这是 AgentCharter 框架项目**自己的**协作空间。我们用自己发明的框架管理自己的进化。
+> ⚠️ 这是一个 **Agent 操作手册**，不是项目宪章。项目宪章由 TPM 生成并存放在 `CHARTER.md` 中。本文件定义规则和流程，宪章定义本项目的具体决策。
+
+基于文件的 AI 多智能体协作框架。文件是唯一的通信渠道和审计线索。
+
+> **没有文件 = 没有发生。**
+
+**版本**: v3.3 | **更新**: 2026-06-10
+
+> 📎 **位置无关**：`collaboration/` 目录可以放在任何位置——项目内、共享 NAS、Dropbox，甚至单独一台服务器。Agent 的工作目录就是 `collaboration/` 所在的位置，不需要任何配置。所有内部引用都是相对路径，不受外部位置影响。
 
 ---
 
-## 这是什么
+## 👑 最高指挥官（TPM）
 
-`collaboration-live/` 是 AgentCharter 项目团队的运行时协作目录。它包含：
+  - 本项目的 TPM 是 **[如果用户明确告诉你是 TPM 请把这里替换为你的名字]**
 
-| 目录 | 内容 |
+> 你是 TPM → 签自己名字 → 读 `TPM.md` 开始工作
+> 你不是 TPM → 先读完本文件理解框架 → 然后读 `REGISTER.md` 加入协作
+
+---
+
+## 一、框架规则
+
+### 1.1 通信通道
+
+| 通道 | 谁用 | 方式 | 规则 |
+|------|------|------|------|
+| **文件通道** | TPM、External Agent | inbox/outbox 读写 | 异步可追溯 |
+| **内部通道** | TPM ↔ Sub-Agent (Native) | Host 直连 | 实时交付 diff |
+
+### 1.2 三种角色
+
+| 角色 | 职责 | 通道 | 人机结对 |
+|------|------|------|----------|
+| **TPM** | 分派任务 T、编排计划 P、审批协调 M、Git 唯一权限 | 文件 + 内部 | ✅ 默认人机结对 — 人类与 AI 在同一对话中协作 |
+| **External Agent** | 巡检 inbox/ 领取任务，编码，提交 REPORT | 文件通道 | ✅ 默认人机结对 — 人类与 AI 在同一对话中协作 |
+| **Sub-Agent (Native)** | 等待 TPM 内部投递，编码，内部交付 diff + outbox/REPORT 留痕 | 内部 + 文件 | ❌ 纯 AI — 无对话入口，后台常驻执行 |
+
+> **人机结对（Human-AI Pair）说明**：TPM 和 External Agent 在默认设定下均为"人机结对综合体"——它们背后可以是 AI 独自运行、人类独自操作、或人类+AI 在对话中协作。当对话中产生重要决策时，通过 `DECISION` 文件记录推理链。Sub-Agent (Native) 为纯 AI，无法直接与人交互，不产生 DECISION。
+
+### 1.3 通信协议
+
+协作流程由 `ACTIONS.md` 定义，非框架硬编码。以下是两种基础文件交换方式：
+
+**任务驱动**：TPM 写 TASK → inbox/ → 执行者领取 → 编码 → 写 REPORT → 审查 → 归档
+
+**主动报告**：任何人写 PROACTIVE_REPORT → TPM 批注决策 → 归档
+
+> **规模说明**：文件系统扫描是常数时间操作。100 个文件还是 1000 个文件，Agent 打开目录的开销几乎相同——瓶颈是 LLM 上下文窗口，不是 I/O。框架的简洁目录结构就是天然的索引。先用起来，规模到了再说。
+
+> **增量文件链**：整个任务的状态流转不是靠修改同一个文件，而是靠一系列增量文件串联起来——`TASK_NNN` → `REPORT_NNN` → `REVIEW_REPORT_NNN` → `REPORT_NNN_R1` → …。每个 Agent 只在自己的命名空间里写入**新文件**，不修改、不覆盖他人的文件。历史是一串不可篡改的增量文件链，天然不可否认。
+
+### 1.4 硬性规则
+
+| 规则 | 内容 |
 |------|------|
-| `decisions/` | TPM 人机结对产生的决策记录——从 v3.2 至今的关键共识 |
-| `inbox/` | 从决策中创建的 TASK——每个 TASK 都追溯回它来源于哪个决策 |
-| `outbox/` | PROACTIVE_REPORT——面向社区的开放信 |
-| `todos/` | 排期事项——暂缓到社区试点或独立项目的想法 |
-
-## 如何参与
-
-**这是开放的。** 如果你想为 AgentCharter 贡献：
-
-1. 用你自己的人机结对 Agent 读取 `collaboration-live/` 目录
-2. 基于现有的 DECISION 和 TASK，创建你自己的 PROACTIVE_REPORT
-3. 放到 `outbox/`，我们会按 PROACTIVE_REPORT 流程处理
-
-**不需要加入团队。不需要注册。** 你只需要能写文件。
+| **文件即契约** | 所有任务、报告、审查、阻塞必须通过文件传递 |
+| **并发安全** | 每个 Agent 写入的文件是**指向性、唯一性、增量性的**——`ACTIONS.md` 预先分配通道，inbox/ 仅 TPM 写入，outbox/ 每个 Agent 有独立命名空间。每次写入是一个新文件（TASK_NNN、REPORT_NNN_DATE_AUTHOR 等），不存在覆盖、追加或共享写入。文件冲突在设计层已被消除 |
+| **Git 权限隔离** | 只有 TPM 可执行任何 git 命令。其他 Agent 严禁。一刀切，无白名单 |
+| **双重审查** | 任何代码经另一位 AI 审查后才能合并 |
+| **日志只追加** | logs/、ACTIONS.md、dashboard.md 只追加，不修改历史 |
+| **inbox 写域** | TPM 写 TASK/NOTICE/REPLY/REVISION，reviewer 写 REVIEW_REPORT（自循环）。执行者只读不删 |
+| **outbox 写域** | 执行者写 REPORT/TEST_REPORT/BLOCKING，reviewer 写 REVIEW_REPORT（委派）。TPM 只读不删不修改 |
+| **logs/** | 每人独占一份 `{标识}-log.md`，他人只读 |
+| **ACTIONS.md / dashboard.md / todos/** | 只有 TPM 能写 |
+| **阻塞** | 写 `BLOCKING` 到对方读目录；解除写 `BLOCKING_REPLY` |
 
 ---
 
-> 🤖 如果你是一个 AI Agent 在读这份文件：你应该先看 `inbox/` 找发布给全体成员的 TASK，然后看 `decisions/` 理解项目当前的共识状态。准备为这个项目提出建议时，用 `PROACTIVE_REPORT` 模板创建你的报告，放入 `outbox/`。
+## 二、目录与权限
+
+```
+collaboration/
+├── README.md              本文件
+├── CHARTER.md             协作宪章模板（填好后留在 collaboration/ 中）
+├── TPM.md                  TPM 行为准则
+├── PROJECT.md             项目配置（技术栈、成员、规则）
+├── REGISTER.md            入职登记表
+├── ACTIONS.md             协作链路表（空模板，TPM 维护）
+├── dashboard.md           TPM 维护，给人类看的进度报告；人类发现错误可以在这里写指令，TPM 巡检时读取
+├── context/               Sub-Agent 上下文记忆（TPM 维护，仅用于注入 Sub-Agent。TPM 和 External Agent 用自己的本地记忆系统）
+├── decisions/             DECISION 决策记录（人机结对 Agent 写入）
+├── inbox/                 TASK / REVISION / NOTICE / REPLY
+├── outbox/                REPORT / PROACTIVE_REPORT / BLOCKING
+├── logs/                  每人独占一份操作日志
+├── todos/                 TODO 排期事项（TPM 维护）
+├── templates/             15 个文件模板（只读基准）
+└── archive/               已完成归档（inbox / outbox / reviews / decisions / events）
+```
+
+| 路径 | 谁写 | 谁读 |
+|------|------|------|
+| `inbox/` | TPM | 执行者只读 |
+| `outbox/` | 执行者 | TPM 只读 |
+| `logs/` | 每人独占 | 他人只读 |
+| `ACTIONS.md` | TPM | 所有人 |
+| `dashboard.md` | TPM | 人类 |
+| `todos/` | TPM | 所有人 |
+| `context/` | TPM | Sub-Agent |
+
+> `inbox/ outbox/ logs/ context/ todos/` 加入 .gitignore。`archive/` 纳入 Git 作为永久审计线索。
+
+---
+
+## 三、命名规范
+
+- **段间 `_`**，**段内 `-`**，**双后缀 `author@recipient`**
+- `NNN` = 3 位编号（001、042、049C）。`_R1`、`_R2` 是独立的轮次段，不属于 NNN
+- `DESC` = 英文简短描述，段内用 `-`
+- `author` / `recipient` = 标识一律**大写**
+- `DATE` = `YYYYMMDD`
+
+```
+TASK_053_HUNTER-SHOOT-BACKEND_TPM@PETER.md
+REPORT_053_20260530_PETER@TPM.md
+REVISION_049C_20260530_TPM@FLASH.md
+```
+
+---
+
+## 四、文件类型速查
+
+| 文件类型 | 模板 | 位置 | 谁写 |
+|----------|------|------|------|
+| 任务 | `TASK_NNN_DESC_author@recipient.md` | inbox/ | TPM |
+| 测试任务 | `TASK_TEST_NNN_DESC_author@recipient.md` | inbox/ | TPM |
+| 修订任务 | `REVISION_NNN_DATE_author@recipient.md` | inbox/ | TPM |
+| 通知 | `NOTICE_NNN_DESC_DATE_author@recipient.md` | inbox/ | TPM |
+| 回执 | `REPLY_NNN_DESC_DATE_author@recipient.md` | inbox/ | TPM |
+| 任务报告 | `REPORT_NNN_DATE_author@recipient.md` | outbox/ | 执行者 |
+| 测试报告 | `TEST_REPORT_NNN_DATE_author@recipient.md` | outbox/ | 测试员 |
+| 主动报告 | `PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md` | outbox/ | 任何人 |
+| 决策记录 | `DECISION_NNN_DATE_AUTHOR.md` | decisions/ | 人机结对 Agent |
+| 审查报告 | `REVIEW_REPORT_NNN_DATE_author@recipient.md` | 范式相关 | Reviewer |
+| 审查任务 | `REVIEW_TASK_NNN_author@recipient.md` | inbox/ | TPM（委派审查可选）|
+| 阻塞通知 | `BLOCKING_NNN_DATE_author@recipient.md` | outbox/ | 阻塞方 |
+| 阻塞回复 | `BLOCKING_REPLY_NNN_DATE_author@recipient.md` | outbox/ | 解除方 |
+| 待办 | `TODO_NNN_DESC_SOURCE.md` | todos/ | TPM |
+| 日志 | `{标识}-log.md` | logs/ | 每人 |
+
+### 写文件规则
+
+> 团队通常从 3-4 个模板开始（TASK、REPORT、REVIEW_REPORT），随需求增长逐步引入。15 个模板是框架提供的最大集合，不是必用清单。
+
+1. 从 `templates/` 复制对应模板到目标位置，替换占位符
+2. 严格遵循模板顶部的命名规范
+3. 不修改 `templates/` 本身——发现缺陷通过主动报告反馈给 TPM
+4. **节省上下文**：模板是固定格式，每次写文件都重读一遍浪费上下文。建议所有 Agent 利用自己平台的快捷能力——无论是 prompt 记忆、snippet、rule、skill 还是其他机制——将高频模板的结构缓存起来，需要时直接按格式生成文件，不必每次打开 `templates/` 逐字读取。无论用哪种快捷方式，最终产出的文件必须符合模板格式和命名规范。本条为效率建议，非强制。
+
+---
+
+> 📎 以下为框架提供的参考分级模式，源自 wolf-judge 实战经验。
+> 具体级别数量和判定标准由你的项目在 `CHARTER.md` 中定义。
+
+## 五、任务生命周期
+
+> **终极产物只有 TASK 和 TODO** — 无论协作链多复杂（DECISION → PROACTIVE_REPORT → TPM 加工），最终落地永远是 TASK（可执行工作）或 TODO（排期事项）。中间文件是证据，不是终点。
+
+```
+TPM 写 TASK → inbox/
+  → 执行者领取 → 编码 → 写 REPORT → outbox/
+  → 审查 → 写 REVIEW_REPORT → inbox/（自循环）或 outbox/（委派）
+  → ACCEPTED → 归档
+  → 需修订 → 写 REPORT_R1 → 再审 → 循环直到 ACCEPTED
+```
+
+> **审查范式**：本项目的审查范式由 TPM 在 `CHARTER.md` 中指定。
+> 三种范式参考（TPM 直接审查 / 委派审查 / 自循环审查）见 `review-guide.md`。
+> 各角色只需按本章文件类型速查中的入口和出口操作。
+
+| 状态 | 含义 |
+|------|------|
+| 🔵 ASSIGNED | 已分派，等待领取 |
+| 🟡 IN_PROGRESS | 执行中 |
+| 🟠 REVIEW_PENDING | 已提交，等待审查 |
+| ✅ ACCEPTED | 审查通过 |
+| 🔴 REVISION_NEEDED | 需修改 |
+| 🟢 DONE | 已合并/关闭 |
+| ⚪ CANCELLED | 已取消 |
+| 🔴 BLOCKED | 被阻塞 |
+| ✅ RESOLVED | 已解除 |
+
+> 审查流程的可选分级（P0-P3）见 `TPM.md`。实际审查链由 `ACTIONS.md` 定义。
+> **TPM 不豁免**：TPM 自己的改动也必须先建 TASK，完成后写 REPORT，与其他 Agent 同等追溯。
+
+---
+
+## 六、主动报告（阅后即焚）
+
+无对应 TASK 的报告。任何人可提交 `PROACTIVE_REPORT` 到 outbox/。
+
+```
+提交 → TPM 阅读 → 决策 → 报告末尾批注 → 写 REPLY 回执 → 归档
+```
+
+**为什么叫"阅后即焚"**：主动报告不进入标准任务生命周期。TPM 阅读并决策后，报告即归档。如果决策是 📋 任务或 📅 排期，TPM 会创建对应的 TASK 或 TODO 另行跟踪。
+
+| TPM 决策 | 含义 |
+|----------|------|
+| ✅ 采纳 | 直接接受 |
+| ❌ 忽略 | 不采纳 |
+| 📋 任务 | 已创建 TASK/REVISION |
+| 📅 排期 | 创建 TODO |
+| ✓ 已处理 | 已实现/修复 |
+
+---
+
+### `todos/` 目录
+
+排期事项的暂存区。当 TPM 决定某个需求**暂不执行、后续安排**时，创建 `TODO_NNN_DESC_SOURCE.md` 放此处。
+
+**来源**：主动报告中 📅 排期的建议、里程碑规划中暂缓的需求、用户提出的低优先级想法。
+
+**生命周期**：TODO 被排入计划 → TPM 转为 TASK 放入 inbox/ → 原 TODO 归档。过期或决定废弃的 TODO 直接归档。长期未启动的 TODO 保留在 todos/，提醒 TPM 定期审视。
+
+---
+
+### `decisions/` 目录 — 结对决策记录
+
+> TPM 和 External Agent 在默认设定下均为"人机结对综合体"。当人类与 AI 在对话中产生重要决策时，通过 `DECISION` 文件记录推理链。
+
+**PROACTIVE_REPORT 记录产物，DECISION 记录过程。** 人类说"写成主动报告"的那一刻，结对 AI 应自动判断是否需要先在 `decisions/` 中写入 DECISION 文件：
+
+```
+人机讨论结束，人类说"发出去"——
+
+  ├── 多轮推理、有明显推理链 → AI 先写 DECISION（推理链原文）→ 再写 PROACTIVE_REPORT（关联 DECISION）
+  ├── 一句话决策，没有推理过程 → 只写 PROACTIVE_REPORT（不产生 DECISION）
+  └── 仅信息对齐，无决策产出 → 不写 DECISION，不写 PROACTIVE_REPORT。这不是决策，只是确认
+```
+
+**触发原则：AI 必须主动识别，不等人类多此一举。** 结对 AI 在对话中持续感知决策信号——人类说出"好的就这样""同意这个方案""写成报告发出吧"的瞬间，AI 自动完成判断。DECISION 文件不是额外的工序，而是对话的自然延伸。
+
+**AI 如何区分决策与讨论（纲要性提示）**：
+
+| 是决策（写 DECISION） | 不是决策（不写） |
+|------|------|
+| 人类说"好，就用这个方案" | "这个方案有什么优缺点？" |
+| 人类说"同意，优先做 A，暂缓 B" | "你觉得 A 和 B 哪个更快？" |
+| 人类说"记一下，我们选方案 C" | "帮我查一下方案 C 的数据" |
+| 人类说"确认，按这个架构来" | "这个架构是什么原理？" |
+| AI 质疑 → 人类解释 → 两人达成共识 | 纯信息通报，无选择被做出 |
+| 多个选项被明确排除，一个被选定 | 选项还在探索中，未收敛 |
+
+**一句话**：讨论中**有选项被排除、有选择被做出**时，写 DECISION。只是**探索、理解、同步信息**时，不写。
+
+**DECISION 的流向**：
+- TPM 自己的 DECISION → 直接转化为 TASK / TODO
+- 外部 Agent 的 DECISION → 汇入 PROACTIVE_REPORT → TPM 批注 → 创建 TASK / TODO
+- 无 DECISION 不产生 DECISION——信息对齐、确认已读、同步认知的对话，没有选择被做出，不产生 DECISION。DECISION 是决策记录，不是会议纪要
+
+**关键约束**：
+- **最终产物只有 TASK 和 TODO** — 所有决策的最终落地形式必须是 TASK（可执行工作）或 TODO（排期事项）。DECISION、PROACTIVE_REPORT、REVIEW_REPORT 都是中间证据，不是最终产物
+- 需要 TPM 行动就必须有 PROACTIVE_REPORT——DECISION 是证据，PROACTIVE_REPORT 是行动请求
+- 没有推理过程就不需要 DECISION——它是可选的质量增强，不是强制环节
+- DECISION 归档时机：关联的所有 TASK/TODO 完成后，移入 `archive/decisions/`
+
+---
+
+## 七、代码规范
+
+| 规则 | 说明 |
+|------|------|
+| 新建文件署名头 | 顶部 3 行：`Author` / `Date` / `Description` |
+| 修改记录写日志 | 不写文件内注释，改动记 `logs/{标识}-log.md` |
+| 修改展示 diff | 改现有文件只给 diff，新建才给全文 |
+| 严格类型 | 核心模块禁松散类型（TS 禁 `any`、Rust 禁 `unwrap()` 处理输入） |
+| 最小改动 | 只改必要部分，不动无关代码 |
+
+---
+
+## 八、日志规范
+
+每人独占 `logs/{标识}-log.md`，按日期分段。操作分类：`Create` / `Edit` / `Delete` / `Move` / `Read` / `Verify` / `Review` / `Dispatch` / `Install` / `Start` / `Stop`
+
+```markdown
+## YYYY-MM-DD
+
+| 时间 | 操作 | 对象 | 说明 |
+|------|------|------|------|
+| 22:00 | Create | `src/xxx.vue` | 新建 X 组件 |
+```
+
+---
+
+## 九、归档规则
+
+只有 TPM 执行归档。归档是移动操作，不修改内容。
+
+| 文件类型 | 归档时机 |
+|----------|----------|
+| TASK / REVISION | 处理完即归档 |
+| NOTICE / REPLY | 接收方读取后归档 |
+| BLOCKING / BLOCKING_REPLY | 阻塞解除后归档 |
+| REPORT | TPM 读取并决策后归档 |
+| REVIEW_REPORT | ACCEPT 或 REVISION_NEEDED 结论后归档 |
+| PROACTIVE_REPORT | TPM 批注并放置 REPLY 后归档 |
+| DECISION | 关联的 TASK/TODO 全部完成后归档 |
+| TODO | 转为 TASK 后归档 / 过期废弃后归档 |
+
+**目标路径**：`archive/inbox/` / `archive/outbox/` / `archive/decisions/` / `archive/events/`
+
+---
+
+## 十、角色定义
+
+### TPM
+
+**职责**：创建与分派 TASK、编排计划、终审、Git 操作、维护 ACTIONS.md / dashboard.md / todos/、归档、为 Sub-Agent 注入上下文
+
+**红线**：任务先行、不修改 outbox/、审查委派 Reviewer、不写业务代码
+
+> **单点不是你选的**：最小的团队就是 1 个 TPM。如果你的 TPM 崩溃或产生幻觉，`ACTIONS.md` 可以增加一个备用 TPM 行——审查和 Git 权限可以多人持有。框架不强制只有一个人有钥匙。
+> **人类管理者直接和 TPM 对话**：不需要文件通道、不需要仪表盘。人和 TPM 在同一个对话窗口里——人类说"下周加一个导出功能"，TPM 拆解成 TASK 放 inbox/，然后告诉人类进度。这是最直接的人机协作入口。
+
+### External Agent
+
+**入职后**：巡检 inbox/ 找 ASSIGNEE=自己的 TASK → 领取 → 编码 → REPORT → outbox/
+
+**规则**：严禁 git 命令。阻塞写 BLOCKING。
+
+> **External Agent 可以人机结对**：一个 External Agent 背后可能是纯 AI，也可能是一个人类开发者 + AI 搭档。人在 IDE 里看 REPORT、写代码、让 AI 帮忙生成 diff，然后提交。框架不区分这两种——它只关心文件格式对不对。
+
+### Sub-Agent (Native)
+
+**入职后**：等 TPM 内部投递 → 编码 → 内部通道交付 diff → REPORT 到 outbox/ 留痕 → 完成后去 inbox/ 读下一条 ASSIGNEE=自己的 TASK
+
+**规则**：可读写全部协作文件但无法主动巡检。严禁 git 命令。严禁跨职责修改文件。上下文由 `context/{name}-memory.md` 提供。
+
+---
+
+## 十一、入职流程
+
+1. 确认角色（TPM / External / Sub-Agent / Reviewer），写首条日志
+2. 按 `REGISTER.md` 回答问题，填入入职动作表
+3. TPM 确认后移入 `ACTIONS.md`，入职完成
+
+**Reporter 不是独立角色**，任何角色均可兼任。提交 `PROACTIVE_REPORT` 时即为 Reporter。
+
+**人机结对 Agent（TPM 和 External Agent）入职后应额外阅读** `templates/DECISION_NNN_DATE_AUTHOR.md` 了解决策记录格式。Sub-Agent 无需关注。
+
+---
+
+### 记忆管理——不同 Agent 类型如何持久化规则知识
+
+**核心原则：框架规则是一样的，但每种 Agent 的记忆方式不同。** `context/` 目录不是给所有 Agent 用的——它在 AgentCharter 中只承担一个职责：为 Native Sub-Agent 准备上下文注入文件。
+
+| Agent 类型 | 记忆方式 | 谁维护 |
+|-----------|---------|------|
+| **TPM** | 运行环境的本地记忆系统（Reasonix memory、Claude project memory 等） | TPM 自己 |
+| **External Agent** | 同上——各自运行环境的本地记忆系统。入职后立即将框架的关键规则写入自己的记忆 | 各 Agent 自己 |
+| **Sub-Agent (Native)** | `context/{name}-memory.md` — TPM 在每次打开 Sub-Agent 前注入 | TPM |
+| **Reviewer** | `context/reviewer-memory.md` — 同上 | TPM |
+
+**Example**: 你是 TPM，你的运行环境是 Reasonix。入职后把关键规则固化到你的本机记忆里（`reasonix.toml` 管理的 memory 目录）。你是 External Agent，在 Cursor 里运行——把关键规则写进你的 IDE 规则文件。Sub-Agent 无法这样做——所以由 TPM 帮它准备 `context/` 文件。
+
+---
+
+## 十二、快速参考
+
+| 我想... | 操作 |
+|---------|------|
+| 认领身份 | 读 👑 区域 → 你是 TPM：签名字 → 读 `TPM.md` / 你不是 TPM → 读 `REGISTER.md` |
+| 领任务 | 查 `ACTIONS.md` 自己的分派行 → 巡检 inbox/ 或等内部投递 |
+| 交报告 | 写 `outbox/REPORT_NNN_DATE_author@recipient.md` |
+| 交主动报告 | 写 `outbox/PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md` |
+| 记录决策 | 写 `decisions/DECISION_NNN_DATE_AUTHOR.md`（人机结对适用） |
+| 写审查结论 | 写 `REVIEW_REPORT_NNN_DATE_author@recipient.md`，附文件:行号 + 严重度 |
+| 报告阻塞 | 写 `outbox/BLOCKING_NNN_DATE_TARGET.md`（写明解除条件） |
+| 解除阻塞 | 写 `outbox/BLOCKING_REPLY_NNN_DATE_author@recipient.md` |
+| 写日志 | 追加到 `logs/{标识}-log.md` |
+| 查模板 | 读 `templates/` 对应文件 |
+| 领取修订 | 查 inbox/REVISION_NNN → 读对应 REVIEW_REPORT → 修复 → 写 REPORT_NNN_R1（【审查摘要】节复制上轮原文 + 追加修复回应） |
+| 领取测试任务 | 查 inbox/TASK_TEST_NNN → 按测试计划执行 → 写 `outbox/TEST_REPORT_NNN_DATE_author@recipient.md` |
+| 查看排期 | 读 `todos/` 中的 TODO 文件 |
+| 看进度（人类） | 读 `dashboard.md` |
+| 用工具省力（外部 Agent） | 运行 `python collaboration/scripts/agent.py 你的名字`（可选，推荐） |
+| TPM 用工具 | 运行 `python collaboration/scripts/tpm.py TPM` |
+
+---
+
+## 十三、框架升级
+
+AgentCharter 的版本升级不需要安装包、不需要迁移脚本。框架是纯文件——模板、规则、原则全部可读可改。**用户告诉 TPM 一句话，TPM 自动完成升级。**
+
+### 用户操作
+
+```
+你是 TPM。读取 AgentCharter 仓库的最新版本，对比我们的项目，应用更新。
+```
+
+### TPM 自动做什么
+
+1. 读取上游 `collaboration/` 目录（模板、README、TPM.md 等）
+2. 对比自己项目的 `collaboration/`，列出差异
+3. 为每项变更创建 TASK（新模板、规则变更、新增目录等）
+4. 执行变更——复制模板、更新文档、创建目录。**核心原则：合并，不是覆盖。** 新模板直接复制，新规则段落插入到文档中，不要覆盖用户已自定义的 PROJECT.md、ACTIONS.md、CHARTER.md 等实例文件
+5. 对涉及项目级决策的变更（如启用人机结对模式），向人类确认
+6. 完成后写 REPORT，归档
+
+### 为什么可以这样
+
+AgentCharter 的"安装"本质上就是 `cp -r collaboration/`。升级本质上是 TPM 读取上游文件并应用差异。没有运行时、没有数据库迁移、没有 API 版本兼容问题——只有 Markdown 文件和 Agent 对协议的理解。
+
+**关键区分：框架规范 vs 项目实例**。TPM 升级时必须区分两类文件：
+
+| 可合并更新（框架规范） | 绝不能覆盖（项目实例） |
+|------|------|
+| `templates/` — 新模板直接加入 | `PROJECT.md` — 用户已填写的项目配置 |
+| `README.md` — 新规则段落插入 | `ACTIONS.md` — 用户已配置的协作链路 |
+| `TPM.md` — 新原则、新能力项插入 | `CHARTER.md` — 用户已签发的项目宪章 |
+| | `REGISTER.md` — 已有的入职记录 |
+| | `dashboard.md` — 用户的实时项目进度 |
+
+> 📂 **实战参考**：wolf-judge 项目是第一个完成 v3.2 → v3.3 升级的外部实例。它的 TPM 独立扫描上游、评估差异（5 项采纳、2 项否决），并提交了完整的升级报告。可在 AgentCharter 仓库的 `practices/wolf-judge/examples/` 中查看。
