@@ -10,6 +10,11 @@ import json
 import sys
 from pathlib import Path
 
+# Fix Windows GBK encoding issue
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = SCRIPT_DIR.parent          # collaboration/
 COLLAB_DIR = PROJECT_DIR                 # scripts/ 在 collaboration/ 内

@@ -185,7 +185,8 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
 
         # 5. Generate filename
         author = data.get("author", agent_name)
-        recipient = data.get("recipient", "TPM")
+        default_recipient = "ALL" if file_type == "NOTICE" else "TPM"
+        recipient = data.get("recipient", default_recipient)
         date = data.get("DATE")
         desc = data.get("DESC")
 
@@ -313,20 +314,43 @@ def no_args_response(file_type: str, agent_name: str = None) -> dict:
                 # 按 file_type 选择正确的关联源提示
                 from patrol import scan_inbox, scan_review_reports, scan_blockings
 
-                assoc_map = {
-                    "REPORT": ("available_tasks", scan_inbox),
-                    "REVISION": ("available_review_reports", scan_review_reports),
-                    "REVIEW_REPORT": ("available_tasks", scan_inbox),
-                    "BLOCKING_REPLY": ("available_blockings", scan_blockings),
-                    "TEST_REPORT": ("available_tasks", scan_inbox),
-                }
-                hint_key, scanner = assoc_map.get(file_type, ("available_tasks", scan_inbox))
-                items = scanner(agent_name)
-                if items:
-                    response[hint_key] = [
-                        {"nnn": t["id"], "desc": t.get("desc", ""), "priority": t.get("priority", "—")}
-                        for t in items
-                    ]
+                if file_type == "NOTICE":
+                    # NOTICE 不需要关联提示；展示可用的广播通知
+                    notices = scan_inbox(agent_name)
+                    notices = [n for n in notices if n.get("type") == "NOTICE"]
+                    if notices:
+                        response["available_notices"] = [
+                            {"nnn": n["id"], "desc": n.get("desc", ""), "filename": n["filename"]}
+                            for n in notices
+                        ]
+                else:
+                    assoc_map = {
+                        "REPORT": ("available_tasks", scan_inbox),
+                        "REVISION": ("available_review_reports", scan_review_reports),
+                        "REVIEW_REPORT": ("available_tasks", scan_inbox),
+                        "BLOCKING_REPLY": ("available_blockings", scan_blockings),
+                        "TEST_REPORT": ("available_tasks", scan_inbox),
+                    }
+                    hint_key, scanner = assoc_map.get(file_type, ("available_tasks", scan_inbox))
+                    items = scanner(agent_name)
+                    if scanner == scan_inbox:
+                        tasks = [t for t in items if t.get("type") == "TASK"]
+                        notices = [t for t in items if t.get("type") == "NOTICE"]
+                        if tasks:
+                            response[hint_key] = [
+                                {"nnn": t["id"], "desc": t.get("desc", ""), "priority": t.get("priority", "—")}
+                                for t in tasks
+                            ]
+                        if notices:
+                            response["available_notices"] = [
+                                {"nnn": n["id"], "desc": n.get("desc", ""), "filename": n["filename"]}
+                                for n in notices
+                            ]
+                    elif items:
+                        response[hint_key] = [
+                            {"nnn": t["id"], "desc": t.get("desc", ""), "priority": t.get("priority", "—")}
+                            for t in items
+                        ]
 
                 # 多轮次文件：显示已有文件及建议轮次
                 if file_type in _ROUND_SUPPORTED:

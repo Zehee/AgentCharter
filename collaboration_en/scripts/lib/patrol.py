@@ -15,26 +15,44 @@ COLLAB_DIR = SCRIPTS_DIR.parent
 
 
 def scan_inbox(agent_name: str) -> list[dict]:
-    """Scan collaboration/inbox/ for TASK files assigned to agent_name.
+    """Scan collaboration/inbox/ for TASK and NOTICE files assigned to agent_name.
 
-    Returns list of dicts with id, desc, priority, filename.
+    Returns list of dicts with id, desc, type, priority, filename.
     """
     inbox = COLLAB_DIR / "inbox"
     results = []
     if not inbox.exists():
         return results
 
-    pattern = re.compile(r"TASK_(\d{3})_(.+?)_" + re.escape(agent_name) + r"@.*\.md", re.IGNORECASE)
+    # TASK patterns — support old format, new format author=agent, and new format recipient=agent
+    task_pattern = re.compile(
+        r"TASK_(\d{3})_(.+?)_" + re.escape(agent_name) + r"(?:@.*)?\.md$",
+        re.IGNORECASE,
+    )
+    task_pattern_recipient = re.compile(
+        r"TASK_(\d{3})_(.+?)_.*@" + re.escape(agent_name) + r"\.md$",
+        re.IGNORECASE,
+    )
+    # NOTICE patterns — direct to agent OR broadcast to ALL
+    notice_pattern_agent = re.compile(
+        r"NOTICE_(\d{3})_(.+?)_\d{8}_" + re.escape(agent_name) + r"@.*\.md$",
+        re.IGNORECASE,
+    )
+    notice_pattern_all = re.compile(
+        r"NOTICE_(\d{3})_(.+?)_\d{8}_.*@ALL\.md$",
+        re.IGNORECASE,
+    )
     priority_pattern = re.compile(r"\*\*优先级\*\*:\s*(.+)")
 
     for f in sorted(inbox.iterdir()):
         if not f.is_file() or f.suffix != ".md":
             continue
-        m = pattern.search(f.name)
+
+        # Try TASK (old format, new format author=agent, or new format recipient=agent)
+        m = task_pattern.match(f.name) or task_pattern_recipient.match(f.name)
         if m:
             nnn = m.group(1)
             desc = m.group(2)
-            # Try to extract priority from file content
             priority = "—"
             try:
                 text = f.read_text(encoding="utf-8", errors="ignore")
@@ -46,9 +64,39 @@ def scan_inbox(agent_name: str) -> list[dict]:
             results.append({
                 "id": nnn,
                 "desc": desc,
+                "type": "TASK",
                 "priority": priority,
                 "filename": f.name,
             })
+            continue
+
+        # Try NOTICE directed to agent
+        m = notice_pattern_agent.match(f.name)
+        if m:
+            nnn = m.group(1)
+            desc = m.group(2)
+            results.append({
+                "id": nnn,
+                "desc": desc,
+                "type": "NOTICE",
+                "priority": "—",
+                "filename": f.name,
+            })
+            continue
+
+        # Try NOTICE broadcast to ALL
+        m = notice_pattern_all.match(f.name)
+        if m:
+            nnn = m.group(1)
+            desc = m.group(2)
+            results.append({
+                "id": nnn,
+                "desc": desc,
+                "type": "NOTICE",
+                "priority": "—",
+                "filename": f.name,
+            })
+            continue
 
     return results
 
@@ -98,8 +146,11 @@ def scan_files(directory_name: str, pattern: re.Pattern) -> list[dict]:
 
 
 def scan_review_reports(agent_name: str) -> list[dict]:
-    """扫描 outbox/ 和 inbox/ 中发给 agent_name 的 REVIEW_REPORT。"""
-    pattern = re.compile(r"REVIEW_REPORT_(\d{3})_\d{8}_.*@" + re.escape(agent_name) + r"\.md", re.IGNORECASE)
+    """扫描 outbox/ 和 inbox/ 中发给 agent_name 或 @ALL 的 REVIEW_REPORT。"""
+    pattern = re.compile(
+        r"REVIEW_REPORT_(\d{3})_\d{8}_.*@(?:" + re.escape(agent_name) + r"|ALL)\.md",
+        re.IGNORECASE,
+    )
     outbox_items = scan_files("outbox", pattern)
     inbox_items = scan_files("inbox", pattern)
     seen = set()
@@ -112,8 +163,11 @@ def scan_review_reports(agent_name: str) -> list[dict]:
 
 
 def scan_blockings(agent_name: str) -> list[dict]:
-    """扫描 outbox/ 中发给 agent_name 的 BLOCKING。"""
-    pattern = re.compile(r"BLOCKING_(\d{3})_\d{8}_.*@" + re.escape(agent_name) + r"\.md", re.IGNORECASE)
+    """扫描 outbox/ 中发给 agent_name 或 @ALL 的 BLOCKING。"""
+    pattern = re.compile(
+        r"BLOCKING_(\d{3})_\d{8}_.*@(?:" + re.escape(agent_name) + r"|ALL)\.md",
+        re.IGNORECASE,
+    )
     return scan_files("outbox", pattern)
 
 

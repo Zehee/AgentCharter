@@ -15,6 +15,11 @@ import re
 import sys
 from pathlib import Path
 
+# Fix Windows GBK encoding issue
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 COLLAB_DIR = SCRIPT_DIR.parent
 sys.path.insert(0, str(SCRIPT_DIR / "lib"))
@@ -36,6 +41,25 @@ def check_naming(filepath: Path) -> dict:
 
 
 # ---------- 检查 2：流向校验 ----------
+
+def _check_notice_sender(filename: str) -> dict:
+    """NOTICE 特殊校验：发起方必须是 TPM，接收方可以是 ALL 或已知 Agent。"""
+    m = re.match(r"NOTICE_\d{3}_[A-Z0-9-]+_\d{8}_([A-Z]+)@([A-Z]+)\.md$", filename)
+    if not m:
+        return {"ok": False, "note": f"NOTICE 文件名无法解析 author/recipient: {filename}"}
+    author, recipient = m.group(1), m.group(2)
+    if author != "TPM":
+        return {"ok": False, "note": f"❌ NOTICE 发起方必须是 TPM，当前: {author}"}
+    if recipient == "ALL":
+        return {"ok": True, "note": f"正确：NOTICE 广播给 ALL（发起方 TPM）"}
+    try:
+        from actions import validate_agent
+        if validate_agent(recipient):
+            return {"ok": True, "note": f"正确：NOTICE 发给 {recipient}（发起方 TPM）"}
+    except Exception:
+        pass
+    return {"ok": False, "note": f"❌ NOTICE 接收方无效: {recipient}"}
+
 
 # 硬编码的常用流向规则（备用，在 ACTIONS.md 读不到时使用）
 FALLBACK_FLOWS = {
@@ -75,6 +99,11 @@ def check_flow(filepath: Path, file_type: str) -> dict:
     elif parent_dir == expected:
         flow_ok = True
         note = f"正确：{file_type} 应在 {expected}/"
+        if file_type == "NOTICE":
+            notice_check = _check_notice_sender(filepath.name)
+            if not notice_check["ok"]:
+                flow_ok = False
+            note = notice_check["note"]
     else:
         flow_ok = False
         note = f"❌ 可能不正确：{file_type} 应在 {expected}/，当前在 {parent_dir}/"
