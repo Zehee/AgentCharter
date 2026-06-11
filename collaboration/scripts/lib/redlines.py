@@ -47,11 +47,11 @@ def read_redlines() -> list[str]:
     in_code_block = False
     redlines = []
 
-    # Find ## 七、红线 section and its code block
+    # Find redlines section — support both CN (## 七、红线) and EN (## 7. Redlines)
     for line in lines:
         stripped = line.strip()
 
-        if stripped.startswith("## ") and "红线" in stripped:
+        if stripped.startswith("## ") and ("红线" in stripped or "Redlines" in stripped):
             in_section = True
             continue
 
