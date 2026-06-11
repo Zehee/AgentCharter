@@ -1,4 +1,4 @@
-# TASK_039: charterTool 单一入口——三态覆盖全功能
+# TASK_039: 统一工具入口——三态覆盖全功能
 
 > **Assignee**: Kimi
 > **Priority**: P1
