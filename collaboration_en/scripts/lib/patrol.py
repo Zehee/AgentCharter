@@ -24,7 +24,7 @@ def scan_inbox(agent_name: str) -> list[dict]:
     if not inbox.exists():
         return results
 
-    pattern = re.compile(r"TASK_(\d{3})_(.+?)_" + re.escape(agent_name) + r"(?:@.*)?\.md", re.IGNORECASE)
+    pattern = re.compile(r"TASK_(\d{3})_(.+?)_" + re.escape(agent_name) + r"@.*\.md", re.IGNORECASE)
     priority_pattern = re.compile(r"\*\*优先级\*\*:\s*(.+)")
 
     for f in sorted(inbox.iterdir()):
