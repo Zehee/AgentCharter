@@ -5,12 +5,12 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Versioning Policy
 
-- **`collaboration/README.md`** carries the runtime version (`v3.4`) — Agents see this. Updated on every release.
-- **`CHANGELOG.md`** carries the full history with patch versions (`3.4.0`). The `[Unreleased]` section accumulates changes between releases.
-- **Git tags** mark releases (e.g. `v3.4.0`).
+- **`collaboration/README.md`** carries the runtime version (`v3.4.1`) — Agents see this. Updated on every release.
+- **`CHANGELOG.md`** carries the full history with patch versions (`3.4.1`). The `[Unreleased]` section accumulates changes between releases.
+- **Git tags** mark releases (e.g. `v3.4.1`).
 - **`README.md` (outer)** is a marketing page — it does not carry a version number.
 
-## [Unreleased]
+## [3.4.1] — 2026-06-12
 
 ### Added
 
@@ -20,6 +20,12 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - **Templates cleaned** — body-field `{{variables}}` replaced with instructive `>` blocks; only filename-related placeholders retained for backward-compatible JSON mode.
 - **Case-insensitive throughout**: JSON keys (`DESC`/`desc`/`Desc`) normalized to uppercase in `run_create_flow`. Filename validation (`classify`/`validate_name`) now uses `re.IGNORECASE` on all patterns. Patrol scans already had `re.IGNORECASE`.
+
+## [Unreleased]
+
+### Added
+
+### Changed
 
 ### Fixed
 
