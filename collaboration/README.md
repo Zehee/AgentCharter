@@ -6,7 +6,7 @@
 
 > **没有文件 = 没有发生。**
 
-**版本**: v3.4 | **更新**: 2026-06-11
+**版本**: v3.3 | **更新**: 2026-06-10
 
 > 📎 **位置无关**：`collaboration/` 目录可以放在任何位置——项目内、共享 NAS、Dropbox，甚至单独一台服务器。Agent 的工作目录就是 `collaboration/` 所在的位置，不需要任何配置。所有内部引用都是相对路径，不受外部位置影响。
 
@@ -376,8 +376,9 @@ TPM 写 TASK → inbox/
 | 领取测试任务 | 查 inbox/TASK_TEST_NNN → 按测试计划执行 → 写 `outbox/TEST_REPORT_NNN_DATE_author@recipient.md` |
 | 查看排期 | 读 `todos/` 中的 TODO 文件 |
 | 看进度（人类） | 读 `dashboard.md` |
-| 用工具省力（外部 Agent） | 运行 `python collaboration/scripts/agent.py 你的名字`（可选，推荐） |
-| TPM 用工具 | 运行 `python collaboration/scripts/tpm.py TPM` |
+| 用工具省力（外部 Agent） | 运行 `python collaboration/scripts/agent.py 你的名字`（可选） |
+| TPM 用工具 | 运行 `python collaboration/scripts/tpm.py TPM`（可选） |
+| 统一入口（推荐） | 调用 `charterTool(name, type, body=..., ref=...)`：三态覆盖巡检 / 命令 / 创建；body 模式直接写 markdown 正文 |
 
 ---
 

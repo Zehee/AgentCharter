@@ -192,6 +192,52 @@ def patrol(agent_name: str) -> dict:
     }
 
 
+def tpm_overview(agent_name: str, available_commands: list[str] | None = None) -> dict:
+    """TPM 全览巡检：总览 + @TPM 过滤 + 命令清单。
+
+    从 tpm.py 提取为复用函数，供 charterTool 巡检态调用。
+    """
+    from actions import validate_agent, is_tpm  # 局部导入避免循环依赖
+    from redlines import get_redlines_string
+
+    agent = validate_agent(agent_name)
+    if not agent:
+        return {"error": f"无效的 Agent 名称: {agent_name}"}
+
+    if not is_tpm(agent_name):
+        return {"error": f"{agent_name} 不是 TPM", "hint": "外部 Agent 请使用 agent.py"}
+
+    inbox_dir = COLLAB_DIR / "inbox"
+    outbox_dir = COLLAB_DIR / "outbox"
+    decisions_dir = COLLAB_DIR / "decisions"
+
+    def count_files(d: Path) -> int:
+        if not d.exists():
+            return 0
+        return len([f for f in d.iterdir() if f.suffix == ".md" and f.name != ".gitkeep"])
+
+    total_inbox = count_files(inbox_dir)
+    total_outbox = count_files(outbox_dir)
+    total_decisions = count_files(decisions_dir)
+
+    tpm_tasks = scan_inbox(agent_name) if inbox_dir.exists() else []
+
+    return {
+        "agent": agent_name,
+        "role": "TPM",
+        "overview": {
+            "inbox_total": total_inbox,
+            "outbox_total": total_outbox,
+            "decisions_total": total_decisions,
+        },
+        "my_tasks_in_inbox": tpm_tasks,
+        "available_commands": available_commands or [],
+        "suggested": f"inbox 中有 {total_inbox} 个文件，其中 {len(tpm_tasks)} 个分配给 TPM。"
+                     f"outbox 中有 {total_outbox} 个报告待审阅。运行 daily-check.py 做全量校验。",
+        "redlines": get_redlines_string(),
+    }
+
+
 def main():
     """CLI: python lib/patrol.py KIMI"""
     if len(sys.argv) < 2:

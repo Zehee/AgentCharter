@@ -1,6 +1,6 @@
-# BLOCKING_NNN: {{title}}
+# BLOCKING_{{NNN}}: {{title}}
 
-> **文件名**: `BLOCKING_NNN_DATE_author@recipient.md`
+> **文件名**: `BLOCKING_{{NNN}}_{{DATE}}_{{author}}@{{recipient}}.md`
 > **存放位置**: `outbox/`
 > **命名约束**: 段间 `_`，段内 `-`。`NNN`=被阻塞的任务序号，`DATE`=创建日期 `YYYYMMDD`，`TARGET`=需要处理的人标识（大写）
 
@@ -13,15 +13,12 @@
 ## 阻塞原因
 
 > 描述什么被阻塞了，为什么。
-{{blocking_reason}}
 
 ## 需要的动作
 
 > - [ ] 对方需要做什么
 > - [ ] 优先级和时间要求
-{{required_actions}}
 
 ## 解除条件
 
 > 什么情况下可以解除阻塞。
-{{unblock_condition}}

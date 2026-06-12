@@ -21,7 +21,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPT_DIR / "lib"))
 
 from actions import validate_agent, is_tpm
-from patrol import scan_inbox
+from patrol import scan_inbox, tpm_overview
 from redlines import get_redlines_string
 
 # TPM 可用命令（外部 Agent 子集 + TPM 独占命令）
@@ -58,45 +58,11 @@ def show_framework_info():
 
 def show_overview(agent_name: str):
     """全览巡检：总览 + @TPM 过滤 + 命令清单。"""
-    agent = validate_agent(agent_name)
-    if not agent:
-        print(json.dumps({"error": f"无效的 TPM 名称: {agent_name}"}, ensure_ascii=False))
+    result = tpm_overview(agent_name, available_commands=COMMANDS)
+    if "error" in result:
+        print(json.dumps(result, ensure_ascii=False))
         sys.exit(1)
-
-    if not is_tpm(agent_name):
-        print(json.dumps({"error": f"{agent_name} 不是 TPM", "hint": "外部 Agent 请使用 agent.py"}, ensure_ascii=False))
-        sys.exit(1)
-
-    redlines = get_redlines_string()
-    inbox_dir = SCRIPT_DIR.parent / "inbox"
-    outbox_dir = SCRIPT_DIR.parent / "outbox"
-    decisions_dir = SCRIPT_DIR.parent / "decisions"
-
-    def count_files(d):
-        return len([f for f in d.iterdir() if f.suffix == ".md" and f.name != ".gitkeep"]) if d.exists() else 0
-
-    # 全览
-    total_inbox = count_files(inbox_dir)
-    total_outbox = count_files(outbox_dir)
-    total_decisions = count_files(decisions_dir)
-
-    # @TPM 过滤
-    tpm_tasks = scan_inbox(agent_name) if inbox_dir.exists() else []
-
-    print(json.dumps({
-        "agent": agent_name,
-        "role": "TPM",
-        "overview": {
-            "inbox_total": total_inbox,
-            "outbox_total": total_outbox,
-            "decisions_total": total_decisions,
-        },
-        "my_tasks_in_inbox": tpm_tasks,
-        "available_commands": COMMANDS,
-        "suggested": f"inbox 中有 {total_inbox} 个文件，其中 {len(tpm_tasks)} 个分配给 TPM。"
-                     f"outbox 中有 {total_outbox} 个报告待审阅。运行 daily-check.py 做全量校验。",
-        "redlines": redlines,
-    }, ensure_ascii=False, indent=2))
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
 def forward_command(agent_name: str, cmd: str, json_data: str = None):

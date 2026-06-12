@@ -1,8 +1,8 @@
-# REPORT_NNN: {{title}}
+# REPORT_{{NNN}}: {{title}}
 
-> **文件名**: `REPORT_NNN_DATE_author@recipient.md`
+> **文件名**: `REPORT_{{NNN}}_DATE_{{author}}@{{recipient}}.md`
 > **存放位置**: `outbox/`
-> **命名约束**: 段间 `_`，段内 `-`，后缀 `author@recipient`。`NNN`=任务序号，`DATE`=提交日期 `YYYYMMDD`，`author`=作者标识（大写），`tpm`=接收 TPM 标识（大写）
+> **命名约束**: 段间 `_`，段内 `-`，后缀 `author@recipient`。`NNN`=任务序号，`DATE`=提交日期 `YYYYMMDD`，`author`=作者标识（大写），`recipient`=接收 TPM 标识（大写）
 
 **提交人**: {{author}}
 **日期**: {{DATE}}
@@ -28,60 +28,16 @@
 
 | 任务 | 状态 | 说明 |
 |------|------|------|
-| {{task_1}} | ✅ | {{description_1}} |
-| {{task_2}} | ✅ | {{description_2}} |
+| | | |
 
-## 改动的文件
+## 关键改动
 
-| 文件 | 修改内容 |
-|------|----------|
-| `{{file_path}}` | {{change_description}} |
+> 列出修改的文件和核心逻辑变更。
 
-## 待确认（可选）
+## 验证结果
 
-- [ ] {{debug_note}}
+> 如何验证的，测试结果或手动验证步骤。
 
-## 补充说明（可选）
+## 遗留问题
 
-{{custom_content}}
-
----
-
-## 构建结果
-
-| 命令 | 结果 |
-|------|------|
-| `{{type_check_cmd}}` | ✅ {{type_check_result}} |
-| `{{build_cmd}}` | ✅ {{build_result}} |
-| `{{backend_check_cmd}}` | ✅ {{backend_check_result}} |
-
----
-
-**当前状态**: {{status}} — 等待 {{tpm_name}} 审查
-
----
-
-## Native Sub-Agent 专用格式（可选）
-
-> 以下格式供 Native Sub-Agent 参考。Native 的报告是审计记录，受众是人类开发者。
-
-```markdown
-# REPORT_NNN: 任务标题
-
-> **报告性质**: [Audit Only] 本报告为执行记录，TPM 已通过内部通道获知结果。
-> 受众：人类开发者（复盘、QA 验收）。
-
-## 执行摘要
-- 任务 ID: NNN
-- 状态: ✅ 成功 / ⚠️ 需人工确认
-- 核心目标: 一句话说明做了什么
-
-## 核心改动
-- `文件路径` — 新增 Y 函数，替换旧的 Z 实现
-
-## 决策理由
-- 为什么选方案 A 而不是 B？
-
-## 风险点 & 需人工确认
-- [ ] 并发逻辑未充分验证，需人工 review
-```
+> 未解决或需要 TPM 决策的问题。

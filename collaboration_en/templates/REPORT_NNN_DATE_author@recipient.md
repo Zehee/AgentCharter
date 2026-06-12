@@ -1,86 +1,43 @@
-# REPORT_NNN: {{title}}
+# REPORT_{{NNN}}: {{title}}
 
-> **Filename**: `REPORT_NNN_DATE_author@recipient.md`
-> **Location**: `outbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `DATE` = submission date `YYYYMMDD`, `AUTHOR` = author identifier (UPPERCASE), `TPM` = receiving TPM identifier (UPPERCASE)
+> **文件名**: `REPORT_{{NNN}}_DATE_{{author}}@{{recipient}}.md`
+> **存放位置**: `outbox/`
+> **命名约束**: 段间 `_`，段内 `-`，后缀 `author@recipient`。`NNN`=任务序号，`DATE`=提交日期 `YYYYMMDD`，`author`=作者标识（大写），`recipient`=接收 TPM 标识（大写）
 
-**Author**: {{author}}
-**Date**: {{DATE}}
-**Status**: {{status}}
-**Corresponding**: {{ref_nnn}}
-**Report Type**: {{report_type}}
+**提交人**: {{author}}
+**日期**: {{DATE}}
+**轮次**: {{round}}
+**状态**: REVIEW_PENDING
+**对应**: {{ref_nnn}}
+**报告性质**: {{report_type}}
 
 ---
 
 <!--
-## [Review Summary] (uncomment for multi-round fixes)
-Copy all historical text from REVIEW_REPORT's [Summary] section here,
-append your fix response below each round. Not needed for first REPORT.
+## 【审查摘要】（多轮修复时取消注释）
+从 REVIEW_REPORT 的【摘要】节复制全部历史原文到此处，
+在每轮下方追加你的修复回应。首轮 REPORT 无需此节。
 
 ### R0 (YYYY-MM-DD)
-- Score: X/10 | Status: 🔄 Revision Needed
-- Response:
-  - 🔴/🟡 Issue Description: ✅ Fixed / 🔄 Not Fixed (explain why)
+- 评分：X/10 | 状态：🔄 需修复
+- 回应：
+  - 🔴/🟡 问题描述：✅ 已修复 / 🔄 未修复（说明原因）
 -->
 
-## Completion Status
+## 完成情况
 
-| Task | Status | Notes |
+| 任务 | 状态 | 说明 |
 |------|------|------|
-| {{task_1}} | ✅ | {{description_1}} |
-| {{task_2}} | ✅ | {{description_2}} |
+| | | |
 
-## Changed Files
+## 关键改动
 
-| File | Changes |
-|------|----------|
-| `{{file_path}}` | {{change_description}} |
+> 列出修改的文件和核心逻辑变更。
 
-## Pending Confirmation (optional)
+## 验证结果
 
-- [ ] {{debug_note}}
+> 如何验证的，测试结果或手动验证步骤。
 
-## Additional Notes (optional)
+## 遗留问题
 
-{{custom_content}}
-
----
-
-## Build Results
-
-| Command | Result |
-|------|------|
-| `{{type_check_cmd}}` | ✅ {{type_check_result}} |
-| `{{build_cmd}}` | ✅ {{build_result}} |
-| `{{backend_check_cmd}}` | ✅ {{backend_check_result}} |
-
----
-
-**Current Status**: {{status}} — Waiting for {{tpm_name}} review
-
----
-
-## Native Sub-Agent Format (optional)
-
-> The following format is for Native Sub-Agent reference. Native reports are audit records, targeted at human developers.
-
-```markdown
-# REPORT_NNN: Task Title
-
-> **Report Type**: [Audit Only] This report is an execution record. TPM has been informed via internal channel.
-> Audience: Human developers (retrospective, QA review).
-
-## Executive Summary
-- Task ID: NNN
-- Status: ✅ Success / ⚠️ Manual Confirmation Needed
-- Core Goal: One sentence explaining what was done.
-
-## Core Changes
-- `file path` — Added Y function, replaced old Z implementation.
-
-## Decision Rationale
-- Why was plan A chosen over plan B?
-
-## Risks & Manual Confirmation Needed
-- [ ] Concurrent logic not fully verified, needs manual review.
-```
+> 未解决或需要 TPM 决策的问题。

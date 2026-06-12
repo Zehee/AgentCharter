@@ -1,22 +1,21 @@
-# BLOCKING_REPLY_NNN: {{title}}
+# BLOCKING_REPLY_{{NNN}}: {{title}}
 
-> **Filename**: `BLOCKING_REPLY_NNN_DATE_author@recipient.md`
-> **Location**: `outbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = corresponding blocking number, `DATE` = reply date `YYYYMMDD`, `AUTHOR` = replier identifier (UPPERCASE)
+> **文件名**: `BLOCKING_REPLY_{{NNN}}_{{DATE}}_{{author}}@{{recipient}}.md`
+> **存放位置**: `outbox/`
+> **命名约束**: 段间 `_`，段内 `-`。`NNN`=对应阻塞序号，`DATE`=回复日期 `YYYYMMDD`，`AUTHOR`=回复人标识（大写）
 
-**Replier**: {{author}}
-**Date**: {{DATE}}
+**回复人**: {{author}}
+**日期**: {{DATE}}
 
 ---
 
-## Resolution
+## 处理结果
 
-| # | Blocking Item | Status | Resolution Details |
+| # | 阻塞项 | 状态 | 解决详情 |
 |---|--------|------|----------|
-| {{item_1}} | {{problem_1}} | {{status_1}} | {{resolution_1}} |
-| {{item_2}} | {{problem_2}} | {{status_2}} | {{resolution_2}} |
+| 1 | | | |
+| 2 | | | |
 
-## Next Steps
+## 下一步
 
-> Follow-up actions after the block is lifted.
-{{next_steps}}
+> 阻塞解除后的后续动作。

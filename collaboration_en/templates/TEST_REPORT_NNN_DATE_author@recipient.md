@@ -1,134 +1,42 @@
-# TEST_REPORT_NNN: {{title}} — {{overall_conclusion}}
+# TEST_REPORT_{{NNN}}: {{title}} — {{conclusion}}
 
-> **Filename**: `TEST_REPORT_NNN_DATE_author@recipient.md`
-> **Location**: `outbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = corresponding test task number, `DATE` = submission date `YYYYMMDD`, `AUTHOR` = tester identifier (UPPERCASE)
+> **文件名**: `TEST_REPORT_{{NNN}}_{{DATE}}_{{author}}@{{recipient}}.md`
+> **存放位置**: `outbox/`
+> **命名约束**: 段间 `_`，段内 `-`。`NNN`=对应测试任务序号，`DATE`=提交日期 `YYYYMMDD`，`AUTHOR`=测试员标识（大写）
 
-**Tester**: {{author}}
-**Date**: {{DATE}}
-**Related**: {{ref_nnn}}
-**Test Type**: {{test_type}}
-**Overall Conclusion**: {{conclusion}}
+**测试员**: {{author}}
+**日期**: {{DATE}}
+**对应**: {{ref_nnn}}
+**测试类型**: {{test_type}}
+**总体结论**: {{conclusion}}
 
 ---
 
-## Environment
+## 环境信息
 
-| Item | Value |
+| 项 | 值 |
 |---|---|
-| **OS** | {{os_value}} |
-| **App Version** | {{app_version_value}} |
-| **Run Mode** | {{run_mode_value}} |
-| **Screen Resolution** | {{screen_resolution_value}} |
-| **Browser/CDP** | {{browser_cdp_value}} |
-| **Backend Build** | {{backend_build_value}} |
-| **Frontend Build** | {{frontend_build_value}} |
+| **操作系统** | |
+| **App 版本** | |
+| **运行方式** | |
+| **屏幕分辨率** | |
+| **浏览器/CDP** | |
+| **后端构建** | |
+| **前端构建** | |
 
 ---
 
-## Verification Checklist
+## 验证清单
 
-> Execute test scenarios one by one, mark results. PASS=meets expectation, FAIL=does not meet, N/A=not applicable, BLOCK=cannot execute.
+| # | 检查项 | 状态 | 说明 |
+|---|--------|------|------|
+| 1 | | | |
+| 2 | | | |
 
-### {{module_name_1}}
+## 发现的问题
 
-| # | Scenario | Steps | Expected Result | Result | Notes |
-|---|------|----------|----------|------|------|
-| {{test_num_1_1}} | {{scenario_1_1}} | {{steps_1_1}} | {{expected_1_1}} | {{result_1_1}} | {{note_1_1}} |
-| {{test_num_1_2}} | {{scenario_1_2}} | {{steps_1_2}} | {{expected_1_2}} | {{result_1_2}} | {{note_1_2}} |
+> 列出测试中发现的 bug 或风险。
 
-### {{module_name_2}}
+## 结论
 
-| # | Scenario | Steps | Expected Result | Result | Notes |
-|---|------|----------|----------|------|------|
-| {{test_num_2_1}} | {{scenario_2_1}} | {{steps_2_1}} | {{expected_2_1}} | {{result_2_1}} | {{note_2_1}} |
-
----
-
-## Defect List
-
-> All FAIL/BLOCK items must be recorded here. If no defects found, write "No defects found in this test."
-
-### 🔴 {{bug_title_1}}
-
-| Field | Detail |
-|------|------|
-| **Severity** | {{severity_1}} |
-| **Phase** | {{phase_1}} |
-| **Repro Steps** | {{repro_steps_1}} |
-| **Actual Behavior** | {{actual_behavior_1}} |
-| **Expected Behavior** | {{expected_behavior_1}} |
-| **Screenshot/Recording** | {{screenshot_1}} |
-| **Root Cause** | {{root_cause_1}} |
-| **Fix Suggestion** | {{fix_suggestion_1}} |
-| **Related Task** | {{related_task_1}} |
-
-### 🟡 {{bug_title_2}}
-
-{{bug_2_details}}
-
----
-
-## Confirmed Features (Pass Summary)
-
-> Record key functionality verified in this test for future regression reference.
-
-| # | Feature | Verification Method | Result |
-|---|--------|----------|------|
-| {{confirmed_num}} | {{feature_point}} | {{verification_method}} | {{result}} |
-
----
-
-## Known Limitations & Untested Items
-
-| # | Limitation/Untested | Reason | Plan |
-|---|-------------|------|------|
-| {{limit_num}} | {{limit_item}} | {{limit_reason}} | {{limit_plan}} |
-
----
-
-## Test Statistics
-
-| Metric | Value |
-|------|------|
-| Total Test Items | {{total_items}} |
-| PASS | {{pass_count}} |
-| FAIL | {{fail_count}} |
-| BLOCK | {{block_count}} |
-| N/A | {{na_count}} |
-| 🔴 Critical | {{critical_count}} |
-| 🟡 Major | {{major_count}} |
-| 💡 Suggestion | {{suggestion_count}} |
-
----
-
-## Conclusion & Recommendations
-
-**Overall Conclusion**: {{final_conclusion}}
-
-**Reason**:
-{{conclusion_reason}}
-
-**Next Steps**:
-- [ ] {{next_action_1}}
-- [ ] {{next_action_2}}
-- [ ] {{next_action_3}}
-
----
-
-## Appendix
-
-### A. Screenshot Directory
-```
-{{screenshot_dir}}
-```
-
-### B. Automated Test Output (if applicable)
-```
-> (Paste test framework output summary, or note the output file location)
-{{auto_test_output}}
-```
-
-### C. Notes
-> (Any supplementary information not suitable for the main body)
-{{appendix_notes}}
+> 是否通过，是否可以进入下一轮。

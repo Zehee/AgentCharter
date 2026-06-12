@@ -1,41 +1,38 @@
 # TASK_{{NNN}}: {{title}}
 
-> **Filename**: `TASK_{{NNN}}_DESC_author@recipient.md`
-> **Location**: `inbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = task number, `DESC` = short English description, `AUTHOR` = dispatcher identifier (UPPERCASE, typically TPM), `ASSIGNEE` = executor identifier (UPPERCASE)
+> **文件名**: `TASK_{{NNN}}_DESC_{{author}}@{{recipient}}.md`
+> **存放位置**: `inbox/`
+> **命名约束**: 段间 `_`，段内 `-`，后缀 `author@recipient`。`NNN`=3位序号，`DESC`=英文简短描述，`author`=分派人标识（大写，通常为 TPM），`assignee`=领取者标识（大写）
+> **示例 DESC**: `UNIFIED-ENTRY`、`ADD-LOGIN`、`FIX-MEMORY-LEAK`
 
-**Dispatcher**: {{author}}
-**Executor**: {{assignee}}
-**Priority**: {{priority}}
-**Dependency**: {{dependency}}
-> Optional: related TASK number
+**分派人**: {{author}}
+**执行人**: {{assignee}}
+**优先级**: {{priority}}
+**依赖**: {{dependency}}
+> 可选：关联的 TASK 编号
 
-**Decision Source**: {{decision_source}}
-> Optional: DECISION_NNN / PROACTIVE_REPORT_NNN
+**决策来源**: {{decision_source}}
+> 可选：DECISION_NNN / PROACTIVE_REPORT_NNN
 
 ---
 
-## Goal
+## 目标
 
-> One sentence describing what this task aims to achieve.
-{{goal}}
+> 一句话描述这个任务要完成什么。
 
-## Current Status
+## 当前状态
 
-> What exists already, what is missing, why this task is needed.
-{{current_status}}
+> 已有的基础是什么，缺什么，为什么需要做这个任务。
 
-## Detailed Requirements
+## 详细需求
 
-> Break down sub-modules by functionality, specify involved files and key logic.
-{{requirements}}
+> 按功能拆分子模块，说明涉及文件、关键逻辑。
 
-## Acceptance Criteria
+## 验收标准
 
-> Acceptance items + [type check command] 0 errors.
-{{acceptance_criteria}}
+> - [ ] 标准 1
+> - [ ] 标准 2
 
-## Reference Files
+## 约束条件
 
-> Frontend/backend source paths.
-{{reference_files}}
+> 列出必须遵守的限制：不修改的文件、保留的接口、向后兼容要求等。

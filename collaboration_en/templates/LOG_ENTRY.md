@@ -1,68 +1,92 @@
-<!--
-  File Type: Operation Log
-  Scope: `logs/{identifier}-log.md`
-  Rule: Each log file is written exclusively by the corresponding role. Others read-only.
--->
+# 工作日志规范
 
-# Operation Log Specification
-
-## Format
-
-### 1. Date Sections
-
-Each date begins with `## YYYY-MM-DD`, followed by the header and log entries.
-
-### 2. Unified Header
-
-```markdown
-| Time | Operation | Target | Notes |
-|------|------|------|------|
-```
-
-- **Time**: `HH:MM` or `HH:MM:SS`, UTC+8
-- **Operation**: use standard terms from the table below
-- **Target**: file path, task number, module name, etc.; use `-` if not applicable
-- **Notes**: specific description, may include build results, scores, status, etc.
-
-### 3. Operation Types
-
-| Operation | Use Case |
-|------|----------|
-| `Create` | New file, new task, new report |
-| `Edit` | Modify file, modify code |
-| `Delete` | Delete file |
-| `Move` | Move / rename file |
-| `Read` | Read file for review or context |
-| `Verify` | Build verification, test run, code check |
-| `Review` | Review output, code review |
-| `Dispatch` | Dispatch task |
-| `Inspect` | Self-check, investigation, code-review |
-| `Standby` | Enter standby |
-| `Install` | Install dependencies, environment setup |
-| `Start` / `Stop` | Start / stop background process |
-| `Other` | Custom; describe in Notes field |
-
-### 4. Separators
-
-Use `---` between different date sections.
+> **适用范围**: `logs/tpm-log.md`、`logs/sub-agent-log.md`、`logs/external-log.md`
+> **规则**: 各日志文件由对应角色独占写入，其他角色只读不写。
 
 ---
 
-## Example
+## 格式要求
+
+### 1. 日期分区
+
+每个日期段开头写 `## YYYY-MM-DD`，然后跟上表头和日志条目。
+
+同一天的所有条目放在同一个日期分区下，次日另起分区。
+
+### 2. 表头统一
+
+所有角色使用相同的表头：
+
+```markdown
+| 时间 | 操作 | 对象 | 说明 |
+|------|------|------|------|
+```
+
+- **时间**: `HH:MM` 或 `HH:MM:SS`，UTC+8
+- **操作**: 使用下方操作分类表中的标准词
+- **对象**: 操作的文件路径、任务编号、模块名称等；无具体对象时写 `-`
+- **说明**: 具体描述，可包含构建结果、评分、状态等
+
+### 3. 操作分类
+
+| 操作 | 适用场景 |
+|------|----------|
+| `Create` | 新建文件、新建任务、新建报告 |
+| `Edit` | 修改文件、修改代码 |
+| `Delete` | 删除文件 |
+| `Move` | 移动/重命名文件 |
+| `Read` | 读取文件用于审查或了解上下文 |
+| `Verify` | 构建验证、测试运行、代码检查 |
+| `Review` | 审查产出、代码审查 |
+| `Dispatch` | 分派任务 |
+| `Inspect` | 自检、排查、代码审查 |
+| `Standby` | 进入待命状态 |
+| `Install` | 安装依赖、环境配置 |
+| `Start` / `Stop` | 启动/停止后台进程 |
+| `其他` | 自定义，在说明字段中详细描述 |
+
+### 4. 分隔线
+
+不同日期分区之间用 `---` 分隔。
+
+---
+
+## 示例
 
 ```markdown
 ## 2026-05-31
 
-| Time | Operation | Target | Notes |
+| 时间 | 操作 | 对象 | 说明 |
 |------|------|------|------|
-| 16:10 | Review | TASK_057 Backend | 8.5/10 ✅ ACCEPTED |
-| 16:45 | Verify | `src/mod.rs` | R1 revision passed, 82 pass |
+| 16:10 | Review | TASK_057 后端 | 8.5/10 ✅ ACCEPTED，回退逻辑+测试完整 |
+| 16:10 | Review | TASK_058 后端 | 7/10 🔴 REJECT，win_check 屠边 key_players 未排除 has_left |
+| 16:29 | Dispatch | REVISION_058 | 创建修订任务 → inbox/，唤醒 Sub-Agent |
+| 16:45 | Verify | `win_check/mod.rs` | Sub-Agent R1 修订验证通过，82 pass |
 
 ---
 
 ## 2026-06-01
 
-| Time | Operation | Target | Notes |
+| 时间 | 操作 | 对象 | 说明 |
 |------|------|------|------|
-| 09:00 | Create | TASK_061 | M5 MVP release plan → inbox/ |
+| 09:00 | Create | TASK_061 | M5 MVP 发布规划 → inbox/ |
 ```
+
+---
+
+## 角色专属规则
+
+### TPM
+
+- 记录类型：审查、任务创建/分派、状态更新、里程碑
+- 对象可以是：任务编号、审查报告、dashboard、里程碑名称
+
+### Sub-Agent (后端)
+
+- 记录类型：代码编辑、构建验证、测试运行、报告提交
+- 对象通常是：文件路径、模块名称
+
+### External Agent (前端)
+
+- 记录类型：代码编辑、重构、构建验证、报告提交
+- 对象通常是：文件路径、组件名称

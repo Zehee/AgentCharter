@@ -1,27 +1,24 @@
-# BLOCKING_NNN: {{title}}
+# BLOCKING_{{NNN}}: {{title}}
 
-> **Filename**: `BLOCKING_NNN_DATE_author@recipient.md`
-> **Location**: `outbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = blocked task number, `DATE` = creation date `YYYYMMDD`, `TARGET` = person who needs to act (UPPERCASE)
+> **文件名**: `BLOCKING_{{NNN}}_{{DATE}}_{{author}}@{{recipient}}.md`
+> **存放位置**: `outbox/`
+> **命名约束**: 段间 `_`，段内 `-`。`NNN`=被阻塞的任务序号，`DATE`=创建日期 `YYYYMMDD`，`TARGET`=需要处理的人标识（大写）
 
-**Blocker**: {{author}}
-**Date**: {{DATE}}
-**Priority**: {{priority}}
+**提交人**: {{author}}
+**日期**: {{DATE}}
+**优先级**: {{priority}}
 
 ---
 
-## Blocking Reason
+## 阻塞原因
 
-> Describe what is blocked and why.
-{{blocking_reason}}
+> 描述什么被阻塞了，为什么。
 
-## Required Actions
+## 需要的动作
 
-> - [ ] What the other party needs to do
-> - [ ] Priority and time requirements
-{{required_actions}}
+> - [ ] 对方需要做什么
+> - [ ] 优先级和时间要求
 
-## Unblock Condition
+## 解除条件
 
-> What needs to happen for the block to be lifted.
-{{unblock_condition}}
+> 什么情况下可以解除阻塞。

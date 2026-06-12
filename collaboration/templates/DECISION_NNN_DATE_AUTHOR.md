@@ -9,9 +9,9 @@
     - AUTHOR: 结对标识（大写）
 -->
 
-# DECISION_NNN: {{title}}
+# DECISION_{{NNN}}: {{title}}
 
-> **文件名**: `DECISION_NNN_DATE_AUTHOR.md`
+> **文件名**: `DECISION_{{NNN}}_{{DATE}}_{{author}}.md`
 > **存放位置**: `decisions/`
 > **命名约束**: 段间 `_`，段内 `-`。`NNN`=顺序编号，`DATE`=决策日期 `YYYYMMDD`，`AUTHOR`=结对标识（大写）
 
@@ -23,23 +23,17 @@
 
 ## 决策
 
-> （一句话：决定做什么。）
-{{decision}}
+> 一句话：决定做什么。
 
 ## 推理链
 
-> （对话中的原始语句，一字不改。保留人类和 AI 的来回推敲过程。）
-{{reasoning_chain}}
+> 列出可选方案、排除理由、最终选择的原因。
 
-## 替代方案
+## 影响范围
 
-> （考虑过但最终否决的方案，以及否决理由。）
-{{alternatives}}
+> 哪些文件/流程/角色会受到影响。
 
----
+## 后续行动
 
-## 最终产物（由 TPM 或决策者后续填写）
-
-| 类型 | 编号 | 说明 |
-|------|------|------|
-| {{artifact_type}} | {{artifact_nnn}} | {{artifact_description}} |
+> - [ ] 行动 1
+> - [ ] 行动 2

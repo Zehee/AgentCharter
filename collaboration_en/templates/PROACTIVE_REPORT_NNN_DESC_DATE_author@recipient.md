@@ -1,81 +1,39 @@
 <!--
-  File Type: Proactive Report
-  Author: Reporter (any role can double as one)
-  Nature: No corresponding TASK, bypasses inbox task system
-  Handling: TPM read-and-burn — read → decide → annotate → archive
-  Naming: PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md
-    - NNN: sequential number (independent of task numbers)
-    - DESC: short English description, within segment use `-`
-    - DATE: submission date `YYYYMMDD`
-    - AUTHOR: author identifier (UPPERCASE)
+  文件类型: 主动报告 (Proactive Report)
+  提交者: Reporter (任何角色均可兼任)
+  特点: 无对应 TASK，不经过 inbox 任务系统
+  处理: TPM 阅后即焚 — 阅读 → 决策 → 批注 → 归档
+  命名规范: PROACTIVE_REPORT_NNN_DESC_DATE_AUTHOR.md
+    - NNN: 自主顺序编号（与任务编号独立）
+    - DESC: 英文简短描述，段内用 `-`
+    - DATE: 提交日期 `YYYYMMDD`
+    - AUTHOR: 作者标识（大写）
 -->
 
-# 🔍 PROACTIVE_REPORT_NNN: {{title}}
+# 🔍 PROACTIVE_REPORT_{{NNN}}: {{title}}
 
-> **Filename**: `PROACTIVE_REPORT_NNN_DESC_DATE_author@recipient.md`
-> **Location**: `outbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = sequential number, `DESC` = short English description, `DATE` = submission date `YYYYMMDD`, `AUTHOR` = author identifier (UPPERCASE)
+> **文件名**: `PROACTIVE_REPORT_{{NNN}}_DESC_{{DATE}}_{{author}}@{{recipient}}.md`
+> **存放位置**: `outbox/`
+> **命名约束**: 段间 `_`，段内 `-`。`NNN`=自主顺序编号，`DESC`=英文简短描述，`DATE`=提交日期 `YYYYMMDD`，`AUTHOR`=作者标识（大写）
 
-**Author**: {{author}}
-**Date**: {{DATE}}
-**Linked Decisions**: {{ref_nnn}}
-
----
-
-## Scope & Objective
-
-> Describe the scope and target audience of this audit/analysis/proposal.
-{{scope_and_goal}}
+**提交人**: {{author}}
+**日期**: {{DATE}}
+**关联决策**: {{ref_nnn}}
 
 ---
 
-## Analysis Method (optional)
+## 范围与目标
 
-> Describe the analysis approach, reference standards, comparison targets, etc.
-{{analysis_method}}
+> 说明本次审计/分析/提案的范围和目标受众。
 
----
+## 发现
 
-## Findings & Analysis
+> 列出观察到的问题、机会或风险。
 
-### {{module_name}} — Score: {{module_score}}/10
+## 建议
 
-| # | Issue | Severity | Location | Notes |
-|---|------|----------|------|------|
-| {{issue_num}} | {{issue_desc}} | {{severity}} | {{location}} | {{details}} |
+> 给出可执行的选项和推荐方案。
 
-**Improvement suggestions**:
-{{improvement_suggestions}}
+## 需要的决策
 
----
-
-## Priority Improvement List
-
-### 🔴 P0 — Fix Immediately
-{{p0_items}}
-
-### 🟡 P1 — Fix Soon
-{{p1_items}}
-
-### 💡 P2 — Suggested Improvement
-{{p2_items}}
-
----
-
-## Summary
-
-**Overall Score**: {{overall_score}}/10
-
-**Strengths**:
-{{strengths}}
-
-**Areas for Improvement**:
-{{improvements}}
-
-**Recommended Actions**:
-{{suggested_actions}}
-
----
-
-**Author**: {{author}}
-**Date**: {{DATE}}
+> 明确需要 TPM 做出的决策。

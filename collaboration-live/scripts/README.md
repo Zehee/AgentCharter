@@ -6,7 +6,31 @@
 
 ---
 
-## 入口
+## 统一入口 `charterTool`（推荐）
+
+`scripts/_common.py` 提供统一函数入口，三态覆盖全部场景：
+
+```python
+from _common import charterTool
+
+# 形态 1 — 巡检
+charterTool("KIMI")                 # 外部 Agent 巡检
+charterTool("TPM")                  # TPM 全览巡检
+
+# 形态 2 — 命令（TPM 独占）
+charterTool("TPM", "archive")       # 自动归档已完成文件链
+charterTool("TPM", "validate-all")  # 全量校验
+
+# 形态 3 — 创建文件
+charterTool("KIMI", "REPORT", body="# REPORT_042: ...", ref="042")
+charterTool("TPM", "TASK", body="# TASK_043: ...")
+```
+
+body 模式下 Agent 直接写 markdown 正文，脚本自动推断文件名、recipient、DESC 等字段，不再依赖 `{{变量}}` 填充。原有 CLI 入口（`agent.py` / `tpm.py` / `new-*.py`）继续可用。
+
+---
+
+## 传统 CLI 入口
 
 | 身份 | 入口 | 命令 |
 |------|------|------|
@@ -30,7 +54,7 @@ python tpm.py TPM                   → 全览巡检 + @TPM 任务
 python tpm.py TPM daily-check       → 全量校验
 python tpm.py TPM new-task '{"assignee":"KIMI","goal":"..."}' → 创建 TASK
 python tpm.py TPM new-revision '{"assignee":"KIMI","ref_nnn":"042"}' → 创建修订
-python tpm.py TPM archive           → 链式归档（待实现）
+python tpm.py TPM archive           → 链式归档
 ```
 
 ## 三态调用
@@ -43,7 +67,7 @@ python tpm.py TPM archive           → 链式归档（待实现）
 名字 + JSON   → 自动校验并创建文件
 ```
 
-> 💡 **不用记模板字段**：无参运行一次，脚本自动输出该文件类型所有需要填写的字段。
+> 💡 **不用记模板字段**：无参运行一次，脚本自动输出该文件类型需要填写的字段。body 模式下直接写 markdown 正文即可。
 
 ## 红线提醒
 

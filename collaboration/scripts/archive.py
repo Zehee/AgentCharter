@@ -128,8 +128,12 @@ def archive_chain(file_path: Path) -> dict:
         return main_result
     results.append(main_result)
 
-    # 查找关联文件
-    linked = _find_linked_files(file_path, file_type)
+    # 查找关联文件（主文件已移动，使用归档后的路径读取内容）
+    archived_main_path = COLLAB_DIR / main_result.get("to", "")
+    if archived_main_path.exists():
+        linked = _find_linked_files(archived_main_path, file_type)
+    else:
+        linked = []
     for linked_file in linked:
         if linked_file.exists():
             r = archive_single(linked_file)

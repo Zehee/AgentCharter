@@ -1,32 +1,29 @@
-# REVISION_NNN: {{title}}
+# REVISION_{{NNN}}: {{title}}
 
-> **Filename**: `REVISION_NNN_DATE_author@recipient.md`
-> **Location**: `inbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = corresponding review number, `DATE` = creation date `YYYYMMDD`, `TPM` = dispatching TPM identifier (UPPERCASE), `ASSIGNEE` = executor identifier (UPPERCASE)
+> **文件名**: `REVISION_{{NNN}}_DATE_{{author}}@{{recipient}}.md`
+> **存放位置**: `inbox/`
+> **命名约束**: 段间 `_`，段内 `-`，后缀 `author@recipient`。`NNN`=对应审查序号，`DATE`=创建日期 `YYYYMMDD`，`author`=分派 TPM 标识（大写），`recipient`=领取者标识（大写）
 
-**Dispatcher**: {{author}}
-**Executor**: {{assignee}}
-**Date**: {{DATE}}
-**Priority**: {{priority}}
-**Corresponding**: {{ref_nnn}}
+**分派人**: {{author}}
+**执行人**: {{assignee}}
+**日期**: {{DATE}}
+**优先级**: {{priority}}
+**对应**: {{ref_nnn}}
 
 ---
 
-## Goal
+## 目标
 
-> One sentence describing what needs to be fixed.
-{{goal}}
+> 一句话说明要修复什么。
 
-## Issue List
+## 问题清单
 
-| # | Issue | File/Location | Fix Requirement |
+| # | 问题 | 文件/位置 | 修复要求 |
 |---|------|----------|---------|
-| {{issue_number_1}} | {{issue_description_1}} | `{{issue_file_1}}` | {{issue_expectation_1}} |
-| {{issue_number_2}} | {{issue_description_2}} | `{{issue_file_2}}` | {{issue_expectation_2}} |
+| 1 | | | |
+| 2 | | | |
 
-## Acceptance Criteria
+## 验收标准
 
-- [ ] {{acceptance_item_1}}
-- [ ] {{acceptance_item_2}}
-- [ ] `{{type_check_cmd}}` 0 errors
-- [ ] Submit `{{report_submission}}`
+> - [ ] 标准 1
+> - [ ] 标准 2

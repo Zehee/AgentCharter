@@ -1,35 +1,36 @@
 <!-- 
-  File Type: TODO
-  Maintainer: TPM
-  Purpose: Backlog items from proactive reports, milestones, user feedback, tech debt
-  Created: When TPM decides "backlog" for proactive report items, or identifies items for scheduling
-  Archived: When status becomes "Done", alongside the corresponding task
-  Naming: TODO_NNN_DESC_SOURCE.md
-    - NNN: sequential number (independent of task numbers)
-    - DESC: short English description, within segment use `-`
-    - SOURCE: source identifier, e.g., DESIGNER-077, MILESTONE-M6
+  文件类型: TODO
+  维护者: TPM
+  用途: 记录排期事项，来源包括主动报告、里程碑、用户反馈、技术债务等
+  归档时机: 状态变为"已处理"后，随对应任务一并归档
+  命名规范: TODO_NNN_DESC_SOURCE.md
+    - NNN: 顺序编号（与任务编号独立）
+    - DESC: 英文简短描述，段内用 `-`
+    - SOURCE: 来源标识，如 DESIGNER-077、MILESTONE-M6
 -->
 
-# ⏳ TODO_NNN: Description
+# ⏳ TODO_{{NNN}}: {{title}}
 
-> **Filename**: `TODO_NNN_DESC_SOURCE.md`
-> **Location**: `todos/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN`=sequential number, `DESC`=short English description, `SOURCE`=source identifier
+> **文件名**: `TODO_{{NNN}}_{{DESC}}_{{author}}.md`
+> **存放位置**: `todos/`
+> **命名约束**: 段间 `_`，段内 `-`。`NNN`=顺序编号，`DESC`=英文简短描述，`SOURCE`=来源标识
 
-| Field | Content | Notes |
+| 字段 | 内容 | 说明 |
 |------|------|------|
-| **Number** | TODO_001 | Sequential number |
-| **Description** | SETTINGS-REFORM | Short description, within segment use `-` |
-| **Source** | `REPORT_077_20260602_DESIGNER.md` | Full source filename |
-| **Source Type** | Proactive Report | Proactive Report / Decision / Milestone / User Feedback / Tech Debt |
-| **Priority** | 🟢 P2 | 🔴 P0 / 🟡 P1 / 🟢 P2 / ⚪ P3 |
-| **Status** | ⏳ Pending | ⏳ Pending → 📅 Scheduled → 📋 Task Created → ✅ Done |
-| **Planned Date** | — | If scheduled, estimated execution date |
-| **Linked Task** | — | If task created, TASK/REVISION number |
-| **Decision** | Backlog | Accept / Reject / Task / Backlog |
+| **编号** | TODO_{{NNN}} | 顺序编号 |
+| **描述** | {{DESC}} | 简短描述，段内用 `-` |
+| **来源** | | 来源文件完整名 |
+| **来源类型** | | 主动报告 / 决策 / 里程碑 / 用户反馈 / 技术债务 |
+| **优先级** | 🟢 P2 | 🔴 P0 / 🟡 P1 / 🟢 P2 / ⚪ P3 |
+| **状态** | ⏳ 待排期 | ⏳ 待排期 → 📅 已排期 → 📋 已创建任务 → ✅ 已处理 |
+| **计划时间** | — | 如已排期，填写预计执行日期 |
+| **关联任务** | — | 如已创建任务，填写 TASK/REVISION 编号 |
+| **处理意见** | 排期 | 采纳 / 忽略 / 任务 / 排期 |
 
-## Source Excerpt
-<!-- Excerpt of the relevant suggestion from the source report, preserving context -->
+## 背景
 
-## Notes
-<!-- Additional notes, blockers, dependencies, etc. -->
+> 为什么记录这个 TODO。
+
+## 建议方案
+
+> 可选的解决方案或处理方向。

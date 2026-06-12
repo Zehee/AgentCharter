@@ -1,47 +1,34 @@
 <!--
-  File Type: Proactive Report Processing Reply
-  Maintainer: TPM
-  Purpose: Notify proactive report submitter of processing results
-  Created: After TPM processes a proactive report
-  Naming: REPLY_NNN_DESC_DATE_author@recipient.md
-    - NNN: corresponding proactive report number
-    - DATE: processing date `YYYYMMDD`
-    - AUTHOR: report submitter identifier (UPPERCASE)
+  文件类型: 主动报告处理回执
+  维护者: TPM
+  用途: 通知主动报告提交者处理结果
+  创建时机: TPM 处理完主动报告后
+  命名规范: REPLY_NNN_DESC_DATE_AUTHOR.md
+    - NNN: 对应主动报告编号
+    - DATE: 处理日期 `YYYYMMDD`
+    - AUTHOR: 报告提交者标识（大写）
 -->
 
-# REPLY_NNN: {{title}}
+# REPLY_{{NNN}}: {{title}}
 
-> **Filename**: `REPLY_NNN_DESC_DATE_author@recipient.md`
-> **Location**: `inbox/`
-> **Naming**: segments separated by `_`, within segments use `-`. `NNN` = corresponding report number, `DATE` = processing date `YYYYMMDD`, `AUTHOR` = submitter identifier (UPPERCASE)
+> **文件名**: `REPLY_{{NNN}}_DESC_{{DATE}}_{{author}}@{{recipient}}.md`
+> **存放位置**: `inbox/`
+> **命名约束**: 段间 `_`，段内 `-`。`NNN`=对应主动报告编号，`DATE`=处理日期 `YYYYMMDD`，`AUTHOR`=报告提交者标识（大写）
 
-**Source Report**: {{ref_nnn}}
-**Processing Date**: {{DATE}}
-**Submitter**: {{author}}
+**来源报告**: {{ref_nnn}}
+**处理日期**: {{DATE}}
+**提交人**: {{author}}
 
 ---
 
-## Result Summary
+## 处理结果摘要
 
-| Status | Count | Notes |
+| 状态 | 数量 | 说明 |
 |------|------|------|
-| 📋 Task | {{task_count}} | {{task_note}} |
-| 📅 Backlog | {{scheduled_count}} | {{scheduled_note}} |
-| ✅ Accept | {{accepted_count}} | {{accepted_note}} |
-| ❌ Reject | {{ignored_count}} | {{ignored_note}} |
-| ✓ Done | {{processed_count}} | {{processed_note}} |
+| 📋 任务 | | |
+| 📅 排期 | | |
+| ✅ 采纳 | | |
 
-**Detailed annotation**: {{detailed_notes}}
+## 详细说明
 
----
-
-## Key Decisions (optional)
-
-> - Decision 1: ...
-> - Decision 2: ...
-{{key_decisions}}
-
----
-
-**Processor**: {{handler}}
-**Date**: {{DATE}}
+> TPM 对报告中各项建议的处理意见。

@@ -9,6 +9,7 @@ import json
 import re
 import sys
 import traceback
+from datetime import date
 from pathlib import Path
 
 # Add lib/ to path
@@ -38,6 +39,20 @@ REF_MAP = {
     # BLOCKING — 发起方自由声明
     # TODO, LOG_ENTRY — 非协作文件
 }
+
+# 创建权限表（用于 charterTool body 模式）
+TPM_ONLY_TYPES = {
+    "TASK", "TASK_TEST", "REVISION", "NOTICE",
+    "REVIEW_TASK", "REPLY", "TODO",
+}
+EXTERNAL_CREATABLE_TYPES = {
+    "REPORT", "TEST_REPORT", "REVIEW_REPORT", "PROACTIVE_REPORT",
+    "BLOCKING", "BLOCKING_REPLY", "DECISION",
+}
+CREATABLE_TYPES = TPM_ONLY_TYPES | EXTERNAL_CREATABLE_TYPES
+
+# 需要从 body 中提取 DESC 的文件类型
+_TYPES_NEED_DESC = {"TASK", "PROACTIVE_REPORT", "NOTICE", "REPLY", "TODO", "TASK_TEST"}
 
 
 def _check_ref_exists(ref_nnn: str, file_type: str) -> str | None:
@@ -131,6 +146,145 @@ def resolve_template(file_type: str) -> Path:
     return COLLAB_DIR / "templates" / template_name
 
 
+def _extract_title(body: str) -> str:
+    """从 markdown 正文提取标题。优先取第一行 # 标题。"""
+    for line in body.splitlines():
+        line = line.strip()
+        if line.startswith("#"):
+            return line.lstrip("#").strip()
+    # 无标题则取第一行非空文本
+    for line in body.splitlines():
+        line = line.strip()
+        if line:
+            return line
+    return ""
+
+
+def _extract_desc(body: str) -> str | None:
+    """从 body 中提取 DESC（用于文件名）。
+
+    优先级：
+    1. HTML 注释 `<!-- DESC: ENGLISH-DESC -->`
+    2. 加粗元信息 `**DESC**: ENGLISH-DESC`
+    3. 独立行 `DESC: ENGLISH-DESC`
+    """
+    patterns = [
+        r"<!--\s*DESC:\s*([A-Z0-9-]+)\s*-->",
+        r"\*\*DESC\*\*:\s*([A-Z0-9-]+)",
+        r"^DESC:\s*([A-Z0-9-]+)\s*$",
+    ]
+    for pat in patterns:
+        m = re.search(pat, body, re.MULTILINE | re.IGNORECASE)
+        if m:
+            return m.group(1).upper()
+    return None
+
+
+def _title_to_desc(title: str) -> str:
+    """将标题转换为大写英文简短描述（仅保留字母/数字/空格/连字符）。"""
+    # 移除 markdown 标记，但保留下划线作为分段符
+    title = re.sub(r"[#*`\[\]()<>]", "", title)
+    # 将下划线/冒号替换为空格，便于分词
+    title = title.replace("_", " ").replace(":", " ")
+    # 保留 ASCII 字母数字和空格
+    cleaned = re.sub(r"[^A-Za-z0-9\s-]", "", title)
+    parts = [p for p in cleaned.split() if p]
+    if not parts:
+        return "GENERATED"
+    return "-".join(parts[:6]).upper()
+
+
+def _infer_recipient(file_type: str, body: str, ref: str | None, author: str) -> str:
+    """根据文件类型和 body 推断 recipient。"""
+    # 优先从 body 元信息读取
+    for pat in [r"<!--\s*RECIPIENT:\s*([A-Z]+)\s*-->",
+                r"\*\*recipient\*\*:\s*([A-Z]+)",
+                r"^RECIPIENT:\s*([A-Z]+)\s*$"]:
+        m = re.search(pat, body, re.MULTILINE | re.IGNORECASE)
+        if m:
+            return m.group(1).upper()
+
+    if file_type == "NOTICE":
+        return "ALL"
+
+    if file_type in {"DECISION", "TODO", "LOG_ENTRY"}:
+        # 这些类型在文件名中没有 @recipient
+        return ""
+
+    # 任务类文件：收件人为执行人/测试员/被审查人
+    if file_type in {"TASK", "TASK_TEST", "REVISION", "REVIEW_TASK"}:
+        assignee = _extract_assignee_from_text(body)
+        if assignee:
+            return assignee
+        return "TPM"
+
+    if file_type == "REVIEW_REPORT" and ref:
+        # 尝试从对应 TASK 提取 assignee 作为 recipient（自循环）
+        task_file = _find_ref_file("TASK", ref)
+        if task_file:
+            assignee = _extract_assignee(task_file)
+            if assignee:
+                return assignee.upper()
+        # 委派审查默认给 TPM
+        return "TPM"
+
+    if file_type == "BLOCKING":
+        # 尝试从 body 中的「目标受众」/ TARGET 提取
+        m = re.search(r"\*\*目标受众\*\*:\s*([A-Z]+)", body, re.IGNORECASE)
+        if m:
+            return m.group(1).upper()
+        return "TPM"
+
+    # 默认 TPM
+    return "TPM"
+
+
+def _find_ref_file(file_type: str, nnn: str) -> Path | None:
+    """在活跃目录中查找指定类型和编号的文件。"""
+    for d in ["inbox", "outbox", "decisions"]:
+        search_dir = COLLAB_DIR / d
+        if not search_dir.exists():
+            continue
+        for f in search_dir.iterdir():
+            if f.is_file() and f.suffix == ".md" and f.name.startswith(f"{file_type}_{nnn}_"):
+                return f
+    return None
+
+
+def _extract_assignee(file_path: Path) -> str | None:
+    """从 TASK/REVIEW_TASK 文件中提取执行人。"""
+    try:
+        text = file_path.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return None
+    return _extract_assignee_from_text(text)
+
+
+def _extract_assignee_from_text(text: str) -> str | None:
+    """从文本中提取执行人/测试员/被审查人。"""
+    patterns = [
+        r"\*\*执行人\*\*:\s*([A-Za-z0-9_-]+)",
+        r"\*\*测试员\*\*:\s*([A-Za-z0-9_-]+)",
+        r"\*\*被审查人\*\*:\s*([A-Za-z0-9_-]+)",
+        r"\*\*Assignee\*\*:\s*([A-Za-z0-9_-]+)",
+    ]
+    for pat in patterns:
+        m = re.search(pat, text, re.IGNORECASE)
+        if m:
+            return m.group(1).strip().upper()
+    return None
+
+
+def _can_create(agent_name: str, file_type: str) -> tuple[bool, str | None]:
+    """检查 agent_name 是否有权限创建 file_type。"""
+    if file_type not in CREATABLE_TYPES:
+        return False, f"未知或不支持的文件类型: {file_type}"
+    if file_type in TPM_ONLY_TYPES:
+        if not is_tpm(agent_name):
+            return False, f"{file_type} 为 TPM 独占，{agent_name} 无权创建"
+    return True, None
+
+
 def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
     """Run the standard create flow for a file type.
 
@@ -153,7 +307,7 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
         if not agent:
             return {"error": f"无效的 Agent 名称: {agent_name}，请在 ACTIONS.md 中检查已注册的角色"}
 
-        # 2. Parse template
+        # 2. Parse template (body 模式下仍需要 target_dir)
         template_path = resolve_template(file_type)
         if not template_path or not template_path.exists():
             return {"error": f"模板文件不存在: {template_path}"}
@@ -168,7 +322,7 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
         # 4. Generate or require NNN
         nnn = data.get("NNN")
         if not nnn:
-            ref = data.get("ref_nnn")
+            ref = data.get("REF_NNN")
             if ref and file_type not in AUTO_NNN_TYPES:
                 nnn = ref
             elif file_type in AUTO_NNN_TYPES:
@@ -187,14 +341,21 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
                 return {"error": ref_err}
 
         # 5. Generate filename
-        author = data.get("author", agent_name)
+        author = data.get("AUTHOR", agent_name)
         default_recipient = "ALL" if file_type == "NOTICE" else "TPM"
-        recipient = data.get("recipient", default_recipient)
-        date = data.get("DATE")
+        recipient = data.get("RECIPIENT", default_recipient)
+        date_str = data.get("DATE")
         desc = data.get("DESC")
 
+        # 将文件名相关字段写回 data，确保模板替换和校验能命中
+        data["AUTHOR"] = author
+        data["RECIPIENT"] = recipient
+        data["DATE"] = date_str if date_str else date.today().strftime("%Y%m%d")
+        if desc:
+            data["DESC"] = desc
+
         # 5a. 自动推断轮次（多轮次文件类型）
-        round_num = data.get("round")
+        round_num = data.get("ROUND")
         if round_num is None and file_type in _ROUND_SUPPORTED:
             existing_round, round_hint = _detect_existing_round(file_type, nnn, target_dir)
             if existing_round >= 0:
@@ -212,7 +373,7 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
                 author=author.upper(),
                 recipient=recipient.upper(),
                 nnn=nnn,
-                date=date,
+                date=date_str,
                 desc=desc,
                 round=round_num,
             )
@@ -223,41 +384,50 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
         target_path = COLLAB_DIR / target_dir / filename
 
         # 7. Read template, fill placeholders, write file
-        try:
-            template_text = template_path.read_text(encoding="utf-8")
-        except Exception as e:
-            return {"error": f"无法读取模板 {template_path.name}: {e}"}
+        # -------------------------------------------------
+        # body 模式：跳过模板读取与 {{}} 替换，直接写入 body
+        body = data.get("BODY")
+        if body is not None:
+            filled = body
+            # 校验是否仍有 {{}} 残留（通常是调用方误传）
+            unreplaced = set(re.findall(r"\{\{(\w+)\}\}", filled))
+            if unreplaced:
+                return {"error": f"body 模式下不应包含模板变量残留: {', '.join(unreplaced)}"}
+        else:
+            try:
+                template_text = template_path.read_text(encoding="utf-8")
+            except Exception as e:
+                return {"error": f"无法读取模板 {template_path.name}: {e}"}
 
-        filled = template_text
-        for key, value in data.items():
-            filled = filled.replace("{{" + key + "}}", str(value))
-            filled = filled.replace("{{" + key.lower() + "}}", str(value))
+            filled = template_text
+            for key, value in data.items():
+                filled = filled.replace("{{" + key + "}}", str(value))
+                filled = filled.replace("{{" + key.lower() + "}}", str(value))
 
-        # 8. 校验必填变量 + 警告可选字段遗漏
-        import re
-        name_pattern = template_info.get("name_pattern", "")
-        name_vars = set(re.findall(r'\{\{(\w+)\}\}', name_pattern))
-        unreplaced = set(re.findall(r'\{\{(\w+)\}\}', filled))
-        missing_required = [v for v in name_vars if v in unreplaced]
-        if missing_required:
-            return {"error": f"必填字段未提供（影响文件名生成）: {', '.join(missing_required)}"}
+            # 8. 校验必填变量 + 警告可选字段遗漏
+            name_pattern = template_info.get("name_pattern", "")
+            name_vars = set(re.findall(r'\{\{(\w+)\}\}', name_pattern))
+            unreplaced = set(re.findall(r'\{\{(\w+)\}\}', filled))
+            missing_required = [v for v in name_vars if v in unreplaced]
+            if missing_required:
+                return {"error": f"必填字段未提供（影响文件名生成）: {', '.join(missing_required)}"}
 
-        # 正文字段完整性检查
-        all_vars = set(re.findall(r'\{\{(\w+)\}\}', template_text))
-        # 头部通用字段不算正文
-        head_vars = {"author", "DATE", "NNN", "assignee", "recipient", "priority",
-                     "status", "ref_nnn", "title", "pair", "decision_source",
-                     "dependency", "test_type", "conclusion"}
-        body_vars = all_vars - name_vars - head_vars
-        body_unfilled = [v for v in body_vars if v in unreplaced]
-        body_filled_count = len(body_vars) - len(body_unfilled)
+            # 正文字段完整性检查
+            all_vars = set(re.findall(r'\{\{(\w+)\}\}', template_text))
+            # 头部通用字段不算正文
+            head_vars = {"author", "DATE", "NNN", "assignee", "recipient", "priority",
+                         "status", "ref_nnn", "title", "pair", "decision_source",
+                         "dependency", "test_type", "conclusion"}
+            body_vars = all_vars - name_vars - head_vars
+            body_unfilled = [v for v in body_vars if v in unreplaced]
+            body_filled_count = len(body_vars) - len(body_unfilled)
 
-        body_warning = None
-        if body_vars and body_filled_count == 0:
-            # 正文全部未填 → Agent 发了个空壳，阻断
-            return {"error": f"正文内容为空！请补充至少一个正文字段。遗漏: {', '.join(sorted(body_vars)[:6])}..."}
-        elif body_unfilled:
-            body_warning = f"以下正文字段未填写，建议补充后更新文件: {', '.join(body_unfilled)}"
+            body_warning = None
+            if body_vars and body_filled_count == 0:
+                # 正文全部未填 → Agent 发了个空壳，阻断
+                return {"error": f"正文内容为空！请补充至少一个正文字段。遗漏: {', '.join(sorted(body_vars)[:6])}..."}
+            elif body_unfilled:
+                body_warning = f"以下正文字段未填写，建议补充后更新文件: {', '.join(body_unfilled)}"
 
         try:
             target_path.parent.mkdir(parents=True, exist_ok=True)
@@ -276,8 +446,11 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
             "target": f"{target_dir}{filename}",
             "redlines": get_redlines_string(),
         }
-        if body_warning:
-            result["warning"] = body_warning
+        if body is None:
+            # JSON 模式才可能出现的 warning
+            body_warning = locals().get("body_warning")
+            if body_warning:
+                result["warning"] = body_warning
         return result
 
     except json.JSONDecodeError as e:
@@ -409,3 +582,212 @@ def run_and_exit(file_type: str, agent_name: str = None, json_data: str = None):
     print(json.dumps(result, ensure_ascii=False, indent=2))
     if "error" in result:
         sys.exit(1)
+
+
+# -----------------------------------------------------------------------------
+# charterTool — 统一入口（TASK_039）
+# -----------------------------------------------------------------------------
+
+def _run_patrol(name: str) -> dict:
+    """巡检态：外部 Agent 用 patrol()，TPM 用 tpm_overview()。"""
+    from patrol import patrol, tpm_overview
+
+    agent = validate_agent(name)
+    if not agent:
+        return {"error": f"无效的 Agent 名称: {name}"}
+
+    if is_tpm(name):
+        return tpm_overview(name)
+    return patrol(name)
+
+
+def _run_command(name: str, command: str) -> dict:
+    """命令态：TPM 独占。支持 archive / validate-all。"""
+    if not is_tpm(name):
+        return {"error": "命令态 TPM 独占", "hint": "外部 Agent 请使用创建态 charterTool(name, type, body=...)", "redlines": get_redlines_string()}
+
+    command = command.lower().replace(".py", "")
+
+    if command == "validate-all":
+        return _cmd_validate_all()
+
+    if command == "archive":
+        return _cmd_archive()
+
+    return {"error": f"未知命令: {command}", "available_commands": ["archive", "validate-all"], "redlines": get_redlines_string()}
+
+
+def _cmd_validate_all() -> dict:
+    """调用 validate.validate_all 对 inbox/outbox/decisions 做全量校验。"""
+    from validate import validate_all
+    from redlines import get_redlines_string
+
+    dirs = ["inbox", "outbox", "decisions"]
+    details = []
+    total_passed = 0
+    total_failed = 0
+
+    for d in dirs:
+        target = COLLAB_DIR / d
+        if not target.exists():
+            details.append({"directory": str(d), "error": "目录不存在"})
+            total_failed += 1
+            continue
+        result = validate_all(target)
+        details.append(result)
+        if "summary" in result:
+            total_passed += result["summary"].get("passed", 0)
+            total_failed += result["summary"].get("failed", 0)
+
+    return {
+        "result": "✅ 全量校验完成" if total_failed == 0 else "⚠️ 全量校验发现问题",
+        "summary": {
+            "total": total_passed + total_failed,
+            "passed": total_passed,
+            "failed": total_failed,
+        },
+        "details": details,
+        "redlines": get_redlines_string(),
+    }
+
+
+def _cmd_archive() -> dict:
+    """自动归档已完成关联链的文件。
+
+    当前策略：
+    - REPORT / REVIEW_REPORT / NOTICE / REPLY / PROACTIVE_REPORT / TEST_REPORT / BLOCKING_REPLY：
+      文件顶部含 `> ✅ 已读 BY ...` 即视为可归档。
+    - DECISION：关联 TASK/TODO 全部完成后归档（当前保守策略：不自动归档 DECISION）。
+    - TASK / REVISION / REVIEW_TASK / TODO / BLOCKING：不自动归档，避免误删进行中任务。
+    """
+    from naming import classify
+
+    auto_archive_types = {
+        "REPORT", "REVIEW_REPORT", "NOTICE", "REPLY",
+        "PROACTIVE_REPORT", "TEST_REPORT", "BLOCKING_REPLY",
+    }
+    archived = []
+    skipped = []
+
+    for d in ["inbox", "outbox"]:
+        target = COLLAB_DIR / d
+        if not target.exists():
+            continue
+        for f in target.iterdir():
+            if not f.is_file() or f.suffix != ".md":
+                continue
+            file_type = classify(f.name)
+            if file_type not in auto_archive_types:
+                continue
+            try:
+                text = f.read_text(encoding="utf-8", errors="ignore")
+            except Exception:
+                continue
+            if "> ✅ 已读 BY" in text:
+                # 链式归档
+                result = _archive_chain(f)
+                if "error" in result:
+                    skipped.append({"file": f.name, "reason": result["error"]})
+                else:
+                    archived.extend(result.get("details", [result]))
+            else:
+                skipped.append({"file": f.name, "reason": "缺少已读标识"})
+
+    return {
+        "result": "✅ 自动归档完成" if archived else "📭 无可归档文件",
+        "archived_count": len(archived),
+        "skipped_count": len(skipped),
+        "archived": archived,
+        "skipped": skipped,
+        "redlines": get_redlines_string(),
+    }
+
+
+def _archive_chain(file_path: Path) -> dict:
+    """调用 archive.py 的链式归档逻辑。"""
+    # 直接复用 archive.py 的函数，避免子进程
+    sys.path.insert(0, str(SCRIPTS_DIR / "lib"))
+    try:
+        from archive import archive_chain as _ac
+        return _ac(file_path)
+    except Exception as e:
+        return {"error": f"链式归档失败: {e}"}
+
+
+def _create_file(name: str, file_type: str, body: str, ref: str | None) -> dict:
+    """创建态：权限 → 引用 → 文件名 → body 写入。"""
+    file_type = file_type.upper()
+
+    # 权限校验
+    ok, err = _can_create(name, file_type)
+    if not ok:
+        return {"error": err, "redlines": get_redlines_string()}
+
+    # 校验 body 不含 {{}} 残留
+    if re.search(r"\{\{\w+\}\}", body):
+        return {"error": "body 不应包含 {{变量}} 模板占位符，请直接写 markdown 正文", "redlines": get_redlines_string()}
+
+    # 准备 data
+    data = {
+        "author": name,
+        "DATE": date.today().strftime("%Y%m%d"),
+        "body": body,
+    }
+
+    # 处理 ref / 自增
+    if file_type in AUTO_NNN_TYPES:
+        # 自增类型：忽略 ref
+        pass
+    else:
+        if not ref:
+            return {"error": f"{file_type} 需要提供 ref（对应源编号）", "redlines": get_redlines_string()}
+        data["ref_nnn"] = ref
+
+    # 从 body 提取 title / desc
+    title = _extract_title(body)
+    data["title"] = title
+    desc = _extract_desc(body)
+    if desc is None:
+        desc = _title_to_desc(title)
+    data["DESC"] = desc
+
+    # 推断 recipient
+    recipient = _infer_recipient(file_type, body, ref, name)
+    if recipient:
+        data["recipient"] = recipient
+
+    return run_create_flow(file_type, name, data)
+
+
+def charterTool(
+    name: str,
+    type: str | None = None,
+    *,
+    body: str | None = None,
+    ref: str | None = None,
+) -> dict:
+    """统一工具入口：三态覆盖全功能。
+
+    形态 1 — 巡检态：
+        charterTool("KIMI") -> 返回该 Agent 的 patrol 结果
+
+    形态 2 — 命令态（TPM 独占）：
+        charterTool("TPM", "archive")       -> 自动归档已完成文件链
+        charterTool("TPM", "validate-all")  -> 全量校验
+
+    形态 3 — 创建态：
+        charterTool("KIMI", "REPORT", body="...", ref="042")
+        charterTool("TPM", "TASK", body="...")
+    """
+    name = name.upper()
+
+    # 形态 1：无 type -> 巡检
+    if type is None:
+        return _run_patrol(name)
+
+    # 形态 2：无 body -> 命令
+    if body is None:
+        return _run_command(name, type)
+
+    # 形态 3：创建文件
+    return _create_file(name, type, body, ref)
