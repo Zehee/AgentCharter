@@ -15,10 +15,12 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - **Unified tool entry `charterTool`** (`collaboration/scripts/_common.py`) — single function with three call forms: patrol (`charterTool("KIMI")`), command (`charterTool("TPM", "archive")`), and create (`charterTool("KIMI", "REPORT", body="...", ref="042")`). Body mode writes markdown directly without `{{variable}}` template filling.
+- **Body-mode CLI for all `new-*.py` scripts** — read body from stdin or `--body file.md`; `--ref NNN` for non-auto-numbered types.
 
 ### Changed
 
-- **Templates cleaned** — body-field `{{variables}}` replaced with instructive `>` blocks; only filename-related placeholders retained for backward-compatible JSON mode.
+- **Templates cleaned** — body-field `{{variables}}` replaced with instructive `>` blocks; only filename-related placeholders retained as reference.
+- **JSON input removed** — `run_and_exit` and CLI entries (`agent.py`, `tpm.py`, `new-*.py`) now reject old-style JSON arguments with a clear migration hint to body mode.
 - **Case-insensitive throughout**: JSON keys (`DESC`/`desc`/`Desc`) normalized to uppercase in `run_create_flow`. Filename validation (`classify`/`validate_name`) now uses `re.IGNORECASE` on all patterns. Patrol scans already had `re.IGNORECASE`.
 
 ## [Unreleased]

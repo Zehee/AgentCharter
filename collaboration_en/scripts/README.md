@@ -26,7 +26,29 @@ charterTool("KIMI", "REPORT", body="# REPORT_042: ...", ref="042")
 charterTool("TPM", "TASK", body="# TASK_043: ...")
 ```
 
-body 模式下 Agent 直接写 markdown 正文，脚本自动推断文件名、recipient、DESC 等字段，不再依赖 `{{变量}}` 填充。原有 CLI 入口（`agent.py` / `tpm.py` / `new-*.py`）继续可用。
+body 模式下 Agent 直接写 markdown 正文，脚本自动推断文件名、recipient、DESC 等字段。**JSON 传入方案已废除。**
+
+---
+
+## body 模式 CLI 用法
+
+所有 `new-*.py` 命令均已改为 body 模式：
+
+```
+# 从文件读取 body
+cat report.md | python new-report.py KIMI --ref 042
+
+# 或显式指定 --body
+cat report.md | python new-report.py KIMI --body report.md
+
+# TPM 创建 TASK
+cat task.md | python new-task.py TPM
+
+# 创建 DECISION
+cat decision.md | python new-decision.py KIMI
+```
+
+> ⚠️ **旧式 JSON 参数已废除**：`python new-report.py KIMI '{"ref_nnn":"042"}'` 会返回明确错误提示。
 
 ---
 
@@ -43,8 +65,8 @@ body 模式下 Agent 直接写 markdown 正文，脚本自动推断文件名、r
 
 ```
 python agent.py KIMI               → 身份 + 巡检（只扫 @KIMI）
-python agent.py KIMI new-report     → 模板 Schema + 可选编号
-python agent.py KIMI new-report '{"ref_nnn":"042"}' → 创建文件
+python agent.py KIMI new-report     → body 模式用法提示
+python agent.py KIMI new-report --ref 042 < report.md → 创建文件
 ```
 
 ## TPM 命令
@@ -52,22 +74,10 @@ python agent.py KIMI new-report '{"ref_nnn":"042"}' → 创建文件
 ```
 python tpm.py TPM                   → 全览巡检 + @TPM 任务
 python tpm.py TPM daily-check       → 全量校验
-python tpm.py TPM new-task '{"assignee":"KIMI","goal":"..."}' → 创建 TASK
-python tpm.py TPM new-revision '{"assignee":"KIMI","ref_nnn":"042"}' → 创建修订
+python tpm.py TPM new-task < task.md → 创建 TASK
+python tpm.py TPM new-revision --ref 042 < revision.md → 创建修订
 python tpm.py TPM archive           → 链式归档
 ```
-
-## 三态调用
-
-每个 `new-*.py` 命令支持三种模式：
-
-```
-无参          → 输出模板所有 {{变量}} 字段列表
-仅名字        → 输出模板 + 你的待办列表
-名字 + JSON   → 自动校验并创建文件
-```
-
-> 💡 **不用记模板字段**：无参运行一次，脚本自动输出该文件类型需要填写的字段。body 模式下直接写 markdown 正文即可。
 
 ## 红线提醒
 

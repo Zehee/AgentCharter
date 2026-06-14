@@ -378,7 +378,7 @@ TPM 写 TASK → inbox/
 | 看进度（人类） | 读 `dashboard.md` |
 | 用工具省力（外部 Agent） | 运行 `python collaboration/scripts/agent.py 你的名字`（可选） |
 | TPM 用工具 | 运行 `python collaboration/scripts/tpm.py TPM`（可选） |
-| 统一入口（推荐） | 调用 `charterTool(name, type, body=..., ref=...)`：三态覆盖巡检 / 命令 / 创建；body 模式直接写 markdown 正文 |
+| 统一入口（推荐） | 调用 `charterTool(name, type, body=..., ref=...)`：三态覆盖巡检 / 命令 / 创建；body 模式直接写 markdown 正文。**JSON 传入方案已废除。** |
 
 ---
 

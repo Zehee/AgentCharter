@@ -383,61 +383,29 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
         # 6. Build target path
         target_path = COLLAB_DIR / target_dir / filename
 
-        # 7. Read template, fill placeholders, write file
-        # -------------------------------------------------
-        # body 模式：跳过模板读取与 {{}} 替换，直接写入 body
+        # 7. body 模式：直接写入 body
         body = data.get("BODY")
-        if body is not None:
-            filled = body
-            # 校验是否仍有 {{}} 残留（通常是调用方误传）
-            unreplaced = set(re.findall(r"\{\{(\w+)\}\}", filled))
-            if unreplaced:
-                return {"error": f"body 模式下不应包含模板变量残留: {', '.join(unreplaced)}"}
-        else:
-            try:
-                template_text = template_path.read_text(encoding="utf-8")
-            except Exception as e:
-                return {"error": f"无法读取模板 {template_path.name}: {e}"}
+        if body is None:
+            return {
+                "error": "JSON 传入方案已废除。请使用 body 模式：charterTool(name, type, body='...', ref='...')",
+                "hint": "body 中直接写 markdown 正文，脚本自动推断文件名、recipient、DESC 等字段",
+                "redlines": get_redlines_string(),
+            }
 
-            filled = template_text
-            for key, value in data.items():
-                filled = filled.replace("{{" + key + "}}", str(value))
-                filled = filled.replace("{{" + key.lower() + "}}", str(value))
-
-            # 8. 校验必填变量 + 警告可选字段遗漏
-            name_pattern = template_info.get("name_pattern", "")
-            name_vars = set(re.findall(r'\{\{(\w+)\}\}', name_pattern))
-            unreplaced = set(re.findall(r'\{\{(\w+)\}\}', filled))
-            missing_required = [v for v in name_vars if v in unreplaced]
-            if missing_required:
-                return {"error": f"必填字段未提供（影响文件名生成）: {', '.join(missing_required)}"}
-
-            # 正文字段完整性检查
-            all_vars = set(re.findall(r'\{\{(\w+)\}\}', template_text))
-            # 头部通用字段不算正文
-            head_vars = {"author", "DATE", "NNN", "assignee", "recipient", "priority",
-                         "status", "ref_nnn", "title", "pair", "decision_source",
-                         "dependency", "test_type", "conclusion"}
-            body_vars = all_vars - name_vars - head_vars
-            body_unfilled = [v for v in body_vars if v in unreplaced]
-            body_filled_count = len(body_vars) - len(body_unfilled)
-
-            body_warning = None
-            if body_vars and body_filled_count == 0:
-                # 正文全部未填 → Agent 发了个空壳，阻断
-                return {"error": f"正文内容为空！请补充至少一个正文字段。遗漏: {', '.join(sorted(body_vars)[:6])}..."}
-            elif body_unfilled:
-                body_warning = f"以下正文字段未填写，建议补充后更新文件: {', '.join(body_unfilled)}"
+        # 校验是否仍有 {{}} 残留
+        unreplaced = set(re.findall(r"\{\{(\w+)\}\}", body))
+        if unreplaced:
+            return {"error": f"body 不应包含模板变量残留: {', '.join(unreplaced)}"}
 
         try:
             target_path.parent.mkdir(parents=True, exist_ok=True)
-            target_path.write_text(filled, encoding="utf-8")
+            target_path.write_text(body, encoding="utf-8")
         except PermissionError:
             return {"error": f"无权限写入: {target_path}"}
         except OSError as e:
             return {"error": f"写入文件失败: {e}"}
 
-        # 9. Return result with redlines
+        # 8. Return result with redlines
         result = {
             "result": "✅ 文件已创建",
             "file_type": file_type,
@@ -446,11 +414,6 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
             "target": f"{target_dir}{filename}",
             "redlines": get_redlines_string(),
         }
-        if body is None:
-            # JSON 模式才可能出现的 warning
-            body_warning = locals().get("body_warning")
-            if body_warning:
-                result["warning"] = body_warning
         return result
 
     except json.JSONDecodeError as e:
@@ -467,7 +430,7 @@ def run_create_flow(file_type: str, agent_name: str, data: dict) -> dict:
 def no_args_response(file_type: str, agent_name: str = None) -> dict:
     """Generate the no-args / name-only response.
 
-    Returns template schema + available options.
+    JSON 模式已废除，此响应返回 body 模式用法与模板示例。
     """
     try:
         template_path = resolve_template(file_type)
@@ -475,11 +438,18 @@ def no_args_response(file_type: str, agent_name: str = None) -> dict:
             return {"error": f"模板文件不存在: {file_type}"}
 
         template_info = parse_template(str(template_path))
+        target_dir = template_info.get("target_dir", "?")
+        example = template_path.read_text(encoding="utf-8")
+
         response = {
             "file_type": file_type,
             "template": str(template_path.relative_to(COLLAB_DIR)),
-            "target_dir": template_info.get("target_dir", "?"),
-            "fields": template_info.get("fields", []),
+            "target_dir": target_dir,
+            "note": "JSON 传入方案已废除。创建文件请使用 body 模式。",
+            "usage_api": f"charterTool('{agent_name or 'NAME'}', '{file_type}', body='# {file_type}_NNN: ...', ref='...')",
+            "usage_cli": f"python new-{file_type.lower()}.py {agent_name or 'NAME'} --body body.md",
+            "usage_stdin": f"cat body.md | python new-{file_type.lower()}.py {agent_name or 'NAME'}",
+            "template_example": example,
         }
 
         if agent_name:
@@ -491,7 +461,6 @@ def no_args_response(file_type: str, agent_name: str = None) -> dict:
                 from patrol import scan_inbox, scan_review_reports, scan_blockings
 
                 if file_type == "NOTICE":
-                    # NOTICE 不需要关联提示；展示可用的广播通知
                     notices = scan_inbox(agent_name)
                     notices = [n for n in notices if n.get("type") == "NOTICE"]
                     if notices:
@@ -530,7 +499,6 @@ def no_args_response(file_type: str, agent_name: str = None) -> dict:
 
                 # 多轮次文件：显示已有文件及建议轮次
                 if file_type in _ROUND_SUPPORTED:
-                    target_dir = template_info.get("target_dir", "")
                     existing = []
                     for f in (COLLAB_DIR / target_dir).iterdir():
                         if f.is_file() and f.suffix == ".md" and file_type in f.name and agent_name in f.name:
@@ -555,6 +523,7 @@ def no_args_response(file_type: str, agent_name: str = None) -> dict:
 def run_and_exit(file_type: str, agent_name: str = None, json_data: str = None):
     """Unified entry for new-*.py scripts: dispatch no-args / name-only / full.
 
+    JSON 传入方案已废除；如果仍收到 JSON 数据，返回明确错误提示。
     Prints JSON and exits with appropriate code.
     """
     # Fix Windows GBK encoding issue
@@ -571,14 +540,44 @@ def run_and_exit(file_type: str, agent_name: str = None, json_data: str = None):
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return
 
+    # JSON 方案已废除
+    result = {
+        "error": "JSON 传入方案已废除。",
+        "hint": f"请使用 body 模式：charterTool('{agent_name}', '{file_type}', body='...', ref='...')，或在 shell 中使用 new-{file_type.lower()}.py {agent_name} < ref.txt < body.md",
+        "redlines": get_redlines_string(),
+    }
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    sys.exit(1)
+
+
+def run_body_and_exit(file_type: str, agent_name: str, ref: str | None = None, body_file: str | None = None):
+    """Body-mode CLI entry for new-*.py scripts.
+
+    Reads body from a file (or stdin if body_file is '-') and calls charterTool.
+    Prints JSON and exits with appropriate code.
+    """
+    # Fix Windows GBK encoding issue
+    if sys.platform == "win32":
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+
     try:
-        data = json.loads(json_data)
-    except json.JSONDecodeError as e:
-        result = {"error": f"JSON 解析失败: {e}", "hint": "请传入合法的 JSON 字符串，例如 new-report.py KIMI '{\"ref_nnn\":\"042\"}'"}
+        if body_file and body_file != "-":
+            body = Path(body_file).read_text(encoding="utf-8")
+        else:
+            # Windows 下 stdin 默认编码可能为 GBK，强制按 UTF-8 读取
+            body = sys.stdin.buffer.read().decode("utf-8")
+    except Exception as e:
+        result = {"error": f"读取 body 失败: {e}", "redlines": get_redlines_string()}
         print(json.dumps(result, ensure_ascii=False, indent=2))
         sys.exit(1)
 
-    result = run_create_flow(file_type, agent_name, data)
+    if not body.strip():
+        result = {"error": "body 为空", "hint": f"请通过 stdin 或 --body 文件传入 markdown 正文，例如：new-{file_type.lower()}.py {agent_name} --body report.md", "redlines": get_redlines_string()}
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        sys.exit(1)
+
+    result = charterTool(agent_name, file_type, body=body, ref=ref)
     print(json.dumps(result, ensure_ascii=False, indent=2))
     if "error" in result:
         sys.exit(1)

@@ -65,15 +65,13 @@ def show_overview(agent_name: str):
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
-def forward_command(agent_name: str, cmd: str, json_data: str = None):
+def forward_command(agent_name: str, cmd: str, extra_args: list[str] = None):
     cmd_path = SCRIPT_DIR / cmd
     if not cmd_path.exists():
         print(json.dumps({"error": f"命令不存在: {cmd}"}, ensure_ascii=False))
         sys.exit(1)
 
-    cmd_args = [sys.executable, str(cmd_path), agent_name]
-    if json_data:
-        cmd_args.append(json_data)
+    cmd_args = [sys.executable, str(cmd_path), agent_name] + (extra_args or [])
 
     result = subprocess.run(cmd_args, capture_output=True, text=True, timeout=30)
     print(result.stdout)
@@ -96,11 +94,20 @@ def main():
         return
 
     cmd = args[1]
-    json_data = args[2] if len(args) > 2 else None
+    extra_args = args[2:]
+
+    # JSON 传入方案已废除
+    if extra_args and extra_args[0].startswith("{"):
+        print(json.dumps({
+            "error": "JSON 传入方案已废除。",
+            "hint": f"请使用 body 模式：python {cmd}.py {agent_name} --ref NNN --body body.md，或调用 charterTool('{agent_name}', '{cmd.replace('new-', '').upper()}', body='...', ref='...')",
+            "redlines": get_redlines_string(),
+        }, ensure_ascii=False, indent=2))
+        sys.exit(1)
 
     cmd_map = {name.replace(".py", ""): name for name in COMMANDS}
     script = cmd_map.get(cmd, cmd if cmd.endswith(".py") else f"{cmd}.py")
-    forward_command(agent_name, script, json_data)
+    forward_command(agent_name, script, extra_args)
 
 
 if __name__ == "__main__":

@@ -1,16 +1,37 @@
 #!/usr/bin/env python3
-"""new-review-task.py — 创建 REVIEW_TASK（TPM 独占）
+"""new-review-task.py — 创建 REVIEW_TASK（body 模式）
 
-NNN = 关联 TASK 编号，不自增。
+用法:
+    python new-review-task.py NAME < body.md
+    python new-review-task.py NAME --body body.md
+    python new-review-task.py NAME --ref NNN --body body.md
 """
-
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _common import run_and_exit
+from _common import run_body_and_exit, get_redlines_string
+import json
 
 if __name__ == "__main__":
     args = sys.argv[1:]
     agent = args[0].upper() if args else None
-    data = args[1] if len(args) > 1 else None
-    run_and_exit("REVIEW_TASK", agent, data)
+    ref = None
+    body_file = None
+    i = 1
+    while i < len(args):
+        if args[i].startswith("{"):
+            print(json.dumps({
+                "error": "JSON 传入方案已废除。",
+                "hint": f"请使用 body 模式：cat body.md | python new-review-task.py NAME --ref NNN，或调用 charterTool('NAME', 'REVIEW_TASK', body='...', ref='...')",
+                "redlines": get_redlines_string(),
+            }, ensure_ascii=False, indent=2))
+            sys.exit(1)
+        if args[i] == "--ref" and i + 1 < len(args):
+            ref = args[i + 1]
+            i += 2
+        elif args[i] == "--body" and i + 1 < len(args):
+            body_file = args[i + 1]
+            i += 2
+        else:
+            i += 1
+    run_body_and_exit("REVIEW_TASK", agent, ref=ref, body_file=body_file)

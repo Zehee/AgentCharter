@@ -1,16 +1,37 @@
 #!/usr/bin/env python3
-"""new-reply.py — 创建 REPLY（TPM 独占）
+"""new-reply.py — 创建 REPLY（body 模式）
 
-不自增编号，NNN = 对应 PROACTIVE_REPORT 编号。
+用法:
+    python new-reply.py NAME < body.md
+    python new-reply.py NAME --body body.md
+    python new-reply.py NAME --ref NNN --body body.md
 """
-
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _common import run_and_exit
+from _common import run_body_and_exit, get_redlines_string
+import json
 
 if __name__ == "__main__":
     args = sys.argv[1:]
     agent = args[0].upper() if args else None
-    data = args[1] if len(args) > 1 else None
-    run_and_exit("REPLY", agent, data)
+    ref = None
+    body_file = None
+    i = 1
+    while i < len(args):
+        if args[i].startswith("{"):
+            print(json.dumps({
+                "error": "JSON 传入方案已废除。",
+                "hint": f"请使用 body 模式：cat body.md | python new-reply.py NAME --ref NNN，或调用 charterTool('NAME', 'REPLY', body='...', ref='...')",
+                "redlines": get_redlines_string(),
+            }, ensure_ascii=False, indent=2))
+            sys.exit(1)
+        if args[i] == "--ref" and i + 1 < len(args):
+            ref = args[i + 1]
+            i += 2
+        elif args[i] == "--body" and i + 1 < len(args):
+            body_file = args[i + 1]
+            i += 2
+        else:
+            i += 1
+    run_body_and_exit("REPLY", agent, ref=ref, body_file=body_file)
